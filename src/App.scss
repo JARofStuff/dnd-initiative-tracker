@@ -1,0 +1,28 @@
+* .App {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 10px;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eeeeee;
+    padding: 10px;
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // max-width: 500px;
+      //
+      a {
+        padding: 10px;
+      }
+    }
+  }
+
+  main {
+    padding: 10px;
+  }
+}
