@@ -5,13 +5,13 @@ import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder'
 import Initiative from '@views/Initiative/Initiative'
 import Players from '@views/Players/Players'
 
-import './App.scss'
+import './App.css'
 
 function App() {
   return (
-    <div className='App'>
+    <div className='container p-4 mx-auto h-screen'>
       <Header />
-      <main>
+      <main className='py-4 px-2 h-full'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/players' element={<Players />} />

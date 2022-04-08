@@ -3,12 +3,18 @@ module.exports = {
   theme: {
     extend: {},
   },
+  safelist: [
+    {
+      pattern: /./,
+    },
+  ],
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('daisyui'),
   ],
   daisyui: {
-    themes: ['dark', 'synthwave'],
+    themes: ['night', 'synthwave'],
+    darkTheme: 'night',
   },
 }
