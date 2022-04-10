@@ -1,12 +1,11 @@
-import { createContext, useReducer, FC } from 'react'
-import { initialState } from './User.Types'
+import { createContext, useReducer, FC } from 'react';
+import { initialState } from './User.Types';
+import userReducer from './User.Reducer';
 
-import userReducer from './User.Reducer'
-
-const UserContext = createContext(initialState)
+const UserContext = createContext(initialState);
 
 export const UserProvider: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(userReducer, initialState)
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
   return (
     <UserContext.Provider
@@ -17,7 +16,7 @@ export const UserProvider: FC = ({ children }) => {
     >
       {children}
     </UserContext.Provider>
-  )
-}
+  );
+};
 
-export default UserContext
+export default UserContext;

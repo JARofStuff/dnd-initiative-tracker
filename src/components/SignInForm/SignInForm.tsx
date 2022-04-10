@@ -1,71 +1,90 @@
-import { useState, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext, FormEvent, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGoogleRedirect,
   catchGoogleSignInRedirect,
-} from '@utils/firebase/firebase.utils'
-import { toast } from 'react-toastify'
+} from '@root/src/utils/firebase/auth.utils';
+import UserContext from '@context/user/User.Context';
+import FormInput from '../FormInput/FormInput';
+import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
-  // const navigateTo = useNavigate()
+  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-  })
+  });
 
-  const { email, password } = formData
+  const { email, password } = formData;
 
   useEffect(() => {
-    catchGoogleSignInRedirect()
-  }, [])
+    catchGoogleSignInRedirect();
+  }, []);
 
-  const onChangeHandler = (e) => {
+  useEffect(() => {
+    if (currentUser) navigate('/');
+  }, [currentUser, navigate]);
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => {
       return {
         ...prevState,
         [e.target.name]: e.target.value,
-      }
-    })
-  }
+      };
+    });
+  };
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault()
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     if (!email || !password) {
-      toast.error('Please fill out all the fields')
-      return
+      toast.error('Please fill out all the fields');
+      return;
     }
 
-    signInAuthUserWithEmailAndPassword(email, password)
-  }
+    await signInAuthUserWithEmailAndPassword(email, password);
+  };
+
+  const onGoogleSignInHandler = () => {
+    signInWithGoogleRedirect();
+  };
 
   return (
-    <form onSubmit={onSubmitHandler}>
-      <input
-        type='email'
+    <form onSubmit={onSubmitHandler} className=''>
+      <FormInput
         id='sign-in-email'
+        label='Email'
+        type='email'
         name='email'
         value={email}
-        placeholder='Email'
         required
         onChange={onChangeHandler}
       />
-      <input
-        type='password'
+      <FormInput
         id='sign-in-password'
+        label='Password'
+        type='password'
         name='password'
         value={password}
-        placeholder='Password'
         required
         onChange={onChangeHandler}
+        className='input input-bordered w-full'
       />
-      <button className='btn'>Sign In</button>
-      <button type='button' className='btn' onClick={signInWithGoogleRedirect}>
-        Google Sign In
-      </button>
-    </form>
-  )
-}
 
-export default SignUpForm
+      <div className='form-control w-full mt-4 gap-4'>
+        <button className='btn btn-primary'>Sign In</button>
+        <button
+          type='button'
+          className='btn w-full'
+          onClick={onGoogleSignInHandler}
+        >
+          Sign in with Google
+        </button>
+      </div>
+    </form>
+  );
+};
+
+export default SignUpForm;

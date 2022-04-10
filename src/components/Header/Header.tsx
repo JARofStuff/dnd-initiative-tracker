@@ -1,23 +1,23 @@
-import { useEffect, useContext } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { Navbar } from 'react-daisyui'
-import { signOutUser } from '@/utils/firebase/firebase.utils'
-import UserContext from '@context/user/User.Context'
-import { USER_ACTION_TYPES } from '@context/user/User.Types'
-import { authStateChangeListener } from '@utils/firebase/firebase.utils'
-import { createAction } from '@utils/reducer/reducer.utils'
+import { useEffect, useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Navbar } from 'react-daisyui';
+import { signOutUser } from '@root/src/utils/firebase/auth.utils';
+import UserContext from '@context/user/User.Context';
+import { USER_ACTION_TYPES } from '@context/user/User.Types';
+import { authStateChangeListener } from '@root/src/utils/firebase/auth.utils';
+import { createAction } from '@utils/reducer/reducer.utils';
 
-const { Start, Center, End } = Navbar
+const { Start, Center, End } = Navbar;
 
 const Header = () => {
-  const { currentUser, dispatch } = useContext(UserContext)
+  const { currentUser, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     const unsubscribe = authStateChangeListener((user) => {
-      dispatch(createAction(USER_ACTION_TYPES.SET_CURRENTUSER, user))
-    })
-    return unsubscribe
-  }, [dispatch])
+      dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+    });
+    return unsubscribe;
+  }, [dispatch]);
 
   return (
     <Navbar className='bg-base-300 rounded-lg'>
@@ -65,28 +65,29 @@ const Header = () => {
           >
             Encounters
           </NavLink>
-          <NavLink
-            to='/sign-in'
-            className={({ isActive }) =>
-              isActive
-                ? 'btn btn-ghost btn-sm rounded-btn btn-active'
-                : 'btn btn-ghost btn-sm rounded-btn'
-            }
-          >
-            Sign In
-          </NavLink>
 
-          {currentUser && (
+          {currentUser ? (
             <span
               className='btn btn-ghost btn-sm rounded-btn'
               onClick={signOutUser}
             >
               Sign Out
             </span>
+          ) : (
+            <NavLink
+              to='/sign-in'
+              className={({ isActive }) =>
+                isActive
+                  ? 'btn btn-ghost btn-sm rounded-btn btn-active'
+                  : 'btn btn-ghost btn-sm rounded-btn'
+              }
+            >
+              Sign In
+            </NavLink>
           )}
         </div>
       </End>
     </Navbar>
-  )
-}
-export default Header
+  );
+};
+export default Header;
