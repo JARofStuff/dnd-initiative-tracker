@@ -21,13 +21,6 @@ import {
   // QueryDocumentSnapshot,
 } from 'firebase/firestore';
 
-export interface UserData {
-  displayName: string;
-  email: string;
-  createdAt: Date;
-  isAdmin?: boolean;
-}
-
 // Initialize Firebase
 const db = getFirestore(app);
 
