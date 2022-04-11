@@ -1,9 +1,13 @@
-import { USER_ACTION_TYPES, initialState, ReducerAction } from './User.Types';
+import { USER_ACTION_TYPES, UserState } from './User.Types';
 
-const userReducer = (state = initialState, action: ReducerAction) => {
-  console.log(USER_ACTION_TYPES.SET_CURRENT_USER);
+export interface ReducerAction {
+  type: USER_ACTION_TYPES;
+  payload?: any;
+}
+
+const userReducer = (state: UserState, action: ReducerAction) => {
   switch (action.type) {
-    case USER_ACTION_TYPES.GET_USERS:
+    case USER_ACTION_TYPES.FETCH_USERS:
       return {
         ...state,
         loading: false,
@@ -15,7 +19,7 @@ const userReducer = (state = initialState, action: ReducerAction) => {
         loading: false,
         currentUser: action.payload,
       };
-    case USER_ACTION_TYPES.SET_IS_LOADING:
+    case USER_ACTION_TYPES.SET_LOADING:
       return {
         ...state,
         loading: true,

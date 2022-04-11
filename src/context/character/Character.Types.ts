@@ -1,5 +1,16 @@
 import { DocumentReference } from 'firebase/firestore';
 
+export enum CHARACTER_ACTION_TYPES {
+  FETCH_CHARACTERS = 'character/FETCH_CHARACTERS',
+  FETCH_CHARACTER = 'character/FETCH_CHARACTER',
+  SET_LOADING = 'character/SET_LOADING',
+}
+
+export interface ReducerAction {
+  type: CHARACTER_ACTION_TYPES;
+  payload?: any;
+}
+
 interface CharacterSheet {
   avatar: string;
   race: string;
@@ -48,15 +59,7 @@ interface CharacterSheet {
     | null;
 }
 
-export interface PlayerCharacterData {
-  name: string;
-  createdAt: Date | null;
-  createdBy: DocumentReference | null;
-  playedBy: DocumentReference | null;
-  characterSheet: CharacterSheet | null;
-}
-
-const initialSheet: CharacterSheet = {
+export const initialCharacterSheet: CharacterSheet = {
   avatar: '',
   race: '',
   class: '',
@@ -101,10 +104,24 @@ const initialSheet: CharacterSheet = {
   skills: null,
 };
 
-export const initialPlayerCharacterData: PlayerCharacterData = {
+export interface CharacterData {
+  name: string;
+  createdAt: Date | null;
+  createdBy: DocumentReference | null;
+  playedBy: DocumentReference | null;
+  characterSheet: CharacterSheet | null;
+}
+
+export const initialCharacterData: CharacterData = {
   name: '',
   createdAt: null,
   createdBy: null,
   playedBy: null,
-  characterSheet: initialSheet,
+  characterSheet: null,
 };
+
+export interface CharacterState {
+  readonly characters: CharacterData[] | null;
+  readonly character: CharacterData | null;
+  readonly loading: boolean;
+}

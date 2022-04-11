@@ -1,12 +1,14 @@
 import { useContext } from 'react';
-import UserContext from '@context/user/User.Context';
+import UserContext from '@root/src/context/user/User.Context';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import SignInForm from '@/components/SignInForm/SignInForm';
 
 const Auth = () => {
-  const { isLoading } = useContext(UserContext);
+  const {
+    state: { loading },
+  } = useContext(UserContext);
 
-  return isLoading ? (
+  return loading ? (
     <h1>Signing you in</h1>
   ) : (
     <div className='flex justify-center gap-8 w-full'>

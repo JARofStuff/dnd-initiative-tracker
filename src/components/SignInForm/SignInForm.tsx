@@ -5,13 +5,15 @@ import {
   signInWithGoogleRedirect,
   catchGoogleSignInRedirect,
 } from '@root/src/utils/firebase/auth.utils';
-import UserContext from '@context/user/User.Context';
+import UserContext from '@root/src/context/user/User.Context';
 import FormInput from '../FormInput/FormInput';
 import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(UserContext);
+  const {
+    state: { currentUser },
+  } = useContext(UserContext);
   const [formData, setFormData] = useState({
     email: '',
     password: '',

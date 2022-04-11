@@ -1,8 +1,19 @@
-import { createContext, useReducer, FC } from 'react';
-import { initialState } from './User.Types';
-import userReducer from './User.Reducer';
+import { createContext, useReducer, Dispatch, FC } from 'react';
+import { UserState } from './User.Types';
+import userReducer, { ReducerAction } from './User.Reducer';
 
-const UserContext = createContext(initialState);
+type UserContextType = {
+  readonly state: UserState;
+  readonly dispatch: Dispatch<ReducerAction>;
+};
+
+const UserContext = createContext<UserContextType>({} as UserContextType);
+
+const initialState: UserState = {
+  users: null,
+  currentUser: null,
+  loading: false,
+};
 
 export const UserProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -10,7 +21,7 @@ export const UserProvider: FC = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        ...state,
+        state,
         dispatch,
       }}
     >
