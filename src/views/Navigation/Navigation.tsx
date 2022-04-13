@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  console.log(currentUser);
 
   const signOutUserHandler = async () => {
     dispatch(logout());

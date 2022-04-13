@@ -16,13 +16,6 @@ import {
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-export interface profileData {
-  displayName: string | null;
-  email: string | null;
-  createdAt: Date;
-  isAdmin?: boolean;
-}
-
 // EMAIL AUTH
 // Sign up new users
 export const signUpWithEmailAndPassword = async (

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authStateChangeListener, googleSignInRedirectListener } from '@store/Auth/Auth.Service';
 import { setCurrentUser } from '@store/Auth/Auth.Actions';
+import { createUserDoc } from '@store/Profile/Profile.Actions';
 import Navigation from '@views/Navigation/Navigation';
 import Home from '@views/Home/Home';
 import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
@@ -19,10 +20,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = authStateChangeListener((user) => {
-      // console.log(user?.providerData);
+    const unsubscribe = authStateChangeListener(async (user) => {
       if (user) {
-        dispatch(setCurrentUser(user.providerData[0]));
+        await dispatch(setCurrentUser(user.providerData[0]));
+        dispatch(createUserDoc(user.providerData[0]));
       } else {
         // dispatch(logout())
       }
