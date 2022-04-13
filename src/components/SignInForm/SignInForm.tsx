@@ -1,33 +1,24 @@
-import { useState, useEffect, useContext, FormEvent, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  signInAuthUserWithEmailAndPassword,
-  signInWithGoogleRedirect,
-  catchGoogleSignInRedirect,
-} from '@root/src/utils/firebase/auth.utils';
-import UserContext from '@root/src/context/user/User.Context';
+import { useState } from 'react';
+import type { FormEvent, ChangeEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthReducer } from '@store/Auth/Auth.Selector';
+import { login } from '@store/Auth/Auth.Actions';
 import FormInput from '../FormInput/FormInput';
+import { Button } from 'react-daisyui';
+import { signInWithGoogleRedirect } from '@store/Auth/Auth.Service';
+
 import { toast } from 'react-toastify';
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
-  const {
-    state: { currentUser },
-  } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(selectAuthReducer);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
   const { email, password } = formData;
-
-  useEffect(() => {
-    catchGoogleSignInRedirect();
-  }, []);
-
-  useEffect(() => {
-    if (currentUser) navigate('/');
-  }, [currentUser, navigate]);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => {
@@ -46,12 +37,10 @@ const SignUpForm = () => {
       return;
     }
 
-    await signInAuthUserWithEmailAndPassword(email, password);
+    dispatch(login({ email, password }));
   };
 
-  const onGoogleSignInHandler = () => {
-    signInWithGoogleRedirect();
-  };
+  const onGoogleSignInHandler = () => signInWithGoogleRedirect();
 
   return (
     <form onSubmit={onSubmitHandler} className=''>
@@ -76,14 +65,12 @@ const SignUpForm = () => {
       />
 
       <div className='form-control w-full mt-4 gap-4'>
-        <button className='btn btn-primary'>Sign In</button>
-        <button
-          type='button'
-          className='btn w-full'
-          onClick={onGoogleSignInHandler}
-        >
+        <Button color='primary' loading={isLoading}>
+          Sign In
+        </Button>
+        <Button type='button' onClick={onGoogleSignInHandler}>
           Sign in with Google
-        </button>
+        </Button>
       </div>
     </form>
   );

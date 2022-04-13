@@ -1,16 +1,32 @@
-import { useContext } from 'react';
-import UserContext from '@root/src/context/user/User.Context';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthReducer } from '@root/src/store/Auth/Auth.Selector';
+import { reset } from '@root/src/store/Auth/Auth.Actions';
+import { toast } from 'react-toastify';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import SignInForm from '@/components/SignInForm/SignInForm';
 
 const Auth = () => {
-  const {
-    state: { loading },
-  } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  return loading ? (
-    <h1>Signing you in</h1>
-  ) : (
+  const { currentUser, isError, isSuccess, message } = useSelector(selectAuthReducer);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    // Redirect when logged in
+    if (isSuccess || currentUser) {
+      navigate('/');
+    }
+
+    dispatch(reset());
+  }, [isError, isSuccess, currentUser, message, dispatch, navigate]);
+
+  return (
     <div className='flex justify-center gap-8 w-full'>
       <div className='basis-80'>
         <h1 className='text-2xl'>Sign Up</h1>

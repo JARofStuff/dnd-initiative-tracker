@@ -1,25 +1,20 @@
-import { useEffect, useContext } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { Drawer } from 'react-daisyui';
-import { signOutUser } from '@root/src/utils/firebase/auth.utils';
-import UserContext from '@root/src/context/user/User.Context';
-import { USER_ACTION_TYPES } from '@root/src/context/user/User.Types';
-import { authStateChangeListener } from '@root/src/utils/firebase/auth.utils';
-import { createAction } from '@utils/reducer/reducer.utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@store/Auth/Auth.Actions';
+
+import { selectCurrentUser } from '@store/Auth/Auth.Selector';
+import { toast } from 'react-toastify';
 
 const Navigation = () => {
-  const {
-    state: { currentUser },
-    dispatch,
-  } = useContext(UserContext);
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser);
 
-  useEffect(() => {
-    const unsubscribe = authStateChangeListener((user) => {
-      dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
-    });
-    return unsubscribe;
-  }, [dispatch]);
-
+  const signOutUserHandler = async () => {
+    dispatch(logout());
+    toast.success('Successfully Signed out');
+  };
   return (
     <Drawer
       id='main-menu'
@@ -45,15 +40,10 @@ const Navigation = () => {
               {currentUser ? (
                 <div className='flex justify-between items-stretch'>
                   <div>
-                    <div className='text-sm font-bold'>
-                      {currentUser.displayName}
-                    </div>
+                    <div className='text-sm font-bold'>{currentUser.displayName}</div>
                     <div className='text-xs'>{currentUser.email}</div>
                   </div>
-                  <button
-                    onClick={signOutUser}
-                    className='btn btn-outline btn-sm h-full'
-                  >
+                  <button onClick={signOutUserHandler} className='btn btn-outline btn-sm h-full'>
                     Sign out
                   </button>
                 </div>

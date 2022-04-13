@@ -10,7 +10,6 @@ type UserContextType = {
 const UserContext = createContext<UserContextType>({} as UserContextType);
 
 const initialState: UserState = {
-  users: null,
   currentUser: null,
   loading: false,
 };

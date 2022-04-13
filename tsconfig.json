@@ -16,15 +16,17 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vite-plugin-svgr/client"],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@root/*": ["*"],
-      "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@context/*": ["src/context/*"],
       "@views/*": ["src/views/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["src/store/*"],
+      "@/*": ["src/*"],
+      "@root/*": ["*"]
     }
   },
   "include": ["src"],
