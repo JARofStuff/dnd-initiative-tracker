@@ -9,11 +9,11 @@ import { toast } from 'react-toastify';
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-
   const signOutUserHandler = async () => {
     dispatch(logout());
     toast.success('Successfully Signed out');
   };
+
   return (
     <Drawer
       id='main-menu'
@@ -23,36 +23,42 @@ const Navigation = () => {
           <header className='py-4 px-8 w-full text-2xl'>
             <Link to='/'>D&amp;D DM Screen</Link>
           </header>
-          <ul className='menu p-4 w-80'>
-            <li>
-              <NavLink to='/players'>Players</NavLink>
-            </li>
-            <li>
-              <NavLink to='/initiative'>Initiative</NavLink>
-            </li>
-            <li>
-              <NavLink to='/encounter-builder'>Encounters</NavLink>
-            </li>
-          </ul>
-          <ul className='menu w-full absolute bottom-0'>
-            <li>
-              {currentUser ? (
-                <div className='flex justify-between items-stretch'>
-                  <div>
-                    <div className='text-sm font-bold'>{currentUser.displayName}</div>
-                    <div className='text-xs'>{currentUser.email}</div>
+          {currentUser ? (
+            <>
+              <ul className='menu p-4 w-80'>
+                <li>
+                  <NavLink to='/players'>Players</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/initiative'>Initiative</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/encounter-builder'>Encounters</NavLink>
+                </li>
+              </ul>
+              <ul className='menu w-full absolute bottom-0'>
+                <li>
+                  <div className='flex justify-between items-stretch'>
+                    <div>
+                      <div className='text-sm font-bold'>{currentUser.displayName}</div>
+                      <div className='text-xs'>{currentUser.email}</div>
+                    </div>
+                    <button onClick={signOutUserHandler} className='btn btn-outline btn-sm h-full'>
+                      Sign out
+                    </button>
                   </div>
-                  <button onClick={signOutUserHandler} className='btn btn-outline btn-sm h-full'>
-                    Sign out
-                  </button>
-                </div>
-              ) : (
+                </li>
+              </ul>
+            </>
+          ) : (
+            <ul className='menu p-4 w-80'>
+              <li>
                 <Link to='/sign-in' className='px-8'>
                   Sign In
                 </Link>
-              )}
-            </li>
-          </ul>
+              </li>
+            </ul>
+          )}
         </div>
       }
     >
@@ -61,6 +67,7 @@ const Navigation = () => {
           Open drawer
         </label>
       </div>
+
       <Outlet />
     </Drawer>
   );

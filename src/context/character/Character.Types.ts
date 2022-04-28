@@ -11,64 +11,51 @@ export interface ReducerAction {
   payload?: any;
 }
 
-interface CharacterSheet {
+export interface CharacterSheet {
   avatar: string;
+  gender: string | undefined;
   race: string;
-  class: string;
-  subclass: string | null;
+  characterClass: string;
+  subclass: string | undefined;
   level: number;
   experiencePoints: number;
-  inspiration: boolean;
-  background: string | null;
-  patronOrDeity: string | null;
+  inspiration: boolean | undefined;
+  background: string | undefined;
+  // alignment: string | undefined;
+  // patronOrDeity: string | undefined;
   hpMax: number;
   ac: number;
   spellSave: number;
   speed: {
     walk: number;
-    [key: string]: number;
+    [key: string]: number | undefined;
   };
   abilityScores: {
-    strength: {
-      value: number;
-      proficient: boolean;
-    };
-    dexterity: {
-      value: number;
-      proficient: boolean;
-    };
-    constitution: {
-      value: number;
-      proficient: boolean;
-    };
-    intelligence: {
-      value: number;
-      proficient: boolean;
-    };
-    wisdom: {
-      value: number;
-      proficient: boolean;
-    };
-    charisma: {
-      value: number;
+    [key: string]: {
+      score: number;
       proficient: boolean;
     };
   };
-  skills:
-    | { skill: string; proficiency: ['proficient' | 'expert' | null] }[]
-    | null;
+  skills: {
+    [key: string]: {
+      proficient: boolean;
+      expertise: boolean;
+    };
+  };
 }
 
 export const initialCharacterSheet: CharacterSheet = {
   avatar: '',
+  gender: undefined,
   race: '',
-  class: '',
-  subclass: null,
+  characterClass: '',
+  subclass: undefined,
   level: 1,
   experiencePoints: 0,
   inspiration: false,
-  background: null,
-  patronOrDeity: null,
+  background: undefined,
+  // alignment: undefined,
+  // patronOrDeity: undefined,
   hpMax: 0,
   ac: 10,
   spellSave: 0,
@@ -77,35 +64,108 @@ export const initialCharacterSheet: CharacterSheet = {
   },
   abilityScores: {
     strength: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
     dexterity: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
     constitution: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
     intelligence: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
     wisdom: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
     charisma: {
-      value: 0,
+      score: 0,
       proficient: false,
     },
   },
-  skills: null,
+  skills: {
+    dexAcrobatics: {
+      proficient: false,
+      expertise: false,
+    },
+    wisAnimalHandling: {
+      proficient: false,
+      expertise: false,
+    },
+    intArcana: {
+      proficient: false,
+      expertise: false,
+    },
+    strAthletics: {
+      proficient: false,
+      expertise: false,
+    },
+    chaDeception: {
+      proficient: false,
+      expertise: false,
+    },
+    intHistory: {
+      proficient: false,
+      expertise: false,
+    },
+    wisInsight: {
+      proficient: false,
+      expertise: false,
+    },
+    chaIntimidation: {
+      proficient: false,
+      expertise: false,
+    },
+    intInvestigation: {
+      proficient: false,
+      expertise: false,
+    },
+    wisMedicine: {
+      proficient: false,
+      expertise: false,
+    },
+    intNature: {
+      proficient: false,
+      expertise: false,
+    },
+    wisPerception: {
+      proficient: false,
+      expertise: false,
+    },
+    chaPerformance: {
+      proficient: false,
+      expertise: false,
+    },
+    chaPersuasion: {
+      proficient: false,
+      expertise: false,
+    },
+    intReligion: {
+      proficient: false,
+      expertise: false,
+    },
+    dexSleightOfHand: {
+      proficient: false,
+      expertise: false,
+    },
+    dexStealth: {
+      proficient: false,
+      expertise: false,
+    },
+    wisSurvival: {
+      proficient: false,
+      expertise: false,
+    },
+  },
 };
 
 export interface CharacterData {
-  name: string;
+  characterName: string;
   createdAt: Date | null;
   createdBy: DocumentReference | null;
   playedBy: DocumentReference | null;
@@ -113,7 +173,7 @@ export interface CharacterData {
 }
 
 export const initialCharacterData: CharacterData = {
-  name: '',
+  characterName: '',
   createdAt: null,
   createdBy: null,
   playedBy: null,

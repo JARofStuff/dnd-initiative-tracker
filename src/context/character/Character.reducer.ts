@@ -5,7 +5,7 @@ export interface ReducerAction {
   payload?: any;
 }
 
-const userReducer = (state: CharacterState, action: ReducerAction) => {
+const characterReducer = (state: CharacterState, action: ReducerAction) => {
   switch (action.type) {
     case CHARACTER_ACTION_TYPES.FETCH_CHARACTERS:
       return {
@@ -29,4 +29,4 @@ const userReducer = (state: CharacterState, action: ReducerAction) => {
   }
 };
 
-export default userReducer;
+export default characterReducer;

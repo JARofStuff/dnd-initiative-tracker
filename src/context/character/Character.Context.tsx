@@ -1,9 +1,5 @@
-import {
-  createContext,
-  useReducer,
-  Dispatch,
-  // FC
-} from 'react';
+import { createContext, useReducer, Dispatch, FC } from 'react';
+import characterReducer from './Character.reducer';
 import { CharacterState, ReducerAction } from './Character.Types';
 
 interface CharacterContextProps {
@@ -11,9 +7,7 @@ interface CharacterContextProps {
   readonly dispatch: Dispatch<ReducerAction>;
 }
 
-const CharacterContext = createContext<CharacterContextProps>(
-  {} as CharacterContextProps
-);
+const CharacterContext = createContext<CharacterContextProps>({} as CharacterContextProps);
 
 export const initialState: CharacterState = {
   characters: null,

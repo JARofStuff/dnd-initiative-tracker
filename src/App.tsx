@@ -10,6 +10,7 @@ import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
 import Initiative from '@views/Initiative/Initiative';
 import Players from '@views/Players/Players';
 import Auth from '@views/Auth/Auth';
+import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
@@ -51,10 +52,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Navigation />}>
             <Route index element={<Home />} />
-            <Route path='/players' element={<Players />} />
+            <Route path='/sign-in' element={<Auth />} />
+
+            <Route path='/players/*' element={<Players />} />
             <Route path='/initiative' element={<Initiative />} />
             <Route path='/encounter-builder' element={<EncounterBuilder />} />
-            <Route path='/sign-in' element={<Auth />} />
           </Route>
         </Routes>
       </main>
