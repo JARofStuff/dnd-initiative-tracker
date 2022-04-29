@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { ProfileData } from './Profile.Types';
 import { createUserDoc, reset } from './Profile.Actions';
 
 interface ProfileState {
-  readonly userProfile: {} | null;
+  readonly userProfile: ProfileData | null;
   readonly isLoading: boolean;
   readonly isError: boolean;
   readonly isSuccess: boolean;

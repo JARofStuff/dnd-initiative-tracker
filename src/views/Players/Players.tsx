@@ -1,14 +1,10 @@
 import { useEffect, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@hooks/asyncDispatch';
-import {
-  fetchCharacters,
-  deleteCharacter,
-  reset,
-} from '@root/src/store/Character/Character.Actions';
-import { CharacterData } from '@root/src/store/Character/Character.Types';
-import { selectCurrentUser } from '@root/src/store/Auth/Auth.Selector';
-import { selectCharacterReducer } from '@root/src/store/Character/Character.Selector';
+import { fetchCharacters, deleteCharacter, reset } from '@store/Character/Character.Actions';
+import { CharacterData } from '@store/Character/Character.Types';
+import { selectCurrentUser } from '@store/Auth/Auth.Selector';
+import { selectCharacterReducer } from '@store/Character/Character.Selector';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import CharacterForm from '@components/CharacterForm/CharacterForm';
 import { toast } from 'react-toastify';
@@ -26,14 +22,11 @@ const Players = () => {
       toast.error(message);
     }
 
-    if (isSuccess && message) {
-      toast.success(message);
-    }
-
     dispatch(reset());
   }, [isSuccess, isError, message, dispatch]);
 
   useEffect(() => {
+    // Load all of player's characters on page load
     if (currentUser) {
       dispatch(fetchCharacters(currentUser.uid));
     }
@@ -43,6 +36,7 @@ const Players = () => {
     if (!id) return;
 
     await dispatch(deleteCharacter(id));
+    toast.info('Character Deleted');
   };
 
   return (
@@ -67,7 +61,9 @@ const Players = () => {
 export default Players;
 
 interface PlayerHomeProps {
-  characters: CharacterData[] | null;
+  characters: {
+    [id: string]: CharacterData;
+  };
   onDeleteHandler: Function;
 }
 
@@ -77,13 +73,14 @@ const PlayerHome: FC<PlayerHomeProps> = ({ characters, onDeleteHandler }) => {
       <div>
         <h2>Characters</h2>
         <ul>
-          {characters?.map((character) => (
-            <li key={character.id}>
-              {character.characterName} -{' '}
-              <Link to={`edit/${character.id}`} className='link'>
+          {Object.entries(characters).map(([id, character]) => (
+            <li key={id}>
+              {character.characterName}
+              {' - '}
+              <Link to={`edit/${id}`} className='link'>
                 Edit
               </Link>{' '}
-              <span className='link' onClick={() => onDeleteHandler(character.id)}>
+              <span className='link' onClick={() => onDeleteHandler(id)}>
                 Delete
               </span>
             </li>

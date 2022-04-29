@@ -37,11 +37,6 @@ const SignInForm = () => {
       return;
     }
 
-    // if (password !== passwordMatch) {
-    //   toast.error('Please make sure both password fields match');
-    //   return;
-    // }
-
     dispatch(register({ email, password, displayName }));
   };
 
@@ -53,7 +48,7 @@ const SignInForm = () => {
         name='displayName'
         value={displayName}
         label='Name'
-        // required
+        required
         onChange={onChangeHandler}
       />
       <FormInput
@@ -62,7 +57,7 @@ const SignInForm = () => {
         name='email'
         value={email}
         label='Email'
-        // required
+        required
         onChange={onChangeHandler}
       />
       <FormInput
@@ -71,18 +66,9 @@ const SignInForm = () => {
         name='password'
         value={password}
         label='Password'
-        // required
+        required
         onChange={onChangeHandler}
       />
-      {/* <FormInput
-        type='password'
-        id='passwordMatch'
-        name='passwordMatch'
-        value={passwordMatch}
-        label='Confirm Password'
-        // required
-        onChange={onChangeHandler}
-      /> */}
 
       <div className='form-control w-full mt-4 gap-4'>
         <Button color='primary' loading={isLoading}>

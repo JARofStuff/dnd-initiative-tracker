@@ -155,7 +155,6 @@ const initialCharacterSheet: CharacterSheet = {
 };
 
 export interface CharacterData {
-  id?: string;
   characterName: string;
   createdAt: FieldValue | Timestamp | { seconds: number; nanoseconds: number } | undefined;
   createdBy: DocumentReference | String;

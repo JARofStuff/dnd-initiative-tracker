@@ -1,24 +1,7 @@
 import { db } from '@root/firebase.config';
-import {
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp,
-  // DocumentSnapshot,
-  QueryDocumentSnapshot,
-  Timestamp,
-  // DocumentData,
-  FieldValue,
-} from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { UserInfo } from 'firebase/auth';
-
-export interface ProfileData {
-  displayName: string | null;
-  email: string | null;
-  createdAt: FieldValue | Timestamp | { seconds: number; nanoseconds: number };
-  photoURL: string | null;
-  isAdmin?: boolean;
-}
+import type { ProfileData } from './Profile.Types';
 
 /**
  * Retrieved a document from Firestore from UserData

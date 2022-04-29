@@ -7,9 +7,8 @@ import { useAppDispatch } from '@hooks/asyncDispatch';
 import {
   // reset,
   createCharacter,
-  fetchCharacter,
-  fetchCharacters,
-  unsetCharacter,
+  // setCharacter,
+  // unsetCharacter,
   updateCharacter,
 } from '@store/Character/Character.Actions';
 import { initialCharacterData } from '@store/Character/Character.Types';
@@ -31,33 +30,33 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  const { character, isLoading } = useSelector(selectCharacterReducer);
+  const { characters, isLoading } = useSelector(selectCharacterReducer);
 
   const [formData, setFormData] = useState(initialCharacterData);
+  const { id: characterId } = params;
 
   useEffect(() => {
-    if (mode === 'edit' && params.id) {
-      dispatch(fetchCharacter(params.id));
+    if (mode === 'new') {
+      setFormData(initialCharacterData);
     }
 
-    dispatch(unsetCharacter());
-  }, [dispatch, mode, params.id]);
+    if (mode === 'edit' && Object.entries(characters).length > 0 && characterId) {
+      if (!(characterId in characters)) {
+        toast.error(`Unable to find character sheet`);
 
-  useEffect(() => {
-    setFormData(initialCharacterData);
+        return;
+      }
 
-    if (character) {
       setFormData((prevState) => {
+        const character = characters[characterId];
+
         return {
           ...prevState,
-          id: character.id,
-          characterName: character.characterName,
-          playerName: character.playerName,
-          characterSheet: character.characterSheet,
+          ...character,
         };
       });
     }
-  }, [character, dispatch]);
+  }, [dispatch, mode, characters, characterId]);
 
   const {
     characterName,
@@ -177,11 +176,15 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
         return;
       }
 
-      const { payload: charactedId } = await dispatch(
+      const { payload: character } = await dispatch(
         createCharacter({ characterData: formData, userId: currentUser.uid })
       );
-      await dispatch(fetchCharacters(currentUser.uid));
-      navigate(`../edit/${charactedId}`);
+
+      if (character) {
+        toast.success('New Character Saved');
+        let characterId = Object.keys(character)[0];
+        navigate(`../edit/${characterId}`);
+      }
     }
 
     if (mode === 'edit') {
@@ -189,8 +192,12 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
         toast.error(`Can't save character, not currently sign in.`);
         return;
       }
-      // console.log(formData);
-      dispatch(updateCharacter(formData));
+
+      console.log(formData);
+      if (characterId) {
+        await dispatch(updateCharacter({ characterId, characterData: formData }));
+        toast.success('Changes Saved');
+      }
     }
   };
 

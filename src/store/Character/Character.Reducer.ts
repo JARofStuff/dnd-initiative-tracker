@@ -2,17 +2,16 @@ import { createSlice, isPending, isFulfilled, isRejected } from '@reduxjs/toolki
 import type { CharacterData } from './Character.Types';
 import {
   fetchCharacters,
-  fetchCharacter,
   createCharacter,
-  unsetCharacter,
   deleteCharacter,
   updateCharacter,
   reset,
 } from './Character.Actions';
 
 export interface CharacterState {
-  readonly characters: CharacterData[] | null;
-  readonly character: CharacterData | null;
+  readonly characters: {
+    [id: string]: CharacterData;
+  };
   readonly isLoading: boolean;
   readonly isError: boolean;
   readonly isSuccess: boolean;
@@ -20,8 +19,7 @@ export interface CharacterState {
 }
 
 const initialState: CharacterState = {
-  characters: null,
-  character: null,
+  characters: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -45,14 +43,10 @@ export const characterSlice = createSlice({
         state.message = '';
       })
 
-      .addCase(unsetCharacter, (state) => {
-        state.character = null;
-      })
-
-      .addCase(createCharacter.fulfilled, (state) => {
+      .addCase(createCharacter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = 'Character Created';
+        state.characters = { ...state.characters, ...action.payload };
       })
 
       .addCase(fetchCharacters.fulfilled, (state, action) => {
@@ -61,52 +55,29 @@ export const characterSlice = createSlice({
         state.characters = action.payload;
       })
 
-      .addCase(fetchCharacter.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.character = action.payload;
-      })
-
       .addCase(deleteCharacter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.message = 'Character Deleted';
 
         if (state.characters) {
-          const newCharacterArray = state.characters.filter(
-            (character) => character.id !== action.payload
-          );
-
-          state.characters = newCharacterArray.length === 0 ? null : newCharacterArray;
+          delete state.characters[action.payload];
         }
       })
 
       .addCase(updateCharacter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.character = action.payload;
+        state.characters = { ...state.characters, ...action.payload };
       })
 
       .addMatcher(
-        isPending(
-          fetchCharacters,
-          fetchCharacter,
-          createCharacter,
-          deleteCharacter,
-          updateCharacter
-        ),
+        isPending(fetchCharacters, createCharacter, deleteCharacter, updateCharacter),
         (state) => {
           state.isLoading = true;
         }
       )
       .addMatcher(
-        isRejected(
-          fetchCharacters,
-          fetchCharacter,
-          createCharacter,
-          deleteCharacter,
-          updateCharacter
-        ),
+        isRejected(fetchCharacters, createCharacter, deleteCharacter, updateCharacter),
         (state, action) => {
           state.isLoading = false;
           state.isError = true;

@@ -1,12 +1,13 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import type { AppDispatch } from '@/store';
-import { createUserDocFromUser, ProfileData } from './Profile.Service';
+import { createUserDocFromUser } from './Profile.Service';
+import type { ProfileData } from './Profile.Types';
+
 import type { UserInfo } from 'firebase/auth';
 import { Timestamp } from 'firebase/firestore';
 
 export enum PROFILE_ACTION_TYPES {
   SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
-  // SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
   RESET = 'profile/RESET',
 }
 
