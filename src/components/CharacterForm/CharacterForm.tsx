@@ -1,23 +1,67 @@
-import { useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import update from 'immutability-helper';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@hooks/asyncDispatch';
+import {
+  // reset,
+  createCharacter,
+  fetchCharacter,
+  fetchCharacters,
+  unsetCharacter,
+  updateCharacter,
+} from '@store/Character/Character.Actions';
+import { initialCharacterData } from '@store/Character/Character.Types';
+import { selectCurrentUser } from '@store/Auth/Auth.Selector';
+import { selectCharacterReducer } from '@store/Character/Character.Selector';
 import { Link } from 'react-router-dom';
-
-import { initialCharacterSheet } from '@context/character/Character.Types';
-
 import { Button } from 'react-daisyui';
 import FormInput from '@components/FormInput/FormInput';
 import AbilityScoreFormInput from '@components/AbilityScoreFormInput/AbilityScoreFormInput';
 import SkillProficiencyFormInput from '@components/SkillProficiencyFormInput/SkillProficiencyFormInput';
+import { toast } from 'react-toastify';
 
-const CharacterForm = () => {
-  const [formData, setFormData] = useState({
-    characterName: '',
-    characterSheet: initialCharacterSheet,
-  });
+interface CharacterFormProps {
+  mode: 'new' | 'edit';
+}
+
+const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  const { character, isLoading } = useSelector(selectCharacterReducer);
+
+  const [formData, setFormData] = useState(initialCharacterData);
+
+  useEffect(() => {
+    if (mode === 'edit' && params.id) {
+      dispatch(fetchCharacter(params.id));
+    }
+
+    dispatch(unsetCharacter());
+  }, [dispatch, mode, params.id]);
+
+  useEffect(() => {
+    setFormData(initialCharacterData);
+
+    if (character) {
+      setFormData((prevState) => {
+        return {
+          ...prevState,
+          id: character.id,
+          characterName: character.characterName,
+          playerName: character.playerName,
+          characterSheet: character.characterSheet,
+        };
+      });
+    }
+  }, [character, dispatch]);
 
   const {
     characterName,
+    playerName,
     characterSheet: {
       avatar,
       gender,
@@ -54,11 +98,6 @@ const CharacterForm = () => {
       },
     },
   } = formData;
-
-  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formData);
-  };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => {
@@ -129,6 +168,32 @@ const CharacterForm = () => {
     });
   };
 
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (mode === 'new') {
+      if (!currentUser) {
+        toast.error(`Can't save character, not currently sign in.`);
+        return;
+      }
+
+      const { payload: charactedId } = await dispatch(
+        createCharacter({ characterData: formData, userId: currentUser.uid })
+      );
+      await dispatch(fetchCharacters(currentUser.uid));
+      navigate(`../edit/${charactedId}`);
+    }
+
+    if (mode === 'edit') {
+      if (!currentUser) {
+        toast.error(`Can't save character, not currently sign in.`);
+        return;
+      }
+      // console.log(formData);
+      dispatch(updateCharacter(formData));
+    }
+  };
+
   return (
     <form onSubmit={onSubmitHandler} className=''>
       <div className='border p-4 mb-4'>
@@ -140,6 +205,14 @@ const CharacterForm = () => {
           name='characterName'
           value={characterName}
           required
+          onChange={onChangeHandler}
+        />
+        <FormInput
+          id='playerName'
+          label='Player Name'
+          type='text'
+          name='playerName'
+          value={playerName}
           onChange={onChangeHandler}
         />
         <FormInput
@@ -403,11 +476,9 @@ const CharacterForm = () => {
       </div>
 
       <div className='form-control w-full mt-4 gap-4'>
-        <Button
-          color='primary'
-          // loading={isLoading}
-        >
-          Save
+        <Button color='primary' loading={isLoading}>
+          {mode === 'new' && 'Save New Character'}
+          {mode === 'edit' && 'Save Changes'}
         </Button>
         <Link to='..' className='btn btn-ghost'>
           Cancel

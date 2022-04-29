@@ -1,14 +1,16 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAuthReducer } from '@store/Auth/Auth.Selector';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@hooks/asyncDispatch';
+
+import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { register } from '@store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
 import FormInput from '@components/FormInput/FormInput';
 import { Button } from 'react-daisyui';
 
 const SignInForm = () => {
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector(selectAuthReducer);
+  const dispatch = useAppDispatch();
+  const isLoading = useSelector(selectAuthLoading);
 
   const [formData, setFormData] = useState({
     displayName: '',

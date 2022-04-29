@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '@store/Auth/Auth.Reducer';
 import profileReducer from '@store/Profile/Profile.Reducer';
+import characterReducer from '@store/Character/Character.Reducer';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     profile: profileReducer,
+    playableCharacters: characterReducer,
   },
 });
 

@@ -11,7 +11,6 @@ export enum AUTH_ACTION_TYPES {
   EMAIL_REGISTER = 'user/REGISTER',
   EMAIL_SIGNIN = 'user/EMAIL_SIGNIN',
   SET_CURRENT_USER = 'user/SET_CURRENT_USER',
-
   LOGOUT = 'user/LOGOUT',
   RESET = 'user/RESET',
 }

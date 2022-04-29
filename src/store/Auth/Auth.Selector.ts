@@ -4,12 +4,6 @@ import type { RootState } from '@/store';
 
 export const selectAuthReducer = (state: RootState) => state.auth;
 
-export const selectCurrentUser = createSelector(
-  selectAuthReducer,
-  (user) => user.currentUser
-);
+export const selectCurrentUser = createSelector(selectAuthReducer, (user) => user.currentUser);
 
-export const selectLoading = createSelector(
-  selectAuthReducer,
-  (user) => user.isLoading
-);
+export const selectAuthLoading = createSelector(selectAuthReducer, (user) => user.isLoading);

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@hooks/asyncDispatch';
+
 import { selectAuthReducer } from '@root/src/store/Auth/Auth.Selector';
 import { reset } from '@root/src/store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
@@ -8,7 +10,7 @@ import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import SignInForm from '@/components/SignInForm/SignInForm';
 
 const Auth = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { currentUser, isError, isSuccess, message } = useSelector(selectAuthReducer);

@@ -1,13 +1,15 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { Drawer } from 'react-daisyui';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@hooks/asyncDispatch';
+
 import { logout } from '@store/Auth/Auth.Actions';
 
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 import { toast } from 'react-toastify';
 
 const Navigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const signOutUserHandler = async () => {
     dispatch(logout());

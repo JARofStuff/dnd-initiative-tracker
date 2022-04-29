@@ -1,6 +1,5 @@
-import app from '@root/firebase.config';
+import { db } from '@root/firebase.config';
 import {
-  getFirestore,
   doc,
   getDoc,
   setDoc,
@@ -12,9 +11,6 @@ import {
   FieldValue,
 } from 'firebase/firestore';
 import type { UserInfo } from 'firebase/auth';
-
-// Initialize Firebase
-const db = getFirestore(app);
 
 export interface ProfileData {
   displayName: string | null;

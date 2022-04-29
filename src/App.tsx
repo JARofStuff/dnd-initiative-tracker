@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@hooks/asyncDispatch';
+
 import { authStateChangeListener, googleSignInRedirectListener } from '@store/Auth/Auth.Service';
 import { setCurrentUser } from '@store/Auth/Auth.Actions';
 import { createUserDoc } from '@store/Profile/Profile.Actions';
@@ -10,7 +11,7 @@ import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
 import Initiative from '@views/Initiative/Initiative';
 import Players from '@views/Players/Players';
 import Auth from '@views/Auth/Auth';
-import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
+// import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
@@ -18,15 +19,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const unsubscribe = authStateChangeListener(async (user) => {
       if (user) {
-        await dispatch(setCurrentUser(user.providerData[0]));
+        dispatch(setCurrentUser(user.providerData[0]));
         dispatch(createUserDoc(user.providerData[0]));
-      } else {
-        // dispatch(logout())
       }
     });
 
