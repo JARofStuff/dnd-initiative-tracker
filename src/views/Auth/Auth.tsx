@@ -2,17 +2,19 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@hooks/asyncDispatch';
-
 import { selectAuthReducer } from '@root/src/store/Auth/Auth.Selector';
 import { reset } from '@root/src/store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
 import SignUpForm from '@/components/SignUpForm/SignUpForm';
 import SignInForm from '@/components/SignInForm/SignInForm';
 
+export interface LocationState {
+  from: { pathname: string };
+}
+
 const Auth = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const { currentUser, isError, isSuccess, message } = useSelector(selectAuthReducer);
 
   useEffect(() => {

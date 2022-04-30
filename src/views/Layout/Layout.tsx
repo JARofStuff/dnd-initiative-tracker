@@ -8,7 +8,7 @@ import { logout } from '@store/Auth/Auth.Actions';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 import { toast } from 'react-toastify';
 
-const Navigation = () => {
+const Layout = () => {
   const dispatch = useAppDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const signOutUserHandler = async () => {
@@ -75,4 +75,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Layout;

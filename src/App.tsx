@@ -5,13 +5,13 @@ import { useAppDispatch } from '@hooks/asyncDispatch';
 import { authStateChangeListener, googleSignInRedirectListener } from '@store/Auth/Auth.Service';
 import { setCurrentUser } from '@store/Auth/Auth.Actions';
 import { createUserDoc } from '@store/Profile/Profile.Actions';
-import Navigation from '@views/Navigation/Navigation';
+import Layout from '@views/Layout/Layout';
 import Home from '@views/Home/Home';
 import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
 import Initiative from '@views/Initiative/Initiative';
 import Players from '@views/Players/Players';
 import Auth from '@views/Auth/Auth';
-// import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
+import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
@@ -49,13 +49,15 @@ function App() {
     <div className='h-screen bg-base-100'>
       <main>
         <Routes>
-          <Route path='/' element={<Navigation />}>
+          <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='/sign-in' element={<Auth />} />
 
-            <Route path='/players/*' element={<Players />} />
-            <Route path='/initiative' element={<Initiative />} />
-            <Route path='/encounter-builder' element={<EncounterBuilder />} />
+            <Route element={<PrivateRoute />}>
+              <Route path='/players/*' element={<Players />} />
+              <Route path='/initiative' element={<Initiative />} />
+              <Route path='/encounter-builder' element={<EncounterBuilder />} />
+            </Route>
           </Route>
         </Routes>
       </main>

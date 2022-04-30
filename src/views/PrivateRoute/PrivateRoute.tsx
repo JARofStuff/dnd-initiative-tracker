@@ -1,17 +1,11 @@
-import { Navigate, Outlet } from 'react-router-dom';
-// import Spinner from './Spinner';
-
+import { Outlet, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 
 const PrivateRoute = () => {
-  const currentUser = useSelector(selectCurrentUser);
+  const authUser = useSelector(selectCurrentUser);
 
-  // if (checkingStatus) {
-  //   return <Spinner />;
-  // }
-
-  return currentUser ? <Outlet /> : <Navigate to='/sign-in' />;
+  return authUser ? <Outlet /> : <Navigate to='/sign-in' replace />;
 };
 
 export default PrivateRoute;
