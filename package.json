@@ -1,5 +1,7 @@
 {
-  "name": "dnd-tracker",
+  "name": "dnd-initiative-tracker",
+  "author": "Jorge André Rivera <jorge@jarivera.com> ",
+  "license": "MIT",
   "private": true,
   "version": "0.0.0",
   "scripts": {
