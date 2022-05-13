@@ -1,4 +1,4 @@
-import { db } from '@root/firebase.config';
+import { db } from '@utils/firebase/firebase.app';
 import {
   collection,
   query,

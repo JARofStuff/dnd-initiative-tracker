@@ -1,4 +1,4 @@
-import { db } from '@root/firebase.config';
+import { db } from '@utils/firebase/firebase.app';
 import { doc, getDoc, setDoc, serverTimestamp, QueryDocumentSnapshot } from 'firebase/firestore';
 import type { UserInfo } from 'firebase/auth';
 import type { ProfileData } from './Profile.Types';

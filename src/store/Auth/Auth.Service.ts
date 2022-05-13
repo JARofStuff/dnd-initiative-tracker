@@ -1,9 +1,10 @@
-import app from '@root/firebase.config';
+import app from '@utils/firebase/firebase.app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signInWithRedirect,
   onAuthStateChanged,
   getRedirectResult,
@@ -57,20 +58,36 @@ export const signInAuthUserWithEmailAndPassword = async (
 // SIGN OUT
 export const signOutUser = () => signOut(auth);
 
-// // GOOGLE AUTH
+// AUTH STATE
+export const authStateChangeListener = (callback: NextOrObserver<User>) =>
+  onAuthStateChanged(auth, callback);
+
+// GOOGLE AUTH
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
-export const googleSignInRedirectListener = async () => {
+// export const googleSignInRedirectListener = async () => {
+//   try {
+//     return await getRedirectResult(auth);
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+// GITHUB AUTH
+const githubProvider = new GithubAuthProvider();
+githubProvider.setCustomParameters({
+  allow_signup: 'false',
+});
+
+export const signInWithGithubRedirect = () => signInWithRedirect(auth, githubProvider);
+
+export const signInRedirectListener = async () => {
   try {
     return await getRedirectResult(auth);
   } catch (error) {
     throw error;
   }
 };
-
-// AUTH STATE
-export const authStateChangeListener = (callback: NextOrObserver<User>) =>
-  onAuthStateChanged(auth, callback);

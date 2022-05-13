@@ -10,7 +10,8 @@ import Button from '@components/Button/Button';
 import SignInForm from '@components/SignInForm/SignInForm';
 import logo from '@assets/png/logo.png';
 import { ReactComponent as GoogleIcon } from '@assets/svg/google-icon.svg';
-import { signInWithGoogleRedirect } from '@store/Auth/Auth.Service';
+import { ReactComponent as GithubIcon } from '@assets/svg/github-icon.svg';
+import { signInWithGoogleRedirect, signInWithGithubRedirect } from '@store/Auth/Auth.Service';
 
 const CLASSES = {
   container: 'flex h-screen p-2 md:p-4',
@@ -30,6 +31,7 @@ const Login = () => {
   const { currentUser, isError, isSuccess, message } = useSelector(selectAuthReducer);
 
   const onGoogleSignInHandler = () => signInWithGoogleRedirect();
+  const onGithubSignInHandler = () => signInWithGithubRedirect();
 
   useEffect(() => {
     if (isError) {
@@ -57,9 +59,14 @@ const Login = () => {
 
         <div className='my-4'>or</div>
 
-        <Button type='button' className='w-full' btnStyle='ghost' onClick={onGoogleSignInHandler}>
-          <GoogleIcon className='mx-auto' />
-        </Button>
+        <div className='flex gap-4'>
+          <Button type='button' className='grow' btnStyle='ghost' onClick={onGoogleSignInHandler}>
+            <GoogleIcon className='mx-auto' />
+          </Button>
+          <Button type='button' className='grow' btnStyle='ghost' onClick={onGithubSignInHandler}>
+            <GithubIcon className='mx-auto' />
+          </Button>
+        </div>
 
         <footer className='mt-6'>
           Don't have an account?{' '}

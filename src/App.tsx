@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 
-import { authStateChangeListener, googleSignInRedirectListener } from '@store/Auth/Auth.Service';
+import { authStateChangeListener, signInRedirectListener } from '@store/Auth/Auth.Service';
 import { setCurrentUser } from '@store/Auth/Auth.Actions';
 import { createUserDoc } from '@store/Profile/Profile.Actions';
 import Layout from '@views/Layout/Layout';
@@ -36,7 +36,8 @@ function App() {
     // Catches Google Redirect Errors.
     const googleLogIn = async () => {
       try {
-        await googleSignInRedirectListener();
+        // await googleSignInRedirectListener();
+        await signInRedirectListener();
       } catch (e) {
         toast.error('Unable to sign in with Google.');
       }
