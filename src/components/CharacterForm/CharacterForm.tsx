@@ -114,21 +114,6 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
     });
   };
 
-  const onChangeSpeedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const path = e.target.name.split('.');
-    const speedType = path.pop() as string;
-
-    setFormData((prevState) => {
-      return update(prevState, {
-        characterSheet: {
-          speed: {
-            [speedType]: { $set: parseInt(e.target.value) },
-          },
-        },
-      });
-    });
-  };
-
   const onChangeAbilityScoreHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const path = e.target.name.split('.');
     const abilityName = path[0];
@@ -324,8 +309,8 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           type='number'
           name='speed.walk'
           min='0'
-          value={speed.walk}
-          onChange={onChangeSpeedHandler}
+          value={speed}
+          onChange={onChangeCharacterSheetHandler}
         />
       </div>
       <div className='border p-4 mb-4'>

@@ -10,13 +10,13 @@ import Home from '@views/Home/Home';
 import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
 import Initiative from '@views/Initiative/Initiative';
 import Players from '@views/Players/Players';
-import Auth from '@views/Auth/Auth';
+import Login from '@views/Login/Login';
+import SignUp from '@views/SignUp/SignUp';
 import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -46,12 +46,13 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className='h-screen bg-base-100'>
+    <div>
       <main>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path='/sign-in' element={<Auth />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<SignUp />} />
 
             <Route element={<PrivateRoute />}>
               <Route path='/players/*' element={<Players />} />

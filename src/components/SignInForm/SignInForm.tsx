@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { login } from '@store/Auth/Auth.Actions';
+
 import FormInput from '../FormInput/FormInput';
-import { Button } from 'react-daisyui';
-import { signInWithGoogleRedirect } from '@store/Auth/Auth.Service';
+import Button from '../Button/Button';
 
 import { toast } from 'react-toastify';
 
@@ -41,10 +41,8 @@ const SignUpForm = () => {
     dispatch(login({ email, password }));
   };
 
-  const onGoogleSignInHandler = () => signInWithGoogleRedirect();
-
   return (
-    <form onSubmit={onSubmitHandler} className=''>
+    <form onSubmit={onSubmitHandler} className='w-full'>
       <FormInput
         id='sign-in-email'
         label='Email'
@@ -62,17 +60,11 @@ const SignUpForm = () => {
         value={password}
         required
         onChange={onChangeHandler}
-        className='input input-bordered w-full'
       />
 
-      <div className='form-control w-full mt-4 gap-4'>
-        <Button color='primary' loading={isLoading}>
-          Sign In
-        </Button>
-        <Button type='button' onClick={onGoogleSignInHandler}>
-          Sign in with Google
-        </Button>
-      </div>
+      <Button loading={isLoading} className='w-full' btnStyle='gradient'>
+        Continue
+      </Button>
     </form>
   );
 };

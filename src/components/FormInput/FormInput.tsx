@@ -6,14 +6,20 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
   return (
-    <div className='form-control w-full'>
+    <div className='form-control w-full mb-8 relative'>
       {label && otherProps.id && (
-        <label className='label' htmlFor={otherProps.id}>
-          <span className='label-text'>{label}</span>
+        <label
+          className='text-sm inline-block px-2 bg-white absolute  left-2 -top-2'
+          htmlFor={otherProps.id}
+        >
+          <span>{label}</span>
         </label>
       )}
 
-      <input className='input input-bordered w-full' {...otherProps} />
+      <input
+        className='input input-bordered w-full rounded-md border-indigo-100 text-lg pt-4 pb-3'
+        {...otherProps}
+      />
     </div>
   );
 };

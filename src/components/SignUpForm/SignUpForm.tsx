@@ -1,12 +1,12 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@hooks/asyncDispatch';
-
 import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { register } from '@store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
+
 import FormInput from '@components/FormInput/FormInput';
-import { Button } from 'react-daisyui';
+import Button from '../Button/Button';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -70,11 +70,9 @@ const SignInForm = () => {
         onChange={onChangeHandler}
       />
 
-      <div className='form-control w-full mt-4 gap-4'>
-        <Button color='primary' loading={isLoading}>
-          Sign Up
-        </Button>
-      </div>
+      <Button loading={isLoading} className='w-full' btnStyle='gradient'>
+        Create Account
+      </Button>
     </form>
   );
 };

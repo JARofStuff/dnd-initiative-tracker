@@ -3,23 +3,19 @@ import { Timestamp, FieldValue } from 'firebase/firestore';
 
 export interface CharacterSheet {
   avatar: string;
-  gender: string;
   race: string;
   characterClass: string;
   subclass: string;
   level: number;
   experiencePoints: number;
-  inspiration: boolean;
-  background: string;
-  // alignment: string;
-  // patronOrDeity: string;
   hpMax: number;
+  tempHP: number;
   ac: number;
   spellSave: number;
-  speed: {
-    walk: number;
-    [key: string]: number | undefined;
-  };
+  inspiration: boolean;
+  initiative: number;
+  speed: number;
+  proficiencyBonus: number;
   abilityScores: {
     [key: string]: {
       score: number;
@@ -36,22 +32,19 @@ export interface CharacterSheet {
 
 const initialCharacterSheet: CharacterSheet = {
   avatar: '',
-  gender: '',
   race: '',
   characterClass: '',
   subclass: '',
   level: 1,
   experiencePoints: 0,
   inspiration: false,
-  background: '',
-  // alignment: undefined,
-  // patronOrDeity: undefined,
   hpMax: 0,
+  tempHP: 0,
   ac: 10,
   spellSave: 0,
-  speed: {
-    walk: 30,
-  },
+  initiative: 0,
+  speed: 30,
+  proficiencyBonus: 2,
   abilityScores: {
     strength: {
       score: 0,
