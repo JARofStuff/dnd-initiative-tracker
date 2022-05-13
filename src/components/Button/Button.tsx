@@ -5,12 +5,14 @@ const BTN_CLASSES = {
   gradient: 'inline-block px-6 py-3 rounded-full text-white gradient',
   ghost:
     'inline-block px-6 py-3 rounded-full border-solid border-2 text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500',
+  iconGhost:
+    'inline-block max-h-12 px-4 py-2 rounded-full border-solid border-2 text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500',
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   className?: string;
-  btnStyle?: 'base' | 'gradient' | 'ghost';
+  btnStyle?: 'base' | 'gradient' | 'ghost' | 'iconGhost';
 }
 
 const Button: FC<ButtonProps> = ({ children, btnStyle, loading, className, ...otherProps }) => {

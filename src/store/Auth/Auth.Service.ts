@@ -68,14 +68,6 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
-// export const googleSignInRedirectListener = async () => {
-//   try {
-//     return await getRedirectResult(auth);
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 // GITHUB AUTH
 const githubProvider = new GithubAuthProvider();
 githubProvider.setCustomParameters({

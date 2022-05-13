@@ -17,7 +17,7 @@ const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
       )}
 
       <input
-        className='input input-bordered w-full rounded-md border-indigo-100 text-lg pt-4 pb-3'
+        className='input input-bordered w-full rounded-md border-indigo-700 text-lg pt-4 pb-3'
         {...otherProps}
       />
     </div>

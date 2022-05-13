@@ -18,7 +18,9 @@ const Layout = () => {
   // };
 
   return (
-    <Outlet />
+    <main>
+      <Outlet />
+    </main>
 
     //   <Drawer
     //     id='main-menu'

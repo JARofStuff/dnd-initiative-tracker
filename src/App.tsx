@@ -47,24 +47,22 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
-      <main>
-        <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/sign-up' element={<SignUp />} />
+    <>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/sign-up' element={<SignUp />} />
 
-            <Route element={<PrivateRoute />}>
-              <Route path='/players/*' element={<Players />} />
-              <Route path='/initiative' element={<Initiative />} />
-              <Route path='/encounter-builder' element={<EncounterBuilder />} />
-            </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path='/players/*' element={<Players />} />
+            <Route path='/initiative' element={<Initiative />} />
+            <Route path='/encounter-builder' element={<EncounterBuilder />} />
           </Route>
-        </Routes>
-      </main>
+        </Route>
+      </Routes>
       <ToastContainer />
-    </div>
+    </>
   );
 }
 
