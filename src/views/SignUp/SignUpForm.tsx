@@ -5,8 +5,9 @@ import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { register } from '@store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
 
-import FormInput from '@components/FormInput/FormInput';
-import Button from '../Button/Button';
+import InputField from '@components/FormInputs/InputField';
+import PasswordField from '@components/FormInputs/PasswordField';
+import Button from '@components/Button/Button';
 
 const SignInForm = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +43,7 @@ const SignInForm = () => {
 
   return (
     <form onSubmit={onSubmitHandler} className=''>
-      <FormInput
+      <InputField
         type='text'
         id='sign-up-displayName'
         name='displayName'
@@ -51,26 +52,26 @@ const SignInForm = () => {
         required
         onChange={onChangeHandler}
       />
-      <FormInput
+      <InputField
         type='email'
         id='sign-up-email'
         name='email'
+        autoComplete='email'
         value={email}
         label='Email'
         required
         onChange={onChangeHandler}
       />
-      <FormInput
-        type='password'
-        id='sign-up-password'
+      <PasswordField
+        id='sign-in-password'
+        label='Password'
         name='password'
         value={password}
-        label='Password'
         required
         onChange={onChangeHandler}
       />
 
-      <Button loading={isLoading} className='w-full' btnStyle='gradient'>
+      <Button loading={isLoading} btnStyle='gradient full'>
         Create Account
       </Button>
     </form>

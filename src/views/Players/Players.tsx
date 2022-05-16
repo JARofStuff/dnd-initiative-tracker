@@ -40,7 +40,7 @@ const Players = () => {
   };
 
   return (
-    <div className='container p-4 max-w-lg'>
+    <main className='container p-4 max-w-lg'>
       <h1 className='text-2xl'>
         Players
         {location.pathname.includes('new') && ' [NEW]'}
@@ -55,7 +55,7 @@ const Players = () => {
         <Route path='new' element={<CharacterForm mode='new' />} />
         <Route path='edit/:id' element={<CharacterForm mode='edit' />} />
       </Routes>
-    </div>
+    </main>
   );
 };
 export default Players;

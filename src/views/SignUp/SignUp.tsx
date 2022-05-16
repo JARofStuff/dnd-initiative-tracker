@@ -6,7 +6,7 @@ import { selectAuthReducer } from '@root/src/store/Auth/Auth.Selector';
 import { reset } from '@root/src/store/Auth/Auth.Actions';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import SignUpForm from '@components/SignUpForm/SignUpForm';
+import SignUpForm from './SignUpForm';
 import Card from '@components/Card/Card';
 import logo from '@assets/png/logo.png';
 
@@ -30,7 +30,7 @@ const SignUp = () => {
   }, [isError, isSuccess, currentUser, message, dispatch, navigate]);
 
   return (
-    <main className='flex h-screen p-2 md:p-4'>
+    <main className='flex grow'>
       <Card
         className='max-w-xs'
         header={

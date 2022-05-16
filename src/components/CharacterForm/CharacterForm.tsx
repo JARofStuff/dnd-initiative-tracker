@@ -16,9 +16,9 @@ import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 import { selectCharacterReducer } from '@store/Character/Character.Selector';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-daisyui';
-import FormInput from '@components/FormInput/FormInput';
-import AbilityScoreFormInput from '@components/AbilityScoreFormInput/AbilityScoreFormInput';
-import SkillProficiencyFormInput from '@components/SkillProficiencyFormInput/SkillProficiencyFormInput';
+import InputField from '@components/FormInputs/InputField';
+import AbilityScoreInputField from '@components/FormInputs/AbilityScoreInput';
+import SkillProficiencyInputField from '@components/FormInputs/SkillProficiencyFormInput';
 import { toast } from 'react-toastify';
 
 interface CharacterFormProps {
@@ -63,13 +63,13 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
     playerName,
     characterSheet: {
       avatar,
-      gender,
+      // gender,
       race,
       characterClass,
       subclass,
       level,
       experiencePoints,
-      background,
+      // background,
       hpMax,
       ac,
       spellSave,
@@ -190,7 +190,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
     <form onSubmit={onSubmitHandler} className=''>
       <div className='border p-4 mb-4'>
         <h3>Character Info</h3>
-        <FormInput
+        <InputField
           id='characterName'
           label='Character Name'
           type='text'
@@ -199,7 +199,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           required
           onChange={onChangeHandler}
         />
-        <FormInput
+        <InputField
           id='playerName'
           label='Player Name'
           type='text'
@@ -207,7 +207,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={playerName}
           onChange={onChangeHandler}
         />
-        <FormInput
+        <InputField
           id='avatar'
           label='Avatar'
           type='text'
@@ -215,7 +215,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={avatar}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='race'
           label='Race'
           type='text'
@@ -223,15 +223,15 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={race}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        {/* <InputField
           id='gender'
           label='Gender'
           type='text'
           name='gender'
           value={gender}
           onChange={onChangeCharacterSheetHandler}
-        />
-        <FormInput
+        /> */}
+        <InputField
           id='characterClass'
           label='Class'
           type='text'
@@ -239,7 +239,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={characterClass}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='subclass'
           label='Sub Class'
           type='text'
@@ -247,18 +247,18 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={subclass}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        {/* <InputField
           id='background'
           label='Background'
           type='text'
           name='background'
           value={background}
           onChange={onChangeCharacterSheetHandler}
-        />
+        /> */}
       </div>
       <div className='border p-4 mb-4'>
         <h3>Level &amp; Base Stats</h3>
-        <FormInput
+        <InputField
           id='level'
           label='Level'
           type='number'
@@ -268,7 +268,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           max='20'
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='experiencePoints'
           label='Exp. Points'
           type='number'
@@ -276,7 +276,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={experiencePoints}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='hpMax'
           label='Max HP'
           type='number'
@@ -285,7 +285,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={hpMax}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='ac'
           label='AC'
           type='number'
@@ -294,7 +294,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={ac}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='spellSave'
           label='Spell Save DC'
           type='number'
@@ -303,7 +303,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={spellSave}
           onChange={onChangeCharacterSheetHandler}
         />
-        <FormInput
+        <InputField
           id='speed.walk'
           label='Walk Speed'
           type='number'
@@ -315,37 +315,37 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
       </div>
       <div className='border p-4 mb-4'>
         <h3>Ability Scores</h3>
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Strength'
           id='strength'
           ability={strength}
           onChange={onChangeAbilityScoreHandler}
         />
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Dexterity'
           id='dexterity'
           ability={dexterity}
           onChange={onChangeAbilityScoreHandler}
         />
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Constitution'
           id='constitution'
           ability={constitution}
           onChange={onChangeAbilityScoreHandler}
         />
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Intelligence'
           id='intelligence'
           ability={intelligence}
           onChange={onChangeAbilityScoreHandler}
         />
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Wisdom'
           id='wisdom'
           ability={wisdom}
           onChange={onChangeAbilityScoreHandler}
         />
-        <AbilityScoreFormInput
+        <AbilityScoreInputField
           label='Charisma'
           id='charisma'
           ability={charisma}
@@ -357,109 +357,109 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
         {/* dexAcrobatics, wisAnimalHandling, intArcana, strAthletics, chaDeception, intHistory,
           wisInsight, chaIntimidation, intInvestigation, wisMedicine, intNature, wisPerception,
           chaPerformance, chaPersuasion, intReligion, dexSleightOfHand, dexStealth, wisSurvival, */}
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Acrobatics'
           id='dexAcrobatics'
           skill={dexAcrobatics}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Animal Handling'
           id='wisAnimalHandling'
           skill={wisAnimalHandling}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Arcana'
           id='intArcana'
           skill={intArcana}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Athletics'
           id='strAthletics'
           skill={strAthletics}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Deception'
           id='chaDeception'
           skill={chaDeception}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='History'
           id='intHistory'
           skill={intHistory}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Insight'
           id='wisInsight'
           skill={wisInsight}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Intimidation'
           id='chaIntimidation'
           skill={chaIntimidation}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Investigation'
           id='intInvestigation'
           skill={intInvestigation}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Medicine'
           id='wisMedicine'
           skill={wisMedicine}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Nature'
           id='intNature'
           skill={intNature}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Perception'
           id='wisPerception'
           skill={wisPerception}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Performance'
           id='chaPerformance'
           skill={chaPerformance}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Persuasion'
           id='chaPersuasion'
           skill={chaPersuasion}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Religion'
           id='intReligion'
           skill={intReligion}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Sleight of Hand'
           id='dexSleightOfHand'
           skill={dexSleightOfHand}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Stealth'
           id='dexStealth'
           skill={dexStealth}
           onChange={onChangeSkillsHandler}
         />
-        <SkillProficiencyFormInput
+        <SkillProficiencyInputField
           label='Survival'
           id='wisSurvival'
           skill={wisSurvival}

@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Card from '@components/Card/Card';
-import SignInForm from '@components/SignInForm/SignInForm';
+import LogInForm from './LogInForm';
+
 import logo from '@assets/png/logo.png';
 
 export interface LocationState {
@@ -35,14 +36,14 @@ const Login = () => {
   }, [isError, isSuccess, currentUser, message, dispatch, navigate]);
 
   return (
-    <main className='flex h-screen p-2 md:p-4'>
+    <main className='flex grow'>
       <Card
         className='max-w-xs'
         header={
           <>
             <Link to='/' className='block text-center mx-auto mb-8 max-w-[9.5rem]'>
               <img src={logo} alt='Logo' />
-            </Link>
+            </Link>{' '}
             <h1 className='headline text-2xl'>Log In</h1>
           </>
         }
@@ -55,7 +56,7 @@ const Login = () => {
           </>
         }
       >
-        <SignInForm />
+        <LogInForm />
       </Card>
     </main>
   );

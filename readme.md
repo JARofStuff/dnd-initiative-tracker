@@ -1,4 +1,4 @@
-# ⚔️ D&D Initiative Tracker
+# ⚔️ 5e Initiative Tracker
 
 ⚠ This project is a work in progress.
 

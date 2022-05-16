@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from 'react';
 
-interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SkillProficiencyInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
   skill: {
@@ -9,7 +9,12 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   };
 }
 
-const SkillProficiencyFormInput: FC<FormInputProps> = ({ label, id, skill, ...otherProps }) => {
+const SkillProficiencyInput: FC<SkillProficiencyInputProps> = ({
+  label,
+  id,
+  skill,
+  ...otherProps
+}) => {
   return (
     <fieldset className='flex flex-row justify-start items-center w-full flex-nowrap'>
       <legend className='block float-left grow'>
@@ -49,4 +54,4 @@ const SkillProficiencyFormInput: FC<FormInputProps> = ({ label, id, skill, ...ot
     </fieldset>
   );
 };
-export default SkillProficiencyFormInput;
+export default SkillProficiencyInput;

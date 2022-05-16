@@ -4,9 +4,9 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
+const InputField: FC<FormInputProps> = ({ label, ...otherProps }) => {
   return (
-    <div className='form-control w-full mb-8 relative'>
+    <div className='w-full mb-8 relative'>
       {label && otherProps.id && (
         <label
           className='text-sm inline-block px-2 bg-white absolute  left-2 -top-2'
@@ -23,4 +23,4 @@ const FormInput: FC<FormInputProps> = ({ label, ...otherProps }) => {
     </div>
   );
 };
-export default FormInput;
+export default InputField;

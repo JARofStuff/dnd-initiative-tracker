@@ -1,0 +1,98 @@
+:root {
+  --bg: white;
+  --color1: black;
+  --color2: magenta;
+
+  --speed: 250ms;
+  --function: cubic-bezier(0.68, 0.14, 0.25, 0.88);
+
+  --pattythickness: 0.1875rem;
+  --pattyrounding: 1rem;
+  --pattyspacing: 0.25rem;
+  --icon_width: 1.5rem;
+}
+
+.hamburger {
+  position: relative;
+  display: block;
+  z-index: 100;
+  width: var(--icon_width);
+  height: var(--icon_width);
+  padding-top: calc((var(--icon_width) * 0.5) - var(--pattythickness) * 0.5);
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.hamburger div {
+  position: relative;
+}
+.hamburger div:before,
+.hamburger div:after {
+  position: absolute;
+}
+
+.hamburger div,
+.hamburger div:before,
+.hamburger div:after {
+  box-sizing: border-box;
+  margin: 0 auto;
+  content: '';
+  background-color: var(--color1);
+  height: var(--pattythickness);
+  width: var(--icon_width);
+  left: 0;
+  border-radius: var(--pattyrounding);
+  transform: rotate(0deg);
+  visibility: visible;
+
+  transition-property: transform, background-color, visibility, opacity, top, bottom;
+  transition-duration: var(--speed);
+  transition-timing-function: var(--function);
+}
+
+.hamburger div:before {
+  bottom: calc(var(--pattythickness) + var(--pattyspacing));
+}
+.hamburger div:after {
+  top: calc(var(--pattythickness) + var(--pattyspacing));
+}
+
+/* .hamburger:hover div,
+.hamburger:hover div:before,
+.hamburger:hover div:after {
+  background-color: var(--color2);
+} */
+
+/* .hamburger:active {
+  padding-top: calc(var(--icon_width) / 2 + 1px);
+} */
+
+/* .hamburger:active div,
+.hamburger:active div:before,
+.hamburger:active div:after {
+  width: var(--icon_width);
+} */
+
+.js-active.hamburger > div,
+.js-active:focus.hamburger > div {
+  background-color: black;
+  transform: rotate(225deg);
+}
+
+.js-active.hamburger div:before {
+  transform: rotate(90deg);
+  bottom: 0;
+  z-index: 101;
+  visibility: visible;
+  opacity: 1;
+
+  margin-bottom: 0;
+}
+.js-active.hamburger div:after {
+  transform: rotate(0deg);
+  top: 0;
+  z-index: 101;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 0;
+}

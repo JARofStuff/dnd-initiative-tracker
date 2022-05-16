@@ -1,26 +1,19 @@
 import type { FC, ButtonHTMLAttributes } from 'react';
-
-const BTN_CLASSES = {
-  base: 'inline-block px-6 py-3 rounded-full bg-indigo-900 text-white',
-  gradient: 'inline-block px-6 py-3 rounded-full text-white gradient',
-  ghost:
-    'inline-block px-6 py-3 rounded-full border-solid border-2 text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500',
-  iconGhost:
-    'inline-block max-h-12 px-4 py-2 rounded-full border-solid border-2 text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500',
-};
+import Spinner from '@components/Spinner/Spinner';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   className?: string;
-  btnStyle?: 'base' | 'gradient' | 'ghost' | 'iconGhost';
+  btnStyle?: string;
 }
 
 const Button: FC<ButtonProps> = ({ children, btnStyle, loading, className, ...otherProps }) => {
-  const btnClasses = btnStyle ? BTN_CLASSES[btnStyle] : BTN_CLASSES.base;
+  const btnClasses = btnStyle && `btn--${btnStyle}`;
+  const spinnerColorClass = btnStyle === 'iconGhost' && 'spinner-dark';
 
   return (
-    <button className={`${btnClasses} ${className}`} {...otherProps}>
-      {children}
+    <button className={`btn ${btnClasses} ${className}`} {...otherProps}>
+      {loading ? <Spinner className={`h-full mx-auto ${spinnerColorClass}`} /> : children}
     </button>
   );
 };

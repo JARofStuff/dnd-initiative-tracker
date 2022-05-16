@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 const CLASSES = {
-  card: 'w-full m-auto text-center',
+  card: 'w-full m-auto text-center p-2',
   header: 'text-center mx-auto mb-4',
   footer: 'mt-8',
 };

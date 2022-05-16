@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from 'react';
 
-interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface AbilityScoreInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
   ability: {
@@ -9,7 +9,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   };
 }
 
-const AbilityScoreFormInput: FC<FormInputProps> = ({ label, id, ability, ...otherProps }) => {
+const AbilityScoreInput: FC<AbilityScoreInputProps> = ({ label, id, ability, ...otherProps }) => {
   return (
     <>
       <div className='flex flex-row w-full'>
@@ -45,4 +45,4 @@ const AbilityScoreFormInput: FC<FormInputProps> = ({ label, id, ability, ...othe
     </>
   );
 };
-export default AbilityScoreFormInput;
+export default AbilityScoreInput;

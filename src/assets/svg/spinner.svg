@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83 94.417">
+  <defs>
+    <style>
+      polyline {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+
+  <polyline points="11.471 29.487 72.12 29.564 41.486 82.556 10.878 29.435 4.5 25.847 41.409 4.5 78.482 25.847 78.5 68.561 41.491 89.917 4.508 68.476 4.5 25.847"/>
+</svg>
+
+

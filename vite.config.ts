@@ -19,4 +19,7 @@ export default defineConfig({
     },
   },
   plugins: [react(), svgrPlugin()],
+  server: {
+    https: true,
+  },
 });

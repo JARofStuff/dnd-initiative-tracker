@@ -1,43 +1,31 @@
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
-import { useAppDispatch } from '@hooks/asyncDispatch';
-import { logout } from '@store/Auth/Auth.Actions';
-
+import { Link } from 'react-router-dom';
 import Card from '@components/Card/Card';
-import ButtonLink from '@components/ButtonLink/ButtonLink';
-import Button from '@components/Button/Button';
 import logo from '@assets/png/logo.png';
-import { toast } from 'react-toastify';
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-
   const authUser = useSelector(selectCurrentUser);
-  const signOutUserHandler = async () => {
-    dispatch(logout());
-    toast.success('Successfully Signed out');
-  };
+
   return (
-    <main className='flex h-screen p-2 md:p-4'>
+    <main className='flex grow'>
       <Card
-        className='max-w-xs md:max-w-sm'
+        className='max-w-xs md:max-w-md'
         header={
           <>
             <div className='max-w-xs md:max-w-sm text-center mx-auto mb-8'>
               <img src={logo} alt='Logo' />
             </div>
-            <h1 className='headline	text-4xl md:text-5xl gradient-on-text'>5e Initiative Tracker</h1>
+            <h1 className='headline	text-4xl md:text-5xl gradient-on-text mb-8'>
+              5e Initiative Tracker
+            </h1>
           </>
         }
       >
-        {authUser ? (
-          <Button onClick={signOutUserHandler} btnStyle='ghost' className='w-full md:w-auto'>
-            Sign out
-          </Button>
-        ) : (
-          <ButtonLink to='login' btnStyle='ghost' className='w-full md:w-auto'>
+        {!authUser && (
+          <Link to='login' className='btn btn--ghost'>
             Log In
-          </ButtonLink>
+          </Link>
         )}
       </Card>
     </main>

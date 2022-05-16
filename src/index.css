@@ -11,18 +11,44 @@
   html {
     font-family: 'Poppins', sans-serif;
   }
-}
-/* 
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+  }
+
+  /* 
 * {
   outline: 1px solid red;
 } */
 
-.gradient {
-  background-image: linear-gradient(130deg, #ef34ae 0%, #213885 70%, #4ebaf7 120%);
-}
+  /* main {
+  @apply bg-indigo-50;
+} */
 
-.gradient-on-text {
-  @apply gradient bg-clip-text text-transparent box-decoration-clone;
+  .gradient {
+    background-image: linear-gradient(130deg, #ef34ae 0%, #213885 70%, #4ebaf7 120%);
+  }
+
+  .gradient-on-text {
+    @apply gradient bg-clip-text text-transparent box-decoration-clone;
+  }
+
+  .gradient-on-svg {
+    fill: url(#mainGradient);
+  }
+
+  svg {
+    width: auto;
+    height: 100%;
+  }
 }
 
 .headline {
@@ -31,4 +57,39 @@
 
 .link {
   @apply underline text-pink-500 visited:text-indigo-800;
+}
+
+input:focus + .password-toggle {
+  @apply outline-none;
+
+  --tw-ring-inset: var(--tw-empty, /*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #2563eb;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width)
+    var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width))
+    var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  /* border-color: #2563eb; */
+}
+
+.btn {
+  @apply inline-flex justify-center items-center h-12 gap-2 py-2 px-6 mx-auto rounded-full bg-indigo-900 text-white w-full md:w-auto transition-all;
+}
+
+.btn--gradient {
+  @apply text-white gradient;
+}
+
+.btn--ghost {
+  @apply border-solid py-3 border-2 bg-transparent text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500;
+}
+
+.btn--iconOnlyGhost {
+  @apply border-solid py-2 border-2 bg-transparent text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500;
+}
+
+.btn.full {
+  @apply md:w-full;
 }

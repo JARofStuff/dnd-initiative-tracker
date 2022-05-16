@@ -5,15 +5,16 @@ import { useAppDispatch } from '@hooks/asyncDispatch';
 import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { login } from '@store/Auth/Auth.Actions';
 
-import FormInput from '../FormInput/FormInput';
-import Button from '../Button/Button';
+import Button from '@components/Button/Button';
+import InputField from '@components/FormInputs/InputField';
+import PasswordField from '@components/FormInputs/PasswordField';
 
 import { toast } from 'react-toastify';
 import { ReactComponent as GoogleIcon } from '@assets/svg/google-icon.svg';
 import { ReactComponent as GithubIcon } from '@assets/svg/github-icon.svg';
 import { signInWithGoogleRedirect, signInWithGithubRedirect } from '@store/Auth/Auth.Service';
 
-const SignUpForm = () => {
+const LogInForm = () => {
   const dispatch = useAppDispatch();
   const isLoading = useSelector(selectAuthLoading);
 
@@ -50,36 +51,46 @@ const SignUpForm = () => {
   return (
     <>
       <form onSubmit={onSubmitHandler} className='w-full'>
-        <FormInput
+        <InputField
           id='sign-in-email'
           label='Email'
           type='email'
           name='email'
           value={email}
+          autoComplete='username'
           required
           onChange={onChangeHandler}
         />
-        <FormInput
+        <PasswordField
           id='sign-in-password'
           label='Password'
-          type='password'
           name='password'
           value={password}
           required
           onChange={onChangeHandler}
         />
 
-        <Button loading={isLoading} className='w-full' btnStyle='gradient'>
+        <Button loading={isLoading} btnStyle='gradient full'>
           Continue
         </Button>
       </form>
       <div className='my-4'>or</div>
 
       <div className='flex gap-4'>
-        <Button type='button' className='grow' btnStyle='iconGhost' onClick={onGoogleSignInHandler}>
-          <GoogleIcon className='mx-auto  h-full w-auto' />
+        <Button
+          type='button'
+          className='grow'
+          btnStyle='iconOnlyGhost'
+          onClick={onGoogleSignInHandler}
+        >
+          <GoogleIcon className='mx-auto h-full w-auto' />
         </Button>
-        <Button type='button' className='grow' btnStyle='iconGhost' onClick={onGithubSignInHandler}>
+        <Button
+          type='button'
+          className='grow'
+          btnStyle='iconOnlyGhost'
+          onClick={onGithubSignInHandler}
+        >
           <GithubIcon className='mx-auto h-full w-auto' />
         </Button>
       </div>
@@ -87,4 +98,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default LogInForm;
