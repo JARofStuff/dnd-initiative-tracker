@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { ProfileData } from './Profile.Types';
 import { createUserDoc, reset } from './Profile.Actions';
+import { PURGE } from 'redux-persist';
 
 interface ProfileState {
   readonly userProfile: ProfileData | null;
@@ -43,6 +44,7 @@ export const profileSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
+      .addCase(PURGE, (state) => initialState)
 
       .addDefaultCase((state, action) => {});
   },

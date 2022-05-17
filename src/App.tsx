@@ -3,7 +3,10 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 
 import { authStateChangeListener, signInRedirectListener } from '@store/Auth/Auth.Service';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 import { setCurrentUser } from '@store/Auth/Auth.Actions';
+
 import { createUserDoc } from '@store/Profile/Profile.Actions';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
@@ -22,17 +25,22 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const dispatch = useAppDispatch();
+  const currentAuthUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     const unsubscribe = authStateChangeListener(async (user) => {
       if (user) {
-        dispatch(setCurrentUser(user.providerData[0]));
-        dispatch(createUserDoc(user.providerData[0]));
+        const newUser = user.providerData[0];
+
+        if (!currentAuthUser || newUser.uid !== currentAuthUser?.uid) {
+          dispatch(setCurrentUser(newUser));
+          dispatch(createUserDoc(newUser));
+        }
       }
     });
 
     return unsubscribe;
-  }, [dispatch]);
+  }, [currentAuthUser, dispatch]);
 
   useEffect(() => {
     // Catches Google Redirect Errors.

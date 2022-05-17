@@ -7,6 +7,9 @@ import {
   // googleSignIn,
   reset,
 } from './Auth.Actions';
+
+import { PURGE } from 'redux-persist';
+
 import type { UserInfo } from 'firebase/auth';
 
 interface AuthState {
@@ -24,6 +27,8 @@ const initialState: AuthState = {
   isSuccess: false,
   message: '',
 };
+
+// const authAdapter = createEntityAdapter<AuthState>();
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -44,6 +49,8 @@ export const authSlice = createSlice({
         state.currentUser = null;
         state.isLoading = false;
       })
+
+      .addCase(PURGE, (state) => initialState)
 
       .addMatcher(isPending(register, login, logout), (state) => {
         state.isLoading = true;

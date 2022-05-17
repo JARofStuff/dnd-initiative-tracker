@@ -1,4 +1,4 @@
-import { createSlice, isPending, isFulfilled, isRejected } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import type { CharacterData } from './Character.Types';
 import {
   fetchCharacters,
@@ -7,6 +7,7 @@ import {
   updateCharacter,
   reset,
 } from './Character.Actions';
+import { PURGE } from 'redux-persist';
 
 export interface CharacterState {
   readonly characters: {
@@ -69,6 +70,8 @@ export const characterSlice = createSlice({
         state.isSuccess = true;
         state.characters = { ...state.characters, ...action.payload };
       })
+
+      .addCase(PURGE, (state) => initialState)
 
       .addMatcher(
         isPending(fetchCharacters, createCharacter, deleteCharacter, updateCharacter),

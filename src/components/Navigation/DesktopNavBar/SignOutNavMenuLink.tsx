@@ -2,12 +2,14 @@ import { useAppDispatch } from '@hooks/asyncDispatch';
 import { logout } from '@store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
 import { ReactComponent as LogoutIcon } from '@assets/svg/logout.svg';
+import { persistor } from '@/store';
 
 const SignOutNavMenuLink = () => {
   const dispatch = useAppDispatch();
 
   const signOutUserHandler = async () => {
     dispatch(logout());
+    await persistor.purge();
     toast.success('Successfully Signed out');
   };
 
