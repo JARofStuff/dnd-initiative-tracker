@@ -1,12 +1,19 @@
 .nav-menu-link.active {
   color: #2563eb;
 }
-.nav-menu-link.active .nav-menu-link--icon {
+.nav-menu-link.active .nav-menu-link--icon svg {
   fill: #2563eb;
 }
 
+.dark .nav-menu-link.active {
+  color: #ef34ae;
+}
+.dark .nav-menu-link.active .nav-menu-link--icon svg {
+  fill: #ef34ae;
+}
+
 .nav-menu-link::after {
-  @apply block content-[''] bg-[#2563eb] absolute transition-all delay-500;
+  @apply block content-[''] bg-[#2563eb] dark:bg-[#ef34ae] absolute transition-all delay-500;
 }
 
 .nav-menu-link.active::after {

@@ -17,7 +17,7 @@ const SignOutNavMenuLink = () => {
       className='w-full p-4 flex justify-start items-center gap-3 cursor-pointer min-w-max bg-transparent hover:bg-indigo-50'
     >
       <div className='nav-menu-link--icon inline-block h-5 transition-all'>
-        <LogoutIcon />
+        <LogoutIcon className='dark:fill-indigo-200' />
       </div>
       <div className='nav-menu-link--label inline-block transition-all'>Sign out</div>
     </button>

@@ -6,6 +6,7 @@ import { selectAuthReducer } from '@root/src/store/Auth/Auth.Selector';
 import { reset } from '@root/src/store/Auth/Auth.Actions';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 
 import Card from '@components/Card/Card';
 import LogInForm from './LogInForm';
@@ -42,7 +43,7 @@ const Login = () => {
         header={
           <>
             <Link to='/' className='block text-center mx-auto mb-8 max-w-[9.5rem]'>
-              <img src={logo} alt='Logo' />
+              <Logo className='w-full gradient-on-svg' />
             </Link>{' '}
             <h1 className='headline text-2xl'>Log In</h1>
           </>

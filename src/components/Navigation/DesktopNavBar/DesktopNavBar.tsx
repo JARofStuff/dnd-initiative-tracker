@@ -42,9 +42,9 @@ const DesktopNavBar: FC<{ menuLinks: MenuLink[] }> = ({ menuLinks }) => {
   };
 
   return (
-    <header className='hidden md:grid sticky z-10 top-0 right-0 left-0 max-h-16 border-b border-indigo-100 grid-cols-3 bg-white'>
+    <header className='hidden md:grid sticky z-10 top-0 right-0 left-0 max-h-16 border-b grid-cols-3 bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-900'>
       <button
-        className='p-2 w-[44px] m-0 cursor-pointer justify-self-start relative z-50'
+        className='p-2 w-[44px] m-0 cursor-pointer justify-self-start relative z-50 hover:bg-indigo-50 dark:hover:bg-slate-800 '
         onClick={toggleMenuDrawer}
         aria-label='Toggle Display of Navigation Menu'
         aria-expanded={menuDrawerOpen}
@@ -54,14 +54,15 @@ const DesktopNavBar: FC<{ menuLinks: MenuLink[] }> = ({ menuLinks }) => {
       </button>
 
       <Link to='/' className='block p-2 justify-self-center'>
-        <Logo className='h-7 lg:h-10 gradient-on-svg' />
+        <Logo className='h-7 lg:h-10 gradient-on-svg transition-transform hover:scale-105' />
+        {/* transition-transform hover:scale-105 */}
       </Link>
 
       {currentUser && (
         <button className='p-2 cursor-pointer justify-self-end'>
           <Link
             to='/profile'
-            className='block h-7 w-7 lg:h-10 lg:w-10 m-0 rounded-full overflow-hidden bg-indigo-200 '
+            className='block h-7 w-7 lg:h-10 lg:w-10 m-0 rounded-full overflow-hidden'
           >
             <img
               src={currentUser.photoURL ? currentUser.photoURL : '#'}

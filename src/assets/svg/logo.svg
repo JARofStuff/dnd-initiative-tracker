@@ -3,8 +3,44 @@
     <linearGradient id="mainGradient" gradientTransform="rotate(-7)">
       <stop stop-color="#ef34ae" offset="0%"/>
       <stop stop-color="#213885" offset="70%"/>
-      <stop stop-color="#4ebaf7"  offset="120%"/>
+      <stop stop-color="#4ebaf7" offset="120%"/>
     </linearGradient>   
+    <linearGradient id="darkGradient" gradientTransform="rotate(-7)">
+      <stop stop-color="#fe40bb" offset="0%"/>
+      <stop stop-color="#febcf7" offset="50%"/>
+      <stop stop-color="#73ddf8" offset="80%"/>
+    </linearGradient>   
+    
+    <!-- <linearGradient id="mainGradientAnimated" gradientTransform="rotate(-7)"> 
+      <stop offset="0%" stop-color="#ef34ae">
+      <animate 
+        attributeName="stop-color" 
+        values="#ef34ae; #213885; #4ebaf7; #213885; #ef34ae" 
+        dur="4000ms" 
+        repeatCount="indefinite" 
+        ></animate>
+      </stop>
+
+      <stop offset="70%" stop-color="#213885">
+      <animate 
+        attributeName="stop-color"
+        values="#213885; #4ebaf7; #213885; #ef34ae; #213885"
+        dur="4000ms"
+        repeatCount="indefinite"
+        ></animate>
+      </stop>
+
+      <stop offset="120%" stop-color="#4ebaf7">
+      <animate 
+        attributeName="stop-color"
+        values="#4ebaf7; #213885; #ef34ae; #213885; #4ebaf7;"
+        dur="4000ms"
+        repeatCount="indefinite"
+        ></animate>
+  
+      </stop>
+    </linearGradient>  -->
+
   </defs>
 
   <g>

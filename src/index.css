@@ -8,13 +8,14 @@
   *:after {
     box-sizing: border-box;
   }
-  html {
-    font-family: 'Poppins', sans-serif;
-  }
 
   html,
   body {
     height: 100%;
+  }
+
+  main {
+    @apply mb-14 md:mb-0;
   }
 
   #root {
@@ -37,6 +38,10 @@
     background-image: linear-gradient(130deg, #ef34ae 0%, #213885 70%, #4ebaf7 120%);
   }
 
+  .dark .gradient {
+    background-image: linear-gradient(130deg, #fe40bb 0%, #febcf7 50%, #73ddf8 70%);
+  }
+
   .gradient-on-text {
     @apply gradient bg-clip-text text-transparent box-decoration-clone;
   }
@@ -45,18 +50,37 @@
     fill: url(#mainGradient);
   }
 
+  /* Use the colors to transition to */
+  /* svg:hover {
+    fill: url(#mainGradientAnimated);
+  } */
+  /* svg:hover stop:first-child {
+    stop-color: #4ebaf7;
+  }
+  svg:hover stop:last-child {
+    stop-color: #ef34ae;
+  } */
+
+  .dark .gradient-on-svg {
+    fill: url(#darkGradient);
+  }
+
+  /* .dark svg:hover stop:first-child {
+    stop-color: #73ddf8;
+  }
+  .dark svg:hover stop:last-child {
+    stop-color: #fe40bb;
+  } */
+
   svg {
-    width: auto;
-    height: 100%;
+    /* width: auto;
+    height: 100%; */
+    @apply w-auto h-full fill-indigo-900;
   }
 }
 
 .headline {
   @apply font-extrabold uppercase tracking-widest	block gradient-on-text;
-}
-
-.link {
-  @apply underline text-pink-500 visited:text-indigo-800;
 }
 
 input:focus + .password-toggle {
@@ -79,17 +103,21 @@ input:focus + .password-toggle {
 }
 
 .btn--gradient {
-  @apply text-white gradient;
+  @apply text-white dark:text-slate-900 gradient;
 }
 
 .btn--ghost {
-  @apply border-solid py-3 border-2 bg-transparent text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500;
+  @apply border-solid py-3 border-2 bg-transparent text-indigo-900 dark:text-indigo-200  border-indigo-900 dark:border-indigo-500  hover:text-pink-500 hover:border-pink-500;
 }
 
 .btn--iconOnlyGhost {
-  @apply border-solid py-2 border-2 bg-transparent text-indigo-900 border-indigo-900 hover:text-pink-500 hover:border-pink-500;
+  @apply border-solid py-2 border-2 bg-transparent text-indigo-900 border-indigo-900 dark:border-indigo-500 hover:text-pink-500 hover:border-pink-500;
 }
 
 .btn.full {
   @apply md:w-full;
+}
+
+.link {
+  @apply underline text-pink-500 visited:text-indigo-800 dark:text-indigo-700 visited:dark:text-indigo-200;
 }

@@ -91,7 +91,7 @@ const LogInForm = () => {
           btnStyle='iconOnlyGhost'
           onClick={onGithubSignInHandler}
         >
-          <GithubIcon className='mx-auto h-full w-auto' />
+          <GithubIcon className='mx-auto h-full w-auto dark:fill-white' />
         </Button>
       </div>
     </>

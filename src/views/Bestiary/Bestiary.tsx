@@ -1,6 +1,6 @@
 const Bestiary = () => {
   return (
-    <div>
+    <main>
       <p>
         Ad tempus quis nascetur nulla vel netus proin eu id dui vestibulum vitae lacinia orci magnis
         posuere eget ipsum erat a fermentum in nibh. A vestibulum accumsan id nunc purus nisl
@@ -242,7 +242,7 @@ const Bestiary = () => {
         aptent purus massa platea ante odio praesent pretium amet consequat condimentum class
         convallis quam.
       </p>
-    </div>
+    </main>
   );
 };
 export default Bestiary;

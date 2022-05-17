@@ -16,7 +16,7 @@ const MenuDrawer: FC<MenuDrawerProps> = ({ mainMenuLinks, isOpen }) => {
   return (
     <div
       id='desktop-menu-drawer'
-      className={`fixed z-20 top-0 left-0 bottom-0 w-60 pt-11 lg:pt-14 bg-white transition-all ${visibilityClassNames}`}
+      className={`fixed z-20 top-0 left-0 bottom-0 w-60 pt-11 lg:pt-14 transition-all duration-300 bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-900 ${visibilityClassNames}`}
     >
       <nav aria-label='Main Navigation'>
         {mainMenuLinks.map((link, i) => (

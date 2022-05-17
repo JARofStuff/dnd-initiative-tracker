@@ -1,7 +1,5 @@
-:root {
-  --bg: white;
-  --color1: black;
-  --color2: magenta;
+.hamburger {
+  --bg: #312e81;
 
   --speed: 250ms;
   --function: cubic-bezier(0.68, 0.14, 0.25, 0.88);
@@ -10,9 +8,7 @@
   --pattyrounding: 1rem;
   --pattyspacing: 0.25rem;
   --icon_width: 1.5rem;
-}
 
-.hamburger {
   position: relative;
   display: block;
   z-index: 100;
@@ -21,6 +17,10 @@
   padding-top: calc((var(--icon_width) * 0.5) - var(--pattythickness) * 0.5);
   cursor: pointer;
   margin: 0 auto;
+}
+
+.dark .hamburger {
+  --bg: #c7d2fe;
 }
 
 .hamburger div {
@@ -37,7 +37,7 @@
   box-sizing: border-box;
   margin: 0 auto;
   content: '';
-  background-color: var(--color1);
+  background-color: var(--bg);
   height: var(--pattythickness);
   width: var(--icon_width);
   left: 0;
@@ -57,12 +57,6 @@
   top: calc(var(--pattythickness) + var(--pattyspacing));
 }
 
-/* .hamburger:hover div,
-.hamburger:hover div:before,
-.hamburger:hover div:after {
-  background-color: var(--color2);
-} */
-
 /* .hamburger:active {
   padding-top: calc(var(--icon_width) / 2 + 1px);
 } */
@@ -75,7 +69,7 @@
 
 .js-active.hamburger > div,
 .js-active:focus.hamburger > div {
-  background-color: black;
+  /* background-color: black; */
   transform: rotate(225deg);
 }
 

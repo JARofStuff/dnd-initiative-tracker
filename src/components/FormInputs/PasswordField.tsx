@@ -15,7 +15,7 @@ const PasswordField: FC<FormInputProps> = ({ label, ...otherProps }) => {
     <div className='flex w-full mb-8 relative'>
       {label && otherProps.id && (
         <label
-          className='text-sm inline-block px-2 bg-white absolute  left-2 -top-2'
+          className='text-sm inline-block px-2 bg-white dark:bg-slate-900  absolute left-2 -top-2 rounded-md'
           htmlFor={otherProps.id}
         >
           <span>{label}</span>
@@ -23,13 +23,13 @@ const PasswordField: FC<FormInputProps> = ({ label, ...otherProps }) => {
       )}
 
       <input
-        className='input input-bordered w-full rounded-l-md border-indigo-700 border-r-0 text-lg pt-4 pb-3 '
+        className='input input-bordered w-full rounded-l-md bg-white dark:bg-slate-900  border-indigo-700 dark:border-indigo-500 border-r-0 text-lg pt-4 pb-3 '
         type={passwordVisible ? 'text' : 'password'}
         autoComplete='current-password'
         {...otherProps}
       />
       <div
-        className='bg-white rounded-r-md border bg-indigo-50 border-l-0 border-indigo-700 flex items-center px-3 w-12 password-toggle cursor-pointer'
+        className='bg-white rounded-r-md border bg-indigo-50 dark:bg-slate-700 border-l-0 border-indigo-700 dark:border-indigo-500 flex items-center px-3 w-12 password-toggle cursor-pointer'
         onClick={togglePasswordVisible}
       >
         {passwordVisible ? (

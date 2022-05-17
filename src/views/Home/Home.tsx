@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 import { Link } from 'react-router-dom';
 import Card from '@components/Card/Card';
-import logo from '@assets/png/logo.png';
+// import logo from '@assets/png/logo.png';
+import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 
 const Home = () => {
   const authUser = useSelector(selectCurrentUser);
@@ -14,7 +15,7 @@ const Home = () => {
         header={
           <>
             <div className='max-w-xs md:max-w-sm text-center mx-auto mb-8'>
-              <img src={logo} alt='Logo' />
+              <Logo className='w-full gradient-on-svg' />
             </div>
             <h1 className='headline	text-4xl md:text-5xl gradient-on-text mb-8'>
               5e Initiative Tracker

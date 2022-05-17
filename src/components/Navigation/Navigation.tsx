@@ -16,10 +16,14 @@ export type MenuLink = {
 };
 
 const menuLinks: MenuLink[] = [
-  { to: '/players', label: 'Players', icon: <Party /> },
-  { to: '/initiative', label: 'Initiative', icon: <Dice /> },
-  { to: '/encounter-builder', label: 'Encounters', icon: <Sword /> },
-  { to: '/bestiary', label: 'Bestiary', icon: <Skull /> },
+  { to: '/players', label: 'Players', icon: <Party className='dark:fill-indigo-200' /> },
+  { to: '/initiative', label: 'Initiative', icon: <Dice className='dark:fill-indigo-200' /> },
+  {
+    to: '/encounter-builder',
+    label: 'Encounters',
+    icon: <Sword className='dark:fill-indigo-200' />,
+  },
+  { to: '/bestiary', label: 'Bestiary', icon: <Skull className='dark:fill-indigo-200' /> },
 ];
 
 const Navigation = () => {

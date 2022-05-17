@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import SignUpForm from './SignUpForm';
 import Card from '@components/Card/Card';
 import logo from '@assets/png/logo.png';
+import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 
 const SignUp = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const SignUp = () => {
         header={
           <>
             <Link to='/' className='block text-center mx-auto mb-8 max-w-[9.5rem]'>
-              <img src={logo} alt='Logo' />
+              <Logo className='w-full gradient-on-svg' />
             </Link>
             <h1 className='headline text-2xl'>Sign Up</h1>
           </>
