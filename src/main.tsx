@@ -7,11 +7,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import './index.css';
 import App from './App';
+import SplashScreen from '@views/SplashScreen/SplashScreen';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor} />
+      <PersistGate loading={<SplashScreen />} persistor={persistor} />
+
       <Router>
         <App />
       </Router>

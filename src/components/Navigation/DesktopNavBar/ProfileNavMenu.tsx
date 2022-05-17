@@ -10,7 +10,11 @@ const ProfileNavMenu: FC<{ className?: string }> = ({ className }) => {
       aria-label='Profile and Authentication'
       aria-controls='desktop-menu-drawer'
     >
-      <NavMenuLink to='/' icon={<UserIcon className='dark:fill-indigo-200' />} label='Profile' />
+      <NavMenuLink
+        to='/profile'
+        icon={<UserIcon className='dark:fill-indigo-200' />}
+        label='Profile'
+      />
       <SignOutNavMenuLink />
     </nav>
   );
