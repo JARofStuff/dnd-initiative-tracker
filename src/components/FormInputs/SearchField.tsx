@@ -4,9 +4,9 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const InputField: FC<FormInputProps> = ({ label, ...otherProps }) => {
+const SearchField: FC<FormInputProps> = ({ label, ...otherProps }) => {
   return (
-    <div className='w-full mb-8 relative '>
+    <div className='w-full mb-8 relative'>
       {label && otherProps.id && (
         <label
           className='text-sm inline-block px-2 bg-white dark:bg-slate-900 absolute left-2 -top-2 rounded-md'
@@ -17,10 +17,12 @@ const InputField: FC<FormInputProps> = ({ label, ...otherProps }) => {
       )}
 
       <input
-        className='input w-full rounded-md bg-white dark:bg-slate-900 border-indigo-700 dark:border-indigo-500 text-lg pt-4 pb-3'
+        type='search'
+        placeholder='Search'
+        className='h-12 w-full rounded-md bg-white dark:bg-slate-900 border-indigo-200 dark:border-indigo-500 text-base placeholder-indigo-300'
         {...otherProps}
       />
     </div>
   );
 };
-export default InputField;
+export default SearchField;

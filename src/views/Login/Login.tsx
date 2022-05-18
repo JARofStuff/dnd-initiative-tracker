@@ -30,7 +30,7 @@ const Login = () => {
 
     // Redirect when logged in
     if (isSuccess || currentUser) {
-      navigate('/players');
+      navigate('/characters');
     }
 
     dispatch(reset());

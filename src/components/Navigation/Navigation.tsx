@@ -16,7 +16,7 @@ export type MenuLink = {
 };
 
 const menuLinks: MenuLink[] = [
-  { to: '/players', label: 'Players', icon: <Party className='dark:fill-indigo-200' /> },
+  { to: '/characters', label: 'Characters', icon: <Party className='dark:fill-indigo-200' /> },
   { to: '/initiative', label: 'Initiative', icon: <Dice className='dark:fill-indigo-200' /> },
   {
     to: '/encounter-builder',

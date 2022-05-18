@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 
 import { authStateChangeListener, signInRedirectListener } from '@store/Auth/Auth.Service';
@@ -14,7 +14,7 @@ import Layout from '@views/Layout/Layout';
 import Home from '@views/Home/Home';
 import EncounterBuilder from '@views/EncounterBuilder/EncounterBuilder';
 import Initiative from '@views/Initiative/Initiative';
-import Players from '@views/Players/Players';
+import Characters from '@views/Characters';
 import Bestiary from '@views/Bestiary/Bestiary';
 import Login from '@views/Login/Login';
 import SignUp from '@views/SignUp/SignUp';
@@ -64,7 +64,7 @@ function App() {
           <Route path='/sign-up' element={<SignUp />} />
 
           <Route element={<PrivateRoute />}>
-            <Route path='/players/*' element={<Players />} />
+            <Route path='/characters/*' element={<Characters />} />
             <Route path='/initiative' element={<Initiative />} />
             <Route path='/encounter-builder' element={<EncounterBuilder />} />
             <Route path='/bestiary' element={<Bestiary />} />

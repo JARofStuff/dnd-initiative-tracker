@@ -12,11 +12,11 @@ import SplashScreen from '@views/SplashScreen/SplashScreen';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={<SplashScreen />} persistor={persistor} />
-
-      <Router>
-        <App />
-      </Router>
+      <PersistGate loading={<SplashScreen />} persistor={persistor}>
+        <Router>
+          <App />
+        </Router>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
