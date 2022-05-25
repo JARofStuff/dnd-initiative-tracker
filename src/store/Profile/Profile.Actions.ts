@@ -13,7 +13,7 @@ export enum PROFILE_ACTION_TYPES {
 }
 
 export const reset = createAction(PROFILE_ACTION_TYPES.RESET);
-export const unsetProfile = createAction(PROFILE_ACTION_TYPES.UNSET_USER_PROFILE);
+export const clearProfile = createAction(PROFILE_ACTION_TYPES.UNSET_USER_PROFILE);
 
 export const createUserDoc = createAsyncThunk<
   ProfileData,

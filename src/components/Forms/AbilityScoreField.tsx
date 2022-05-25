@@ -1,15 +1,23 @@
 import { FC, InputHTMLAttributes } from 'react';
+import uniqid from 'uniqid';
 
 interface AbilityScoreInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  id: string;
+  name: string;
   ability: {
     score: number;
     proficient: boolean;
   };
 }
 
-const AbilityScoreInput: FC<AbilityScoreInputProps> = ({ label, id, ability, ...otherProps }) => {
+const AbilityScoreField: FC<AbilityScoreInputProps> = ({
+  id = uniqid(),
+  label,
+  name,
+  ability,
+  ...otherProps
+}) => {
+  console.log(ability);
   return (
     <>
       <div className='flex flex-row w-full'>
@@ -22,7 +30,7 @@ const AbilityScoreInput: FC<AbilityScoreInputProps> = ({ label, id, ability, ...
             className='input input-bordered'
             type='number'
             id={`${id}Score`}
-            name={`${id}.score`}
+            name={`${name}.score`}
             value={ability.score}
             {...otherProps}
           />
@@ -36,7 +44,7 @@ const AbilityScoreInput: FC<AbilityScoreInputProps> = ({ label, id, ability, ...
             className='checkbox'
             type='checkbox'
             id={`${id}Proficiency`}
-            name={`${id}.proficient`}
+            name={`${name}.proficient`}
             checked={ability.proficient}
             {...otherProps}
           />
@@ -45,4 +53,4 @@ const AbilityScoreInput: FC<AbilityScoreInputProps> = ({ label, id, ability, ...
     </>
   );
 };
-export default AbilityScoreInput;
+export default AbilityScoreField;

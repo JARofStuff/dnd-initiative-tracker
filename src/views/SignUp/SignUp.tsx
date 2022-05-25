@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SignUpForm from './SignUpForm';
 import Card from '@components/Card/Card';
-import logo from '@assets/png/logo.png';
 import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 
 const SignUp = () => {
@@ -37,7 +36,7 @@ const SignUp = () => {
         header={
           <>
             <Link to='/' className='block text-center mx-auto mb-8 max-w-[9.5rem]'>
-              <Logo className='w-full gradient-on-svg' />
+              <Logo className='w-full fill-gradient dark:fill-gradient-dark' />
             </Link>
             <h1 className='headline text-2xl'>Sign Up</h1>
           </>

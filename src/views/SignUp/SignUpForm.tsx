@@ -5,8 +5,8 @@ import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { register } from '@store/Auth/Auth.Actions';
 import { toast } from 'react-toastify';
 
-import InputField from '@components/FormInputs/InputField';
-import PasswordField from '@components/FormInputs/PasswordField';
+import InputField from '@components/Forms/InputField';
+import PasswordField from '@components/Forms/PasswordField';
 import Button from '@components/Button/Button';
 
 const SignInForm = () => {

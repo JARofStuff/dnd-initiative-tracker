@@ -1,17 +1,19 @@
 import { FC, InputHTMLAttributes } from 'react';
+import uniqid from 'uniqid';
 
 interface SkillProficiencyInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  id: string;
+  name: string;
   skill: {
     proficient: boolean;
     expertise: boolean;
   };
 }
 
-const SkillProficiencyInput: FC<SkillProficiencyInputProps> = ({
+const SkillProficiencyField: FC<SkillProficiencyInputProps> = ({
+  id = uniqid(),
   label,
-  id,
+  name,
   skill,
   ...otherProps
 }) => {
@@ -31,7 +33,7 @@ const SkillProficiencyInput: FC<SkillProficiencyInputProps> = ({
           className='checkbox'
           type='checkbox'
           id={`${id}Proficiency`}
-          name={`${id}.proficient`}
+          name={`${name}.proficient`}
           checked={skill.proficient}
           {...otherProps}
         />
@@ -45,7 +47,7 @@ const SkillProficiencyInput: FC<SkillProficiencyInputProps> = ({
           className='checkbox'
           type='checkbox'
           id={`${id}Expertise`}
-          name={`${id}.expertise`}
+          name={`${name}.expertise`}
           checked={skill.proficient ? skill.expertise : false}
           disabled={!skill.proficient}
           {...otherProps}
@@ -54,4 +56,4 @@ const SkillProficiencyInput: FC<SkillProficiencyInputProps> = ({
     </fieldset>
   );
 };
-export default SkillProficiencyInput;
+export default SkillProficiencyField;

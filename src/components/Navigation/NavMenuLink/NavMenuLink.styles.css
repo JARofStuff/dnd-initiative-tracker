@@ -13,10 +13,11 @@
 }
 
 .nav-menu-link::after {
-  @apply block content-[''] bg-[#2563eb] dark:bg-[#ef34ae] absolute transition-all delay-500;
+  @apply block content-[''] bg-[#2563eb] dark:bg-[#ef34ae];
+  @apply absolute transition-all inset-0 h-0 md:w-0 md:h-full  md:delay-500;
 }
 
 .nav-menu-link.active::after {
-  @apply w-full h-1 top-0 left-0 right-0 bottom-0;
+  @apply w-full h-1;
   @apply md:w-1 md:h-full;
 }

@@ -3,15 +3,18 @@ import { ReactComponent as GoogleIcon } from '@assets/svg/google-icon.svg';
 import { ReactComponent as GithubIcon } from '@assets/svg/github-icon.svg';
 import Button from '@components/Button/Button';
 import { ReactComponent as LogoutIcon } from '@assets/svg/logout.svg';
+import { CheckboxField, ToggleSwitchField } from '@components/Forms';
 
 const Profile = () => {
-  const isLoading = false;
-
   return (
-    <main className='w-52'>
+    <main className='w-52 p-8'>
       <h1>Profile</h1>
 
       <SignOutButton />
+      <br />
+      <CheckboxField id='checkbox' name='checkbox' label='Checkbox' />
+      <br />
+      <ToggleSwitchField id='toggle' name='toggle' label='Toggle' />
     </main>
   );
 };

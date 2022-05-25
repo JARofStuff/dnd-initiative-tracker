@@ -1,23 +1,28 @@
 import { FC, InputHTMLAttributes } from 'react';
+import uniqid from 'uniqid';
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const InputField: FC<FormInputProps> = ({ label, ...otherProps }) => {
+const InputField: FC<FormInputProps> = ({ type = 'text', id = uniqid(), label, ...otherProps }) => {
   return (
     <div className='w-full mb-8 relative '>
-      {label && otherProps.id && (
+      {label && id && (
         <label
           className='text-sm inline-block px-2 bg-white dark:bg-slate-900 absolute left-2 -top-2 rounded-md'
-          htmlFor={otherProps.id}
+          htmlFor={id}
         >
           <span>{label}</span>
         </label>
       )}
 
       <input
-        className='input w-full rounded-md bg-white dark:bg-slate-900 border-indigo-700 dark:border-indigo-500 text-lg pt-4 pb-3'
+        type={type}
+        className={`
+          peer w-full rounded-md bg-white dark:bg-slate-900 border border-indigo-700 dark:border-indigo-500
+          focus:outline focus:outline-2 focus:outline-indigo-700 dark:outline-indigo-500 text-lg  p-4 pb-3
+          `}
         {...otherProps}
       />
     </div>

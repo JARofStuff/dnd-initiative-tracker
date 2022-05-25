@@ -22,6 +22,7 @@ import Profile from '@views/Profile/Profile';
 import PrivateRoute from '@views/PrivateRoute/PrivateRoute';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactComponent as SVGDefs } from '@assets/svg/defs.svg';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -73,6 +74,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer />
+      <SVGDefs />
     </>
   );
 }

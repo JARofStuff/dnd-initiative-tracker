@@ -11,8 +11,6 @@ import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 import Card from '@components/Card/Card';
 import LogInForm from './LogInForm';
 
-import logo from '@assets/png/logo.png';
-
 export interface LocationState {
   from: { pathname: string };
 }
@@ -43,7 +41,7 @@ const Login = () => {
         header={
           <>
             <Link to='/' className='block text-center mx-auto mb-8 max-w-[9.5rem]'>
-              <Logo className='w-full gradient-on-svg' />
+              <Logo className='w-full fill-gradient dark:fill-gradient-dark' />
             </Link>{' '}
             <h1 className='headline text-2xl'>Log In</h1>
           </>

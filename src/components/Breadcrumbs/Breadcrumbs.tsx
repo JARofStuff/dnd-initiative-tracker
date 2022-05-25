@@ -14,10 +14,10 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ crumbs }) => {
   return (
-    <ul className='flex justify-start items-center gap-1 mb-12 mt-8 text-sm'>
+    <ul className='flex justify-start items-center gap-1 mb-8 md:mb-12 mt-2 md:mt-8 text-sm'>
       <li className='inline-block h-5 w-5'>
         <Link to='/'>
-          <D20 className='gradient-on-svg' />
+          <D20 className='fill-gradient dark:fill-gradient-dark' />
         </Link>
       </li>
       {crumbs.map(({ to, label }, i) => (

@@ -1,15 +1,12 @@
-import { useAppDispatch } from '@hooks/asyncDispatch';
-import { logout } from '@store/Auth/Auth.Actions';
-import { toast } from 'react-toastify';
+import useDispatchSignOutAndClearStates from '@hooks/useDispatchLogoutAndClearState';
 import { ReactComponent as LogoutIcon } from '@assets/svg/logout.svg';
 import Button from '@components/Button/Button';
 
 const SignOutButton = () => {
-  const dispatch = useAppDispatch();
+  const dispatchSignOutAndClearStates = useDispatchSignOutAndClearStates();
 
   const signOutUserHandler = async () => {
-    await dispatch(logout());
-    toast.success('Successfully Signed out');
+    await dispatchSignOutAndClearStates();
   };
 
   return (

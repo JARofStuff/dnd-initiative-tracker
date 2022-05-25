@@ -8,7 +8,7 @@ const NewCharacter = () => {
         <Breadcrumbs
           crumbs={[{ to: '/characters', label: 'Characters' }, { label: 'New Character' }]}
         />
-        <h1 className='text-4xl headline gradient-on-text inline mb-8'>New Character</h1>
+        <h1 className='text-4xl font-bold gradient-on-text inline mb-8'>New Character</h1>
       </header>
       <CharacterForm mode='new' />
     </>

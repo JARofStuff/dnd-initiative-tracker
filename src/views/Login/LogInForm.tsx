@@ -6,8 +6,8 @@ import { selectAuthLoading } from '@store/Auth/Auth.Selector';
 import { login } from '@store/Auth/Auth.Actions';
 
 import Button from '@components/Button/Button';
-import InputField from '@components/FormInputs/InputField';
-import PasswordField from '@components/FormInputs/PasswordField';
+import InputField from '@components/Forms/InputField';
+import PasswordField from '@components/Forms/PasswordField';
 
 import { toast } from 'react-toastify';
 import { ReactComponent as GoogleIcon } from '@assets/svg/google-icon.svg';

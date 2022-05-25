@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <style>
+      polyline.checkmark {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 40px;
+      }
+
+    </style>
+  </defs>
+  <polyline class="checkmark" points="41.293 152.619 111.696 223.022 257.739 76.978"/>
+</svg>

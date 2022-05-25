@@ -1,16 +1,11 @@
-import { useAppDispatch } from '@hooks/asyncDispatch';
-import { logout } from '@store/Auth/Auth.Actions';
-import { toast } from 'react-toastify';
+import useDispatchLogoutAndClearStates from '@hooks/useDispatchLogoutAndClearState';
 import { ReactComponent as LogoutIcon } from '@assets/svg/logout.svg';
-import { persistor } from '@/store';
 
 const SignOutNavMenuLink = () => {
-  const dispatch = useAppDispatch();
+  const dispatchLogoutAndClearStates = useDispatchLogoutAndClearStates();
 
   const signOutUserHandler = async () => {
-    dispatch(logout());
-    await persistor.purge();
-    toast.success('Successfully Signed out');
+    await dispatchLogoutAndClearStates();
   };
 
   return (
@@ -18,8 +13,8 @@ const SignOutNavMenuLink = () => {
       onClick={signOutUserHandler}
       className='w-full p-4 flex justify-start items-center gap-3 cursor-pointer min-w-max bg-transparent hover:bg-indigo-50'
     >
-      <div className='nav-menu-link--icon inline-block h-5 transition-all'>
-        <LogoutIcon className='dark:fill-indigo-200' />
+      <div className='nav-menu-link--icon inline-block h-6 transition-all'>
+        <LogoutIcon className='fill-indigo-900 dark:fill-indigo-200' />
       </div>
       <div className='nav-menu-link--label inline-block transition-all'>Sign out</div>
     </button>

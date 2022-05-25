@@ -15,7 +15,7 @@ const Home = () => {
         header={
           <>
             <div className='max-w-xs md:max-w-sm text-center mx-auto mb-8'>
-              <Logo className='w-full gradient-on-svg' />
+              <Logo className='w-full fill-gradient dark:fill-gradient-dark' />
             </div>
             <h1 className='headline	text-4xl md:text-5xl gradient-on-text mb-8'>
               5e Initiative Tracker

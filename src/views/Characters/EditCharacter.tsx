@@ -8,7 +8,7 @@ const EditCharacter = () => {
         <Breadcrumbs
           crumbs={[{ to: '/characters', label: 'Characters' }, { label: 'Edit Character' }]}
         />
-        <h1 className='text-2xl md:text-4xl headline gradient-on-text inline mb-8'>
+        <h1 className='text-2xl md:text-4xl font-bold gradient-on-text inline mb-8'>
           Edit Character
         </h1>
       </header>

@@ -15,7 +15,7 @@ export interface CharacterSheet {
   inspiration: boolean;
   initiative: number;
   speed: number;
-  proficiencyBonus: number;
+  // proficiencyBonus: number;
   abilityScores: {
     [key: string]: {
       score: number;
@@ -28,7 +28,15 @@ export interface CharacterSheet {
       expertise: boolean;
     };
   };
+  creatureSize: string;
+  speciesType: string;
+  alignment: string;
+  challengeRating: string;
+  source: string;
 }
+
+export type AbilityScoreType = CharacterSheet['abilityScores'];
+export type SkillProficiencyType = CharacterSheet['skills'];
 
 const initialCharacterSheet: CharacterSheet = {
   avatar: '',
@@ -44,7 +52,7 @@ const initialCharacterSheet: CharacterSheet = {
   spellSave: 0,
   initiative: 0,
   speed: 30,
-  proficiencyBonus: 2,
+  // proficiencyBonus: 2,
   abilityScores: {
     strength: {
       score: 0,
@@ -145,6 +153,11 @@ const initialCharacterSheet: CharacterSheet = {
       expertise: false,
     },
   },
+  creatureSize: '',
+  speciesType: '',
+  alignment: '',
+  challengeRating: '',
+  source: '',
 };
 
 export interface CharacterData {
@@ -152,6 +165,9 @@ export interface CharacterData {
   createdAt: FieldValue | Timestamp | { seconds: number; nanoseconds: number } | undefined;
   createdBy: DocumentReference | String;
   playerName: string;
+  characterType: 'PC' | 'NPC';
+  isFriendly: boolean;
+  isDead: boolean;
   characterSheet: CharacterSheet;
 }
 
@@ -160,5 +176,8 @@ export const initialCharacterData: CharacterData = {
   createdAt: undefined,
   createdBy: '',
   playerName: '',
+  characterType: 'PC',
+  isFriendly: true,
+  isDead: false,
   characterSheet: initialCharacterSheet,
 };
