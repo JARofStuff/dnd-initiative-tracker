@@ -42,7 +42,7 @@ const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className=''>
+    <form onSubmit={onSubmitHandler} className='w-full space-y-8'>
       <InputField
         type='text'
         id='sign-up-displayName'
@@ -71,7 +71,7 @@ const SignInForm = () => {
         onChange={onChangeHandler}
       />
 
-      <Button loading={isLoading} btnStyle='gradient full'>
+      <Button loading={isLoading} btnStyle='gradient w-full'>
         Create Account
       </Button>
     </form>

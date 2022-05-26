@@ -17,7 +17,6 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
   ability,
   ...otherProps
 }) => {
-  console.log(ability);
   return (
     <>
       <div className='flex flex-row w-full'>

@@ -25,7 +25,7 @@ const PasswordField: FC<FormInputProps> = ({ id = uniqid(), label, ...otherProps
 
       <input
         className={`
-          peer w-full rounded-l-md text-lg  p-4 pb-3 bg-white dark:bg-slate-900 border-indigo-700 dark:border-indigo-500
+          peer w-full rounded-l-md text-lg  p-4 pb-3 bg-white dark:bg-slate-900 border-indigo-700 dark:border-slate-500
           border border-r-0 focus:outline focus:outline-2 focus:outline-indigo-700 dark:focus:outline-indigo-500
           `}
         type={passwordVisible ? 'text' : 'password'}
@@ -35,7 +35,7 @@ const PasswordField: FC<FormInputProps> = ({ id = uniqid(), label, ...otherProps
       <div
         className={`
           border border-l-0 rounded-r-md 
-          bg-indigo-50 dark:bg-slate-700 border-indigo-700 dark:border-indigo-500 
+          bg-indigo-50 dark:bg-slate-700 border-indigo-700 dark:border-slate-500
           peer-focus:outline  peer-focus:outline-2 peer-focus:outline-indigo-700 dark:peer-focus:outline-indigo-500
           flex items-center px-2 w-10 password-toggle cursor-pointer
           `}

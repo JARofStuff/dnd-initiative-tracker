@@ -13,7 +13,7 @@ const ToggleSwitchField: FC<FormInputProps> = ({
   ...otherProps
 }) => {
   return (
-    <div className={`mb-4 relative inline-block py-3 ${className}`}>
+    <div className={`relative inline-block mb-4 py-3 ${className}`}>
       <label
         htmlFor={id}
         className='peer flex flex-row items-center justify-start cursor-pointer relative'
@@ -25,16 +25,16 @@ const ToggleSwitchField: FC<FormInputProps> = ({
           className={`
             relative block w-9 h-6 rounded-full mr-2 p-[2px]
             pointer-events-none overflow-hidden
-            bg-slate-300
+            bg-slate-300 dark:bg-slate-500
 
-            before:content-[''] before:bg-gradient before:transition-opacity before:duration-300
+            before:content-[''] before:bg-gradient dark:before:bg-gradient-dark before:transition-opacity before:duration-300
             before:absolute before:inset-0 before:opacity-0 peer-checked:before:opacity-100
         `}
         />
         <div
           className={`
               absolute content-[''] block w-5 h-5 rounded-full
-              bg-white transition-all 
+              bg-white dark:bg-slate-800 transition-all 
               m-[2px] left-[0px]
               peer-checked:left-3
             `}

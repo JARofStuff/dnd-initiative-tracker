@@ -5,14 +5,13 @@ import NewCharacter from './NewCharacter';
 
 const Characters = () => {
   return (
-    <main className='container mx-auto p-2 md:p-4'>
-      <section>
-        <Routes>
-          <Route index element={<CharacterHome />} />
-          <Route path='new' element={<NewCharacter />} />
-          <Route path='edit/:id' element={<EditCharacter />} />
-        </Routes>
-      </section>
+    //  className='container mx-auto p-2 md:p-4'
+    <main>
+      <Routes>
+        <Route index element={<CharacterHome />} />
+        <Route path='new' element={<NewCharacter />} />
+        <Route path='edit/:id' element={<EditCharacter />} />
+      </Routes>
     </main>
   );
 };

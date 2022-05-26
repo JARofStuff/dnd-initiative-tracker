@@ -50,7 +50,7 @@ const LogInForm = () => {
 
   return (
     <>
-      <form onSubmit={onSubmitHandler} className='w-full'>
+      <form onSubmit={onSubmitHandler} className='w-full space-y-8'>
         <InputField
           id='sign-in-email'
           label='Email'
@@ -70,7 +70,7 @@ const LogInForm = () => {
           onChange={onChangeHandler}
         />
 
-        <Button loading={isLoading} btnStyle='gradient full'>
+        <Button loading={isLoading} btnStyle='gradient w-full'>
           Continue
         </Button>
       </form>

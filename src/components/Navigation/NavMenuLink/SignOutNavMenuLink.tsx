@@ -11,12 +11,14 @@ const SignOutNavMenuLink = () => {
   return (
     <button
       onClick={signOutUserHandler}
-      className='w-full p-4 flex justify-start items-center gap-3 cursor-pointer min-w-max bg-transparent hover:bg-indigo-50'
+      className='nav-menu-link relative w-5/12 md:w-full flex flex-col md:flex-row justify-center md:justify-start items-center gap-1 md:gap-3 bg-transparent hover:bg-indigo-50 dark:hover:bg-slate-800 cursor-pointer pt-1 md:p-4'
     >
       <div className='nav-menu-link--icon inline-block h-6 transition-all'>
         <LogoutIcon className='fill-indigo-900 dark:fill-indigo-200' />
       </div>
-      <div className='nav-menu-link--label inline-block transition-all'>Sign out</div>
+      <div className='nav-menu-link--label inline-block transition-all text-tiny md:text-base'>
+        Sign out
+      </div>
     </button>
   );
 };

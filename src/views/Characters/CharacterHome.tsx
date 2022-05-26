@@ -75,14 +75,14 @@ const CharacterHome = () => {
 
   return (
     <>
-      <div>
-        <header>
-          <Breadcrumbs crumbs={[{ to: '/characters', label: 'Characters' }]} />
-          <h1 className=' inline-block text-3xl md:text-4xl font-bold gradient-on-text mb-4 md:mb-4'>
-            Characters
-          </h1>
-        </header>
+      <header className='container mx-auto p-2 md:p-4'>
+        <Breadcrumbs crumbs={[{ to: '/characters', label: 'Characters' }]} />
+        <h1 className='inline-block text-3xl md:text-4xl font-bold gradient-on-text mb-4 md:mb-4'>
+          Characters
+        </h1>
+      </header>
 
+      <section className='container mx-auto p-2 md:p-4'>
         <div className='flex flex-row justify-between flex-wrap mb-4 md:mb-10'>
           <form className='w-full md:max-w-sm grow'>
             <SearchField placeholder='Search Name' value={searchField} onChange={onSearchChange} />
@@ -129,7 +129,7 @@ const CharacterHome = () => {
             </ul>
           </div>
         )}
-      </div>
+      </section>
     </>
   );
 };

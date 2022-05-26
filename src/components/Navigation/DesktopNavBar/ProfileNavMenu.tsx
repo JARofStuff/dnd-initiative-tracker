@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import NavMenuLink from '../NavMenuLink/NavMenuLink';
-import SignOutNavMenuLink from './SignOutNavMenuLink';
+import SignOutNavMenuLink from '../NavMenuLink/SignOutNavMenuLink';
 import { ReactComponent as UserIcon } from '@assets/svg/user.svg';
 
 const ProfileNavMenu: FC<{ className?: string }> = ({ className }) => {

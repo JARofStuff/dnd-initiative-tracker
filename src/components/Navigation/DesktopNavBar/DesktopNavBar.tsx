@@ -42,7 +42,7 @@ const DesktopNavBar: FC<{ menuLinks: MenuLink[] }> = ({ menuLinks }) => {
   };
 
   return (
-    <header className='hidden md:grid sticky z-100 top-0 right-0 left-0 max-h-16 border-b grid-cols-3 bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-900'>
+    <header className='hidden md:grid sticky z-100 top-0 right-0 left-0 max-h-16 border-b grid-cols-3 bg-white dark:bg-slate-900 border-indigo-100 dark:border-slate-700'>
       <button
         className='p-2 w-[44px] m-0 cursor-pointer justify-self-start relative z-200 hover:bg-indigo-50 dark:hover:bg-slate-800 '
         onClick={toggleMenuDrawer}

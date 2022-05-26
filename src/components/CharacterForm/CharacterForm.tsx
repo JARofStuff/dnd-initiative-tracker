@@ -1,21 +1,6 @@
-import { useEffect, useState, FC } from 'react';
-import type { FormEvent, ChangeEvent } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import update from 'immutability-helper';
-import { useSelector } from 'react-redux';
-import { useAppDispatch } from '@hooks/asyncDispatch';
-import {
-  // reset,
-  createCharacter,
-  // setCharacter,
-  // unsetCharacter,
-  updateCharacter,
-} from '@store/Character/Character.Actions';
+import { FC } from 'react';
 import { initialCharacterData } from '@store/Character/Character.Types';
-import { selectCurrentUser } from '@store/Auth/Auth.Selector';
-import { selectCharacterReducer } from '@store/Character/Character.Selector';
-import { Link } from 'react-router-dom';
-import Button from '@components/Button/Button';
+
 import {
   InputField,
   AbilityScoreField,
@@ -23,45 +8,24 @@ import {
   ToggleSwitchField,
   CheckboxField,
 } from '@components/Forms';
-import { toast } from 'react-toastify';
 
 interface CharacterFormProps {
-  mode: 'new' | 'edit';
+  formData: typeof initialCharacterData;
+  onChangeHandler: any;
+  onChangeCharacterSheetHandler: any;
+  onChangeSkillsHandler: any;
+  onChangeAbilityScoreHandler: any;
+  onSubmitHandler: any;
 }
 
-const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
-  const params = useParams();
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const currentUser = useSelector(selectCurrentUser);
-  const { characters, isLoading } = useSelector(selectCharacterReducer);
-
-  const [formData, setFormData] = useState(initialCharacterData);
-  const { id: characterId } = params;
-
-  useEffect(() => {
-    if (mode === 'new') {
-      setFormData(initialCharacterData);
-    }
-
-    if (mode === 'edit' && Object.entries(characters).length > 0 && characterId) {
-      if (!(characterId in characters)) {
-        toast.error(`Unable to find character sheet`);
-
-        return;
-      }
-
-      setFormData((prevState) => {
-        const character = characters[characterId];
-
-        return {
-          ...prevState,
-          ...character,
-        };
-      });
-    }
-  }, [dispatch, mode, characters, characterId]);
-
+const CharacterForm: FC<CharacterFormProps> = ({
+  formData,
+  onChangeHandler,
+  onChangeCharacterSheetHandler,
+  onChangeSkillsHandler,
+  onChangeAbilityScoreHandler,
+  onSubmitHandler,
+}) => {
   const {
     characterName,
     playerName,
@@ -104,106 +68,13 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
       speciesType,
       alignment,
       source,
+      challengeRating,
     },
   } = formData;
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-
-    setFormData((prevState) => {
-      return update(prevState, {
-        [e.target.name]: { $set: value },
-      });
-    });
-  };
-
-  const onChangeCharacterSheetHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-
-    setFormData((prevState) => {
-      return update(prevState, {
-        characterSheet: { [e.target.name]: { $set: value } },
-      });
-    });
-  };
-
-  const onChangeAbilityScoreHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const scoreValue = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-
-    const path = e.target.name.split('.');
-    const abilityName = path[0];
-    const scoreKey = path[1];
-
-    setFormData((prevState) => {
-      return update(prevState, {
-        characterSheet: {
-          abilityScores: {
-            [abilityName]: {
-              [scoreKey]: { $set: scoreValue },
-            },
-          },
-        },
-      });
-    });
-  };
-
-  const onChangeSkillsHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const path = e.target.name.split('.');
-    const skillName = path[0];
-    const scoreKey = path[1];
-    const scoreValue = e.target.checked;
-
-    setFormData((prevState) => {
-      return update(prevState, {
-        characterSheet: {
-          skills: {
-            [skillName]: {
-              [scoreKey]: { $set: scoreValue },
-            },
-          },
-        },
-      });
-    });
-  };
-
-  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (mode === 'new') {
-      if (!currentUser) {
-        toast.error(`Can't save character, not currently sign in.`);
-        return;
-      }
-
-      const { payload: character } = await dispatch(
-        createCharacter({ characterData: formData, userId: currentUser.uid })
-      );
-
-      if (character) {
-        toast.success('New Character Saved');
-        let characterId = Object.keys(character)[0];
-        navigate(`../edit/${characterId}`);
-      }
-    }
-
-    if (mode === 'edit') {
-      if (!currentUser) {
-        toast.error(`Can't save character, not currently sign in.`);
-        return;
-      }
-
-      console.log(formData);
-      if (characterId) {
-        await dispatch(updateCharacter({ characterId, characterData: formData }));
-        toast.success('Changes Saved');
-      }
-    }
-  };
-
   return (
-    <form onSubmit={onSubmitHandler} className=''>
-      <div className='border p-4 mb-4'>
-        <h3>Character Info</h3>
+    <form id='character-edit' onSubmit={onSubmitHandler}>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <InputField
           label='Character Name'
           type='text'
@@ -226,6 +97,40 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={avatar}
           onChange={onChangeCharacterSheetHandler}
         />
+      </div>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+        <InputField
+          label='Size'
+          name='creatureSize'
+          value={creatureSize}
+          onChange={onChangeCharacterSheetHandler}
+        />
+        <InputField
+          label='Type'
+          name='speciesType'
+          value={speciesType}
+          onChange={onChangeCharacterSheetHandler}
+        />
+        <InputField
+          label='Alignment'
+          name='alignment'
+          value={alignment}
+          onChange={onChangeCharacterSheetHandler}
+        />
+        <InputField
+          label='Source'
+          name='source'
+          value={source}
+          onChange={onChangeCharacterSheetHandler}
+        />
+        <InputField
+          label='Challange Rating'
+          name='challengeRating'
+          value={challengeRating}
+          onChange={onChangeCharacterSheetHandler}
+        />
+      </div>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <InputField
           label='Race'
           type='text'
@@ -248,8 +153,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           onChange={onChangeCharacterSheetHandler}
         />
       </div>
-      <div className='border p-4 mb-4'>
-        <h3>Level &amp; Base Stats</h3>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <InputField
           label='Level'
           type='number'
@@ -266,6 +170,8 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           value={experiencePoints}
           onChange={onChangeCharacterSheetHandler}
         />
+      </div>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <InputField
           label='Max HP'
           type='number'
@@ -299,7 +205,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           onChange={onChangeCharacterSheetHandler}
         />
       </div>
-      <div className='border p-4 mb-4'>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <h3>Ability Scores</h3>
         <AbilityScoreField
           label='Strength'
@@ -338,7 +244,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           onChange={onChangeAbilityScoreHandler}
         />
       </div>
-      <div className='border p-4 mb-4'>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <h3>Skills</h3>
         <SkillProficiencyField
           label='Acrobatics'
@@ -449,7 +355,7 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           onChange={onChangeSkillsHandler}
         />
       </div>
-      <div className='border p-4 mb-4'>
+      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
         <h3>Other Settings</h3>
         <CheckboxField label='Dead' name='isDead' checked={isDead} onChange={onChangeHandler} />
         <ToggleSwitchField
@@ -458,39 +364,6 @@ const CharacterForm: FC<CharacterFormProps> = ({ mode }) => {
           checked={isFriendly}
           onChange={onChangeHandler}
         />
-        <InputField
-          label='Size'
-          name='creatureSize'
-          value={creatureSize}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Type'
-          name='speciesType'
-          value={speciesType}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='alignment'
-          name='alignment'
-          value={alignment}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Source'
-          name='source'
-          value={source}
-          onChange={onChangeCharacterSheetHandler}
-        />
-      </div>
-      <div className='form-control w-full mt-4 gap-4'>
-        <Button loading={isLoading}>
-          {mode === 'new' && 'Save New Character'}
-          {mode === 'edit' && 'Save Changes'}
-        </Button>
-        <Link to='..' className='btn btn-ghost'>
-          Cancel
-        </Link>
       </div>
     </form>
   );

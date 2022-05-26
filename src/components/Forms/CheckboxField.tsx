@@ -9,7 +9,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const CheckboxField: FC<FormInputProps> = ({ id = uniqid(), label, className, ...otherProps }) => {
   return (
-    <div className={`w-full mb-8 relative ${className}`}>
+    <div className={`relative w-full ${className}`}>
       <input type='checkbox' className='peer sr-only' {...otherProps} id={id} />
       <Checkmark
         className={`
