@@ -1,0 +1,10 @@
+.react-confirm-alert-blur {
+  filter: none;
+  filter: none;
+  -webkit-filter: none;
+}
+
+.react-confirm-alert-overlay {
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+}

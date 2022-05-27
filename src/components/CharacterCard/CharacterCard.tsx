@@ -7,6 +7,8 @@ import type { CharacterData } from '@store/Character/Character.Types';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { ReactComponent as SkullIcon } from '@assets/svg/skull.svg';
+import ConfirmDeleteModal from '@components/ConfirmDeleteModal/ConfirmDeleteModal';
+import { confirmAlert } from 'react-confirm-alert';
 
 interface CharacterCardProps {
   id: string;
@@ -46,10 +48,16 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
   const handleOnDelete = async (id?: string) => {
     if (!id) return;
 
-    // if (window.confirm('Are you sure you want to Delete this character? This cannot be undone.')) {
-    //   await dispatch(deleteCharacter(id));
-    //   toast.info('Character Deleted');
-    // }
+    const deleteChar = async () => {
+      await dispatch(deleteCharacter(id));
+      toast.success('Character Deleted');
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <ConfirmDeleteModal onConfirmHandler={deleteChar} onCloseHandler={onClose} />
+      ),
+    });
   };
 
   const handleClickIgnoringControls = (e: MouseEvent) => {

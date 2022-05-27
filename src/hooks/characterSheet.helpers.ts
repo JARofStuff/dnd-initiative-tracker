@@ -6,6 +6,19 @@ const getProficiencyBonus = (level: number): number => {
   return Math.ceil(1 + level / 4);
 };
 
+const getAbilityScoreModifierValue = (score: number): number => {
+  const abilityScoreModifierArr = abilityScoreModifierTable.filter(({ from, to }) => {
+    return score >= from && score <= to;
+  });
+
+  return abilityScoreModifierArr.length > 0 ? abilityScoreModifierArr[0].val : 0;
+};
+
+const getAbilityBonusDisplay = (score: number, proficiencyBonus: number): string => {
+  const abilityScoreModifier = getAbilityScoreModifierValue(score);
+  return `${abilityScoreModifier >= 0 ? '+' : ''}${abilityScoreModifier + proficiencyBonus}`;
+};
+
 const processAbilityScores = (
   abilityScores: AbilityScoreType,
   proficiencyBonus: number = 0
@@ -21,24 +34,19 @@ const processAbilityScores = (
     //Ability Score
     const score: number = ability[1].score;
 
-    //Ability Modifier
-    const abilityScoreModifierArr = abilityScoreModifierTable.filter(({ from, to, val }) => {
-      return score >= from && score <= to;
-    });
-
-    const abilityScoreModifier: number =
-      abilityScoreModifierArr.length > 0 ? abilityScoreModifierArr[0].val : 0;
-
     //Proficiency Bonus
     const isProficient = ability[1].proficient;
     proficiencyBonus = isProficient ? proficiencyBonus : 0;
 
-    const modifier = `${abilityScoreModifier >= 0 ? '+' : ''}${
-      abilityScoreModifier + proficiencyBonus
-    }`;
+    const modifier = getAbilityBonusDisplay(score, proficiencyBonus);
 
     return { abr, score, modifier };
   });
 };
 
-export { processAbilityScores, getProficiencyBonus };
+export {
+  processAbilityScores,
+  getAbilityScoreModifierValue,
+  getAbilityBonusDisplay,
+  getProficiencyBonus,
+};

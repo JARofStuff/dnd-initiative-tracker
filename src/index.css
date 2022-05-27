@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  input.hideNumberArrows::-webkit-outer-spin-button,
+  input.hideNumberArrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+
+  /* Firefox */
+  input[type='number'].hideNumberArrows {
+    -moz-appearance: textfield;
+  }
+}
+
 @layer components {
   .headline {
     @apply font-extrabold uppercase tracking-widest	inline-block gradient-on-text;
@@ -12,6 +25,10 @@
     @apply gap-2 rounded-full;
     @apply text-sm md:text-base h-10 md:h-12 px-3 py-2 md:py-3 md:px-6;
     @apply bg-indigo-900 text-white transition-all;
+  }
+
+  .btn:disabled {
+    @apply cursor-not-allowed;
   }
 
   /* .btn--small {
@@ -63,7 +80,6 @@
     @apply dark:text-indigo-700 visited:dark:text-indigo-200;
   }
 }
-
 @layer base {
   *,
   *:before,

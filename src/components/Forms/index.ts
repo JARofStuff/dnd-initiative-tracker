@@ -5,6 +5,7 @@ import SearchField from './SearchField';
 import SkillProficiencyField from './SkillProficiencyField';
 import CheckboxField from './CheckboxField';
 import ToggleSwitchField from './ToggleSwitchField';
+import LargeNumberInputField from './LargeNumberInputField';
 
 export {
   AbilityScoreField,
@@ -14,4 +15,5 @@ export {
   SkillProficiencyField,
   CheckboxField,
   ToggleSwitchField,
+  LargeNumberInputField,
 };

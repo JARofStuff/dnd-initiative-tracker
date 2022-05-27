@@ -10,7 +10,7 @@ const Overlay: FC<OverlayProps> = ({ isOpen, onClickHandler }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-40 bg-black transition-all ease-linear duration-200 ${visibilityClassNames}`}
+      className={`fixed inset-0 z-100 bg-black transition-all ease-linear duration-200 ${visibilityClassNames}`}
       onClick={onClickHandler}
     ></div>
   );
