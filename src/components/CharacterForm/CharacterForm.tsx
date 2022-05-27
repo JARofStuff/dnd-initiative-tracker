@@ -105,7 +105,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
               onChange={onChangeCharacterSheetHandler}
             />
             <div
-              className={`md:hidden rounded-xl w-[58px] h-[58px] shrink-0 overflow-hidden ${
+              className={`md:hidden rounded-lg w-[58px] h-[58px] shrink-0 overflow-hidden ${
                 isDead ? 'bg-neutral-300 grayscale contrast-50' : 'bg-indigo-200'
               }`}
             >

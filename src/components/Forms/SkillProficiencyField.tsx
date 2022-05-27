@@ -21,7 +21,7 @@ const SkillProficiencyField: FC<SkillProficiencyInputProps> = ({
     <fieldset className='flex flex-row justify-start items-center w-full flex-nowrap'>
       <legend className='block float-left grow'>
         <span className='uppercase bg-slate-500 font-bold text-xs text-slate-200 p-1 rounded mr-3'>
-          {id.substring(0, 3)}
+          {name.substring(0, 3)}
         </span>
         {label}
       </legend>
