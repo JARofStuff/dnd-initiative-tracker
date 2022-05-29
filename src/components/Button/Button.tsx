@@ -22,7 +22,9 @@ const Button: FC<ButtonProps> = ({ children, btnStyle, loading, className, ...ot
           <Spinner className={`w-auto h-full mx-auto ${spinnerColorClass}`} />
         </div>
       )}
-      <span className={`${loading && 'opacity-0'}`}>{children}</span>
+      <span className={`flex flex-row justify-center items-center gap-2 ${loading && 'opacity-0'}`}>
+        {children}
+      </span>
     </button>
   );
 };

@@ -1,7 +1,11 @@
 import type { AbilityScoreType } from '@store/Character/Character.Types';
 import { abilityScoreModifierTable } from '@utils/constants/abilityScoreModifierTable';
 
-const getProficiencyBonus = (level: number): number => {
+const bonusScoreToDisplayString = (score: number): string => {
+  return `${score >= 0 ? '+' : ''}${score}`;
+};
+
+const getProficiencyBonusValue = (level: number): number => {
   // Formula found here: https://dicecove.com/how-to-calculate-proficiency-bonus/
   return Math.ceil(1 + level / 4);
 };
@@ -16,7 +20,7 @@ const getAbilityScoreModifierValue = (score: number): number => {
 
 const getAbilityBonusDisplay = (score: number, proficiencyBonus: number): string => {
   const abilityScoreModifier = getAbilityScoreModifierValue(score);
-  return `${abilityScoreModifier >= 0 ? '+' : ''}${abilityScoreModifier + proficiencyBonus}`;
+  return bonusScoreToDisplayString(abilityScoreModifier + proficiencyBonus);
 };
 
 const processAbilityScores = (
@@ -48,5 +52,6 @@ export {
   processAbilityScores,
   getAbilityScoreModifierValue,
   getAbilityBonusDisplay,
-  getProficiencyBonus,
+  getProficiencyBonusValue,
+  bonusScoreToDisplayString,
 };

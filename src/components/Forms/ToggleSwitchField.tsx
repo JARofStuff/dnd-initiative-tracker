@@ -13,7 +13,7 @@ const ToggleSwitchField: FC<FormInputProps> = ({
   ...otherProps
 }) => {
   return (
-    <div className={`relative inline-block mb-4 py-3 ${className}`}>
+    <div className={`relative inline-block py-3 ${className}`}>
       <label
         htmlFor={id}
         className='peer flex flex-row items-center justify-start cursor-pointer relative'

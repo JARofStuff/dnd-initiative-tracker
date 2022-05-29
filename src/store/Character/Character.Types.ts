@@ -15,7 +15,6 @@ export interface CharacterSheet {
   inspiration: boolean;
   initiative: number;
   speed: number;
-  // proficiencyBonus: number;
   abilityScores: {
     [key: string]: {
       score: number;

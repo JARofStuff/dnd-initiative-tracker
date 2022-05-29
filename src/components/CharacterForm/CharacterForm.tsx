@@ -1,7 +1,8 @@
-import { FC, ChangeEventHandler, FormEventHandler } from 'react';
+import { FC, ChangeEventHandler, FormEventHandler, MouseEventHandler } from 'react';
 import { initialCharacterData } from '@store/Character/Character.Types';
-import { getProficiencyBonus } from '@hooks/characterSheet.helpers';
-
+import { getProficiencyBonusValue, bonusScoreToDisplayString } from '@hooks/characterSheet.helpers';
+import Button from '@components/Button/Button';
+import BacktoPreviousPageLink from '@components/BackToPreviousPageLink/BacktoPreviousPageLink';
 import {
   InputField,
   AbilityScoreField,
@@ -9,7 +10,9 @@ import {
   ToggleSwitchField,
   CheckboxField,
   LargeNumberInputField,
+  InspirationCheckboxField,
 } from '@components/Forms';
+import { FiTrash2 } from 'react-icons/fi';
 
 interface CharacterFormProps {
   formData: typeof initialCharacterData;
@@ -18,6 +21,7 @@ interface CharacterFormProps {
   onChangeSkillsHandler: ChangeEventHandler;
   onChangeAbilityScoreHandler: ChangeEventHandler;
   onSubmitHandler: FormEventHandler;
+  onDeleteHandler: () => void;
 }
 
 const CharacterForm: FC<CharacterFormProps> = ({
@@ -27,6 +31,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
   onChangeSkillsHandler,
   onChangeAbilityScoreHandler,
   onSubmitHandler,
+  onDeleteHandler,
 }) => {
   const {
     characterName,
@@ -41,6 +46,8 @@ const CharacterForm: FC<CharacterFormProps> = ({
       subclass,
       level,
       experiencePoints,
+      initiative,
+      inspiration,
       hpMax,
       ac,
       spellSave,
@@ -74,7 +81,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
     },
   } = formData;
 
-  const proficiencyBonus = getProficiencyBonus(level);
+  const proficiencyBonus = getProficiencyBonusValue(level);
 
   return (
     <form id='character-edit' onSubmit={onSubmitHandler}>
@@ -96,7 +103,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
             value={playerName}
             onChange={onChangeHandler}
           />
-          <div className='flex flex-row gap-2 md:block'>
+          <div className='flex flex-row gap-2'>
             <InputField
               label='Avatar'
               type='text'
@@ -105,7 +112,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
               onChange={onChangeCharacterSheetHandler}
             />
             <div
-              className={`md:hidden rounded-lg w-[58px] h-[58px] shrink-0 overflow-hidden ${
+              className={`rounded-lg w-[58px] h-[58px] shrink-0 overflow-hidden ${
                 isDead ? 'bg-neutral-300 grayscale contrast-50' : 'bg-indigo-200'
               }`}
             >
@@ -123,40 +130,52 @@ const CharacterForm: FC<CharacterFormProps> = ({
       </div>
 
       {/* NPC Only Settings */}
-      {/* <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-        <InputField
-          label='Size'
-          name='creatureSize'
-          value={creatureSize}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Type'
-          name='speciesType'
-          value={speciesType}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Alignment'
-          name='alignment'
-          value={alignment}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Source'
-          name='source'
-          value={source}
-          onChange={onChangeCharacterSheetHandler}
-        />
-        <InputField
-          label='Challange Rating'
-          name='challengeRating'
-          value={challengeRating}
-          onChange={onChangeCharacterSheetHandler}
-        />
-      </div> */}
+      <div className='lg:grid lg:grid-cols-2 gap-4'>
+        <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+          <InputField
+            label='Size'
+            name='creatureSize'
+            value={creatureSize}
+            onChange={onChangeCharacterSheetHandler}
+          />
+          <InputField
+            label='Type'
+            name='speciesType'
+            value={speciesType}
+            onChange={onChangeCharacterSheetHandler}
+          />
+          <div className='flex flex-row justify-start items-center gap-4'>
+            <InputField
+              label='Alignment'
+              name='alignment'
+              value={alignment}
+              onChange={onChangeCharacterSheetHandler}
+            />
+            <ToggleSwitchField
+              label='Friendly'
+              name='isFriendly'
+              checked={isFriendly}
+              onChange={onChangeHandler}
+            />
+          </div>
+        </div>
+        <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+          <InputField
+            label='Challange Rating'
+            name='challengeRating'
+            value={challengeRating}
+            onChange={onChangeCharacterSheetHandler}
+          />
+          <InputField
+            label='Source'
+            name='source'
+            value={source}
+            onChange={onChangeCharacterSheetHandler}
+          />
+        </div>
+      </div>
 
-      <div className='md:grid md:grid-cols-2 gap-4'>
+      <div className='lg:grid lg:grid-cols-2 gap-4'>
         {/* Race, Class, SubClass */}
         <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
           <InputField
@@ -204,7 +223,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
           </div>
           <div className='grow border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
             <div className='h-full flex flex-row justify-center gap-4 md:gap-2 flex-wrap'>
-              <div className='flex flex-row justify-center gap-4 md:gap-2'>
+              <div className='flex flex-row flex-wrap justify-center gap-4 md:gap-2'>
                 <LargeNumberInputField
                   label='Max HP'
                   name='hpMax'
@@ -221,14 +240,22 @@ const CharacterForm: FC<CharacterFormProps> = ({
                   value={ac}
                   onChange={onChangeCharacterSheetHandler}
                 />
-              </div>
-              <div className='flex flex-row justify-center gap-4 md:gap-2'>
                 <LargeNumberInputField
                   label='Spell DC'
                   name='spellSave'
                   min='0'
                   max='99'
                   value={spellSave}
+                  onChange={onChangeCharacterSheetHandler}
+                />
+              </div>
+              <div className='flex flex-row justify-center gap-4 md:gap-2'>
+                <LargeNumberInputField
+                  label='Initiative'
+                  name='initiative'
+                  min='0'
+                  max='99'
+                  value={initiative}
                   onChange={onChangeCharacterSheetHandler}
                 />
 
@@ -243,6 +270,26 @@ const CharacterForm: FC<CharacterFormProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Proficiency & Inspiration */}
+      <div className='flex flex-col md:flex-row justify-start gap-6 md:gap-8 items-center md:justify-center border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4'>
+        <div className='flex flex-row items-center gap-2'>
+          <div>Proficiency Bonus</div>
+          <div className='bg-slate-200 text-center rounded-md py-1 px-2'>
+            <span className='text-2xl text-center font-bold'>
+              {bonusScoreToDisplayString(proficiencyBonus)}
+            </span>
+          </div>
+        </div>
+        <div className='flex flex-row items-center gap-2'>
+          <InspirationCheckboxField
+            label='Inspiration'
+            name='inspiration'
+            checked={inspiration}
+            onChange={onChangeCharacterSheetHandler}
+          />
         </div>
       </div>
 
@@ -300,127 +347,154 @@ const CharacterForm: FC<CharacterFormProps> = ({
 
       {/* Skills & Proficiencies */}
       <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-        <h3>Skills</h3>
-        <SkillProficiencyField
-          label='Acrobatics'
-          name='dexAcrobatics'
-          skill={dexAcrobatics}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Animal Handling'
-          name='wisAnimalHandling'
-          skill={wisAnimalHandling}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Arcana'
-          name='intArcana'
-          skill={intArcana}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Athletics'
-          name='strAthletics'
-          skill={strAthletics}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Deception'
-          name='chaDeception'
-          skill={chaDeception}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='History'
-          name='intHistory'
-          skill={intHistory}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Insight'
-          name='wisInsight'
-          skill={wisInsight}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Intimidation'
-          name='chaIntimidation'
-          skill={chaIntimidation}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Investigation'
-          name='intInvestigation'
-          skill={intInvestigation}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Medicine'
-          name='wisMedicine'
-          skill={wisMedicine}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Nature'
-          name='intNature'
-          skill={intNature}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Perception'
-          name='wisPerception'
-          skill={wisPerception}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Performance'
-          name='chaPerformance'
-          skill={chaPerformance}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Persuasion'
-          name='chaPersuasion'
-          skill={chaPersuasion}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Religion'
-          name='intReligion'
-          skill={intReligion}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Sleight of Hand'
-          name='dexSleightOfHand'
-          skill={dexSleightOfHand}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Stealth'
-          name='dexStealth'
-          skill={dexStealth}
-          onChange={onChangeSkillsHandler}
-        />
-        <SkillProficiencyField
-          label='Survival'
-          name='wisSurvival'
-          skill={wisSurvival}
-          onChange={onChangeSkillsHandler}
-        />
+        <div className='flex flex-row justify-evenly gap-4 flex-wrap lg:flex-nowrap'>
+          <div className='flex w-full max-w-md flex-col justify-center gap-10 md:gap-4'>
+            <SkillProficiencyField
+              label='Acrobatics'
+              name='dexAcrobatics'
+              skill={dexAcrobatics}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Animal Handling'
+              name='wisAnimalHandling'
+              skill={wisAnimalHandling}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Arcana'
+              name='intArcana'
+              skill={intArcana}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Athletics'
+              name='strAthletics'
+              skill={strAthletics}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Deception'
+              name='chaDeception'
+              skill={chaDeception}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='History'
+              name='intHistory'
+              skill={intHistory}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Insight'
+              name='wisInsight'
+              skill={wisInsight}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Intimidation'
+              name='chaIntimidation'
+              skill={chaIntimidation}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Investigation'
+              name='intInvestigation'
+              skill={intInvestigation}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+          </div>
+          <div className='flex w-full max-w-md flex-col justify-center gap-4'>
+            <SkillProficiencyField
+              label='Medicine'
+              name='wisMedicine'
+              skill={wisMedicine}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Nature'
+              name='intNature'
+              skill={intNature}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Perception'
+              name='wisPerception'
+              skill={wisPerception}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Performance'
+              name='chaPerformance'
+              skill={chaPerformance}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Persuasion'
+              name='chaPersuasion'
+              skill={chaPersuasion}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Religion'
+              name='intReligion'
+              skill={intReligion}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Sleight of Hand'
+              name='dexSleightOfHand'
+              skill={dexSleightOfHand}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Stealth'
+              name='dexStealth'
+              skill={dexStealth}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+            <SkillProficiencyField
+              label='Survival'
+              name='wisSurvival'
+              skill={wisSurvival}
+              proficiencyBonus={proficiencyBonus}
+              onChange={onChangeSkillsHandler}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Other Settings */}
-      <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-        <h3>Other Settings</h3>
-        <CheckboxField label='Dead' name='isDead' checked={isDead} onChange={onChangeHandler} />
-        <ToggleSwitchField
-          label='Friendly'
-          name='isFriendly'
-          checked={isFriendly}
-          onChange={onChangeHandler}
-        />
+      <div className='flex flex-col md:flex-row-reverse mb-4 gap-4 justify-end md:justify-between items-start md:items-center'>
+        <div className='w-full md:w-auto flex flex-row gap-12 justify-between items-center border border-neutral-200 bg-neutral-200 dark:border-slate-700 rounded-lg px-4 py-5 '>
+          <CheckboxField label='Dead' name='isDead' checked={isDead} onChange={onChangeHandler} />
+          <Button
+            type='button'
+            className='bg-red-600 hover:bg-red-800'
+            onClick={() => onDeleteHandler()}
+          >
+            <FiTrash2 className='h-5' />
+            <span>Delete Character</span>
+          </Button>
+        </div>
+        <BacktoPreviousPageLink />
       </div>
     </form>
   );

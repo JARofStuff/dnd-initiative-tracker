@@ -2,7 +2,7 @@ import { useRef, FC, MouseEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 import { deleteCharacter } from '@store/Character/Character.Actions';
-import { processAbilityScores, getProficiencyBonus } from '@hooks/characterSheet.helpers';
+import { processAbilityScores, getProficiencyBonusValue } from '@hooks/characterSheet.helpers';
 import type { CharacterData } from '@store/Character/Character.Types';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
@@ -38,11 +38,10 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
       creatureSize,
       speciesType,
       alignment,
-      // source,
     },
   } = character;
 
-  const proficiencyBonus = getProficiencyBonus(level);
+  const proficiencyBonus = getProficiencyBonusValue(level);
   const abilityScoresArr = processAbilityScores(abilityScores, proficiencyBonus);
 
   const handleOnDelete = async (id?: string) => {
@@ -82,7 +81,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
       <div className='relative flex flex-row justify-start gap-4'>
         <div className='relative'>
           <div
-            className={`rounded-xl w-16 h-16 shrink-0 overflow-hidden ${
+            className={`rounded-lg w-16 h-16 shrink-0 overflow-hidden ${
               isDead ? 'bg-neutral-300 grayscale contrast-50' : 'bg-indigo-200'
             }`}
           >

@@ -7,13 +7,18 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-const CheckboxField: FC<FormInputProps> = ({ id = uniqid(), label, className, ...otherProps }) => {
+const InspirationCheckboxField: FC<FormInputProps> = ({
+  id = uniqid(),
+  label,
+  className,
+  ...otherProps
+}) => {
   return (
     <div className={`relative ${className}`}>
       <input type='checkbox' className='peer sr-only' {...otherProps} id={id} />
       <Checkmark
         className={`
-          w-5 h-5 absolute inset-[2px] z-10
+          w-8 h-8 absolute top-[4px] bottom-[4px] right-[4px] z-10
           pointer-events-none block
           stroke-white dark:stroke-slate-900 transition-all duration-300 checkmark-animate--start peer-checked:checkmark-animate--end
         `}
@@ -21,11 +26,11 @@ const CheckboxField: FC<FormInputProps> = ({ id = uniqid(), label, className, ..
       <label
         className={`
             leading-none flex flex-row items-center justify-start cursor-pointer relative
-            before:content-[''] before:block before:w-6 before:h-6 before:border-2
-            before:rounded-md before:mr-2 before:border-indigo-900 
-            before:bg-white before:transition-all
-            peer-checked:before:bg-gradient  peer-checked:before:border-0
-            dark:peer-checked:before:bg-gradient-dark dark:before:border-slate-500 dark:before:bg-slate-900
+            after:content-[''] after:block after:w-10 after:h-10 after:border-2
+            after:rounded-md after:ml-2 after:border-indigo-900 
+            after:bg-white after:transition-all
+            peer-checked:after:bg-gradient  peer-checked:after:border-0
+            dark:peer-checked:after:bg-gradient-dark dark:after:border-slate-500 dark:after:bg-slate-900
         `}
         htmlFor={id}
       >
@@ -34,4 +39,4 @@ const CheckboxField: FC<FormInputProps> = ({ id = uniqid(), label, className, ..
     </div>
   );
 };
-export default CheckboxField;
+export default InspirationCheckboxField;

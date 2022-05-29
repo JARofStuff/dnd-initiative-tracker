@@ -1,7 +1,7 @@
 import { FC, InputHTMLAttributes } from 'react';
-import { ReactComponent as Checkmark } from '@assets/svg/checkmark-line.svg';
-import { getAbilityBonusDisplay } from '@hooks/characterSheet.helpers';
 import uniqid from 'uniqid';
+import { getAbilityBonusDisplay } from '@hooks/characterSheet.helpers';
+import { ReactComponent as Checkmark } from '@assets/svg/checkmark-line.svg';
 
 interface AbilityScoreInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -26,13 +26,13 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
   const abilityScoreBonus = getAbilityBonusDisplay(ability.score, proficiencyBonus);
 
   return (
-    <div className={`w-28 relative mt-1 ${className}`}>
+    <div className={`w-24 md:w-28 relative mt-1 ${className}`}>
       <div className='flex flex-col justify-center grow'>
         <label
-          className='text-sm block px-2 bg-white dark:bg-slate-900 w-max absolute left-1/2 -top-2 -translate-x-1/2 rounded-md'
+          className='font-mono font-bold tracking-widest text-sm block px-2 bg-white dark:bg-slate-900 w-max absolute left-1/2 -top-2 -translate-x-1/2 rounded-md'
           htmlFor={`${id}Score`}
         >
-          <span>{label}</span>
+          <span>{label.substring(0, 3).toUpperCase()}</span>
         </label>
 
         <input
@@ -49,12 +49,18 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
           {...otherProps}
         />
 
-        <div className='bg-indigo-900 text-white text-2xl font-bold text-center leading-none py-2 rounded-b-lg'>
+        <div
+          className={`
+            bg-indigo-900 dark:bg-slate-500 text-white text-2xl dark:text-slate-100
+              font-bold text-center leading-none py-2 rounded-b-lg
+              peer-focus:outline  peer-focus:outline-2 peer-focus:outline-indigo-700 dark:peer-focus:outline-indigo-500
+         `}
+        >
           {abilityScoreBonus}
         </div>
       </div>
 
-      <div className={`relative mt-1 p-1 pb-2 rounded-lg bg-slate-200`}>
+      <div className={`relative mt-1 p-1 pb-2 rounded-lg bg-slate-200 dark:bg-slate-700`}>
         <input
           className='peer sr-only'
           type='checkbox'
@@ -67,20 +73,20 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
           className={`
           w-5 h-5 absolute bottom-[.65rem] left-1/2 -translate-x-1/2 z-10
           pointer-events-none block
-          stroke-white transition-all duration-300 checkmark-animate--start peer-checked:checkmark-animate--end
+          stroke-white dark:stroke-slate-900 transition-all duration-300 checkmark-animate--start peer-checked:checkmark-animate--end
         `}
         />
         <label
           className={`
             leading-none flex flex-col gap-1 items-center justify-start cursor-pointer relative
-            after:content-[' '] after:block after:w-6 after:h-6 after:border-2
-            after:rounded-md after:border-indigo-900 
-            after:bg-white after:transition-all
-            peer-checked:after:bg-indigo-500  peer-checked:after:border-indigo-500 
+            after:content-[' '] after:block after:w-6 after:h-6 after:border-2 after:rounded-md
+            after:bg-white after:transition-all after:border-indigo-900 
+            peer-checked:after:bg-gradient  peer-checked:after:border-0
+            dark:peer-checked:after:bg-gradient-dark dark:after:border-slate-500 dark:after:bg-slate-900
         `}
           htmlFor={`${id}Proficiency`}
         >
-          <span className='block text-sm'>Save Bonus</span>
+          <span className='block text-xs md:text-sm'>Save Bonus</span>
         </label>
       </div>
     </div>

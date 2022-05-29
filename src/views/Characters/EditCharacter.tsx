@@ -9,18 +9,24 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 import { selectCharacterReducer } from '@store/Character/Character.Selector';
 import { initialCharacterData } from '@store/Character/Character.Types';
-import { createCharacter, updateCharacter } from '@store/Character/Character.Actions';
+import {
+  createCharacter,
+  updateCharacter,
+  deleteCharacter,
+} from '@store/Character/Character.Actions';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
 
 import CharacterForm from '@components/CharacterForm/CharacterForm';
-import BackToPreviousPageLink from '@components/BackToPreviousPageLink/BackToPreviousPageLink';
 import ContextualSaveBar from '@components/ContextualSaveBar/ContextualSaveBar';
+import ConfirmDeleteModal from '@components/ConfirmDeleteModal/ConfirmDeleteModal';
+import { confirmAlert } from 'react-confirm-alert';
+
 import { toast } from 'react-toastify';
 
 const EditCharacter = () => {
   const mode = 'edit';
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const params = useParams();
   const { id: characterId } = params;
@@ -152,13 +158,30 @@ const EditCharacter = () => {
     // }
   };
 
+  const onDeleteHandler = async () => {
+    if (!characterId) return;
+
+    const deleteChar = async () => {
+      await dispatch(deleteCharacter(characterId));
+      navigate('..');
+      toast.success('Character Deleted');
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <ConfirmDeleteModal onConfirmHandler={deleteChar} onCloseHandler={onClose} />
+      ),
+    });
+  };
+
   return (
     <>
-      {showSaveBar ? (
-        <ContextualSaveBar isLoading={isLoading} discardChangesHandler={handleDiscardChanges} />
-      ) : (
-        <BackToPreviousPageLink />
-      )}
+      <ContextualSaveBar
+        isLoading={isLoading}
+        showSavePrompt={showSaveBar}
+        discardChangesHandler={handleDiscardChanges}
+      />
+
       <header className='container mx-auto p-2 md:p-4'>
         <h1 className='inline-block text-3xl md:text-4xl font-bold gradient-on-text mb-4 md:mb-4'>
           Edit Character
@@ -173,6 +196,7 @@ const EditCharacter = () => {
             onChangeSkillsHandler,
             onChangeAbilityScoreHandler,
             onSubmitHandler,
+            onDeleteHandler,
           }}
         />
       </section>

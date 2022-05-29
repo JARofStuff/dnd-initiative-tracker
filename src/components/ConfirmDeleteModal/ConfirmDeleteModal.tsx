@@ -14,16 +14,17 @@ const ConfirmDeleteModal: FC<ConfirmDeleteModalProps> = ({ onConfirmHandler, onC
       className={`
       bg-white dark:bg-slate-800
       border rounded-xl py-4 px-6
+      m-2 md:m-4
     `}
     >
       <h1 className='font-bold'>Are you sure you want to delete this character?</h1>
       <p className='mb-4'>This cannot be undone.</p>
       <div className='flex flex-row justify-center gap-2'>
-        <Button btnStyle='ghost' onClick={onCloseHandler}>
+        <Button btnStyle='ghost w-1/2' onClick={onCloseHandler}>
           No
         </Button>
         <Button
-          className='bg-rose-700'
+          className='bg-rose-700 hover:bg-rose-800 w-1/2'
           onClick={() => {
             // this.handleClickDelete();
             onConfirmHandler();
