@@ -6,8 +6,12 @@
   animation: dash 3000ms linear infinite;
 }
 
+.spinner.spinner-medium polyline {
+  @apply stroke-indigo-200;
+}
+
 .spinner.spinner-dark polyline {
-  stroke: #312e81;
+  @apply stroke-indigo-900;
 }
 
 @keyframes dash {

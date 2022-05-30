@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <defs>
+    <style>
+
+      .userPlaceholder {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 27px;
+      }
+    </style>
+  </defs>
+  <g>
+    <circle class='userPlaceholder' cx="250" cy="176.543" r="75.095"/>
+    <path class='userPlaceholder'  d="M377.4,418.553a127.4,127.4,0,0,0-254.8,0"/>
+  </g>
+</svg>

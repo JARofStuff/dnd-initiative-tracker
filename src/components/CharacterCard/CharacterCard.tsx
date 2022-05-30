@@ -2,13 +2,17 @@ import { useRef, FC, MouseEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 import { deleteCharacter } from '@store/Character/Character.Actions';
-import { processAbilityScores, getProficiencyBonusValue } from '@hooks/characterSheet.helpers';
+import {
+  processAbilityScores,
+  getProficiencyBonusValue,
+} from '@utils/helpers/characterSheet.helpers';
 import type { CharacterData } from '@store/Character/Character.Types';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import { ReactComponent as SkullIcon } from '@assets/svg/skull.svg';
-import ConfirmDeleteModal from '@components/ConfirmDeleteModal/ConfirmDeleteModal';
 import { confirmAlert } from 'react-confirm-alert';
+import ConfirmDeleteModal from '@components/ConfirmDeleteModal/ConfirmDeleteModal';
+import CharacterPortrait from '@components/CharacterPortrait/CharacterPortrait';
 
 interface CharacterCardProps {
   id: string;
@@ -29,7 +33,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
     isDead,
     characterType,
     characterSheet: {
-      // avatar,
+      avatar,
       race,
       characterClass,
       subclass,
@@ -81,14 +85,13 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
       <div className='relative flex flex-row justify-start gap-4'>
         <div className='relative'>
           <div
-            className={`rounded-lg w-16 h-16 shrink-0 overflow-hidden ${
-              isDead ? 'bg-neutral-300 grayscale contrast-50' : 'bg-indigo-200'
-            }`}
+            className={`
+              w-16 h-16 rounded-lg overflow-hidden
+              ${avatar ? '' : 'border '}
+              ${isDead ? 'border-neutral-300' : 'border-indigo-200'}
+            `}
           >
-            <img
-              src='https://i0.wp.com/www.hireanillustrator.com/i/images/2018/07/Melanie_gnomeportrait_finalsm.jpg?resize=600%2C750&ssl=1'
-              alt='Character Portrait Icon'
-            />
+            <CharacterPortrait isDead={isDead} imgSrc={avatar} />
           </div>
           {isDead && (
             <div className='absolute w-5 h-5 rounded-full p-[0.15rem] bg-[#925A5A] -top-1 -right-1 border border-neutral-100 dark:border-neutral-800'>
@@ -175,7 +178,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
               className={`
               relative text-center w-full max-w-[3.5rem] 
               after:content-[""] after:block after:absolute after:inset-x-0 after:top-2
-              after:bottom-2 after:rounded-md md:after:rounded-lg after:z-10
+              after:bottom-2 after:rounded-md md:after:rounded-md after:z-10
               after:border-2 
               ${
                 isDead
@@ -199,7 +202,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
               </div>
               <div
                 className={`
-                font-extrabold text-center leading-none md:leading-none text-xl md:text-3xl -mt-1
+                text-center leading-none md:leading-none text-xl md:text-3xl -mt-1
                 ${isDead ? ' text-neutral-400' : ''}
               `}
               >

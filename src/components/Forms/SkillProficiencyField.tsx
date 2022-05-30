@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from 'react';
 import uniqid from 'uniqid';
-import { bonusScoreToDisplayString } from '@hooks/characterSheet.helpers';
+import { bonusScoreToDisplayString } from '@utils/helpers/characterSheet.helpers';
 import { ReactComponent as Checkmark } from '@assets/svg/checkmark-line.svg';
 
 interface SkillProficiencyInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -103,9 +103,10 @@ const SkillProficiencyField: FC<SkillProficiencyInputProps> = ({
           />
           <label
             className={`
-            leading-none flex flex-col gap-1 items-center justify-start cursor-pointer relative
+            leading-none flex flex-col gap-1 items-center
+            justify-start cursor-pointer relative transition-all
             after:content-[' '] after:block after:w-6 after:h-6 after:border-2
-            after:rounded-md after:border-indigo-900 transition-all
+            after:rounded-md after:border-indigo-900 
             after:bg-white after:transition-all
             peer-checked:after:bg-gradient  peer-checked:after:border-0
             dark:peer-checked:after:bg-gradient-dark dark:after:border-slate-500 dark:after:bg-slate-900
@@ -114,7 +115,7 @@ const SkillProficiencyField: FC<SkillProficiencyInputProps> = ({
             peer-disabled:text-neutral-500 dark:peer-disabled:text-neutral-500 
             dark:peer-disabled
 
-            peer-disabled:after:bg-neutral-900 dark:peer-disabled:after:bg-neutral-700 
+            peer-disabled:after:bg-neutral-300 dark:peer-disabled:after:bg-neutral-700 
             peer-disabled:after:border-neutral-400 dark:peer-disabled:after:border-neutral-600            
         `}
             htmlFor={`${id}Expertise`}

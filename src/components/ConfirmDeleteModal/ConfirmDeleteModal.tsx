@@ -19,7 +19,7 @@ const ConfirmDeleteModal: FC<ConfirmDeleteModalProps> = ({ onConfirmHandler, onC
     >
       <h1 className='font-bold'>Are you sure you want to delete this character?</h1>
       <p className='mb-4'>This cannot be undone.</p>
-      <div className='flex flex-row justify-center gap-2'>
+      <div className='flex flex-row justify-center gap-8'>
         <Button btnStyle='ghost w-1/2' onClick={onCloseHandler}>
           No
         </Button>

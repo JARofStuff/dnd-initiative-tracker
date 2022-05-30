@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from 'react';
 import uniqid from 'uniqid';
-import { getAbilityBonusDisplay } from '@hooks/characterSheet.helpers';
+import { getAbilityBonusDisplay } from '@utils/helpers/characterSheet.helpers';
 import { ReactComponent as Checkmark } from '@assets/svg/checkmark-line.svg';
 
 interface AbilityScoreInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -27,9 +27,13 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
 
   return (
     <div className={`w-24 md:w-28 relative mt-1 ${className}`}>
-      <div className='flex flex-col justify-center grow'>
+      <div className='flex flex-col justify-center grow relative mb-8'>
         <label
-          className='font-mono font-bold tracking-widest text-sm block px-2 bg-white dark:bg-slate-900 w-max absolute left-1/2 -top-2 -translate-x-1/2 rounded-md'
+          className={`
+              font-mono font-bold tracking-widest text-sm block px-2
+              bg-white dark:bg-slate-900 
+              w-max absolute left-1/2 -top-2 -translate-x-1/2 rounded-md
+            `}
           htmlFor={`${id}Score`}
         >
           <span>{label.substring(0, 3).toUpperCase()}</span>
@@ -38,10 +42,10 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
         <input
           type='number'
           className={`
-          peer hideNumberArrows w-full rounded-t-md bg-white
-          dark:bg-slate-900 border border-indigo-700 dark:border-slate-500
+          peer hideNumberArrows w-full rounded-md bg-white
+          dark:bg-slate-900 border-2 border-indigo-800 dark:border-slate-500
           focus:outline focus:outline-2 focus:outline-indigo-700 dark:outline-indigo-500 
-          text-4xl md:text-5xl text-center px-1 pt-3 pb-2
+          text-4xl md:text-5xl text-center px-1 pt-4 pb-6
           `}
           id={`${id}Score`}
           name={`${name}.score`}
@@ -52,8 +56,9 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
         <div
           className={`
             bg-indigo-900 dark:bg-slate-500 text-white text-2xl dark:text-slate-100
-              font-bold text-center leading-none py-2 rounded-b-lg
+              font-bold text-center leading-none py-2 rounded-lg
               peer-focus:outline  peer-focus:outline-2 peer-focus:outline-indigo-700 dark:peer-focus:outline-indigo-500
+              w-3/5 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 rounded-md
          `}
         >
           {abilityScoreBonus}

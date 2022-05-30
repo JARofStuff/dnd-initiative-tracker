@@ -1,8 +1,13 @@
-import { FC, ChangeEventHandler, FormEventHandler, MouseEventHandler } from 'react';
+import { FC, ChangeEventHandler, FormEventHandler } from 'react';
 import { initialCharacterData } from '@store/Character/Character.Types';
-import { getProficiencyBonusValue, bonusScoreToDisplayString } from '@hooks/characterSheet.helpers';
+import {
+  getProficiencyBonusValue,
+  bonusScoreToDisplayString,
+} from '@utils/helpers/characterSheet.helpers';
 import Button from '@components/Button/Button';
+import CharacterPortrait from '@components/CharacterPortrait/CharacterPortrait';
 import BacktoPreviousPageLink from '@components/BackToPreviousPageLink/BacktoPreviousPageLink';
+
 import {
   InputField,
   AbilityScoreField,
@@ -36,7 +41,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
   const {
     characterName,
     playerName,
-    // characterType,
+    characterType,
     isFriendly,
     isDead,
     characterSheet: {
@@ -96,13 +101,24 @@ const CharacterForm: FC<CharacterFormProps> = ({
             required
             onChange={onChangeHandler}
           />
-          <InputField
-            label='Player Name'
-            type='text'
-            name='playerName'
-            value={playerName}
-            onChange={onChangeHandler}
-          />
+
+          {characterType === 'PC' ? (
+            <InputField
+              label='Player Name'
+              type='text'
+              name='playerName'
+              value={playerName}
+              onChange={onChangeHandler}
+            />
+          ) : (
+            <InputField
+              label='Source'
+              name='source'
+              value={source}
+              onChange={onChangeCharacterSheetHandler}
+            />
+          )}
+
           <div className='flex flex-row gap-2'>
             <InputField
               label='Avatar'
@@ -111,191 +127,247 @@ const CharacterForm: FC<CharacterFormProps> = ({
               value={avatar}
               onChange={onChangeCharacterSheetHandler}
             />
-            <div
-              className={`rounded-lg w-[58px] h-[58px] shrink-0 overflow-hidden ${
-                isDead ? 'bg-neutral-300 grayscale contrast-50' : 'bg-indigo-200'
-              }`}
-            >
-              <img
-                src='https://i0.wp.com/www.hireanillustrator.com/i/images/2018/07/Melanie_gnomeportrait_finalsm.jpg?resize=600%2C750&ssl=1'
-                alt='Character Portrait Icon'
+            <CharacterPortrait
+              isDead={isDead}
+              imgSrc={avatar}
+              className='md:hidden w-[58px] h-[58px] rounded-lg'
+            />
+          </div>
+        </div>
+
+        <div className='hidden md:block max-w-[16rem] w-1/2 border border-indigo-200 dark:border-slate-700 rounded-lg mb-8 md:mb-4 overflow-hidden'>
+          <CharacterPortrait isDead={isDead} imgSrc={avatar} />
+        </div>
+      </div>
+
+      {/* PC Only Settings */}
+      {characterType === 'PC' && (
+        <>
+          <div className='lg:grid lg:grid-cols-2 gap-4'>
+            {/* Race, Class, SubClass */}
+            <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+              <InputField
+                label='Race'
+                type='text'
+                name='race'
+                value={race}
+                onChange={onChangeCharacterSheetHandler}
+              />
+              <InputField
+                label='Class'
+                type='text'
+                name='characterClass'
+                value={characterClass}
+                onChange={onChangeCharacterSheetHandler}
+              />
+              <InputField
+                label='Sub Class'
+                type='text'
+                name='subclass'
+                value={subclass}
+                onChange={onChangeCharacterSheetHandler}
               />
             </div>
-          </div>
-        </div>
 
-        <div className='hidden md:block max-w-[16rem] w-1/2 border border-indigo-200 dark:border-slate-700 rounded-lg mb-8 md:mb-4 '>
-          Image here
-        </div>
-      </div>
-
-      {/* NPC Only Settings */}
-      <div className='lg:grid lg:grid-cols-2 gap-4'>
-        <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-          <InputField
-            label='Size'
-            name='creatureSize'
-            value={creatureSize}
-            onChange={onChangeCharacterSheetHandler}
-          />
-          <InputField
-            label='Type'
-            name='speciesType'
-            value={speciesType}
-            onChange={onChangeCharacterSheetHandler}
-          />
-          <div className='flex flex-row justify-start items-center gap-4'>
-            <InputField
-              label='Alignment'
-              name='alignment'
-              value={alignment}
-              onChange={onChangeCharacterSheetHandler}
-            />
-            <ToggleSwitchField
-              label='Friendly'
-              name='isFriendly'
-              checked={isFriendly}
-              onChange={onChangeHandler}
-            />
-          </div>
-        </div>
-        <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-          <InputField
-            label='Challange Rating'
-            name='challengeRating'
-            value={challengeRating}
-            onChange={onChangeCharacterSheetHandler}
-          />
-          <InputField
-            label='Source'
-            name='source'
-            value={source}
-            onChange={onChangeCharacterSheetHandler}
-          />
-        </div>
-      </div>
-
-      <div className='lg:grid lg:grid-cols-2 gap-4'>
-        {/* Race, Class, SubClass */}
-        <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-          <InputField
-            label='Race'
-            type='text'
-            name='race'
-            value={race}
-            onChange={onChangeCharacterSheetHandler}
-          />
-          <InputField
-            label='Class'
-            type='text'
-            name='characterClass'
-            value={characterClass}
-            onChange={onChangeCharacterSheetHandler}
-          />
-          <InputField
-            label='Sub Class'
-            type='text'
-            name='subclass'
-            value={subclass}
-            onChange={onChangeCharacterSheetHandler}
-          />
-        </div>
-
-        {/* Level, Exp, HP, etc... */}
-        <div className='md:flex md:flex-col md:justify-start'>
-          <div className='flex flex-row justify-start border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-x-6 md:space-x-8'>
-            <InputField
-              label='Level'
-              type='number'
-              name='level'
-              value={level}
-              min='1'
-              max='20'
-              onChange={onChangeCharacterSheetHandler}
-            />
-            <InputField
-              label='Exp. Points'
-              type='number'
-              name='experiencePoints'
-              value={experiencePoints}
-              onChange={onChangeCharacterSheetHandler}
-            />
-          </div>
-          <div className='grow border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-            <div className='h-full flex flex-row justify-center gap-4 md:gap-2 flex-wrap'>
-              <div className='flex flex-row flex-wrap justify-center gap-4 md:gap-2'>
-                <LargeNumberInputField
-                  label='Max HP'
-                  name='hpMax'
-                  min='0'
-                  max='999'
-                  value={hpMax}
+            {/* Level, Exp, HP, etc... */}
+            <div className='md:flex md:flex-col md:justify-start'>
+              <div className='flex flex-row justify-start border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-x-6 md:space-x-8'>
+                <InputField
+                  label='Level'
+                  type='number'
+                  name='level'
+                  value={level}
+                  min='1'
+                  max='20'
                   onChange={onChangeCharacterSheetHandler}
                 />
-                <LargeNumberInputField
-                  label='AC'
-                  name='ac'
-                  min='0'
-                  max='99'
-                  value={ac}
-                  onChange={onChangeCharacterSheetHandler}
-                />
-                <LargeNumberInputField
-                  label='Spell DC'
-                  name='spellSave'
-                  min='0'
-                  max='99'
-                  value={spellSave}
+                <InputField
+                  label='Exp. Points'
+                  type='number'
+                  name='experiencePoints'
+                  value={experiencePoints}
                   onChange={onChangeCharacterSheetHandler}
                 />
               </div>
-              <div className='flex flex-row justify-center gap-4 md:gap-2'>
-                <LargeNumberInputField
+              <div className='grow border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+                <div className='h-full flex flex-row justify-center gap-4 md:gap-2 flex-wrap'>
+                  <div className='flex flex-row flex-wrap justify-center gap-4 md:gap-2'>
+                    <LargeNumberInputField
+                      label='Max HP'
+                      name='hpMax'
+                      min='0'
+                      max='999'
+                      value={hpMax}
+                      onChange={onChangeCharacterSheetHandler}
+                    />
+                    <LargeNumberInputField
+                      label='AC'
+                      name='ac'
+                      min='0'
+                      max='99'
+                      value={ac}
+                      onChange={onChangeCharacterSheetHandler}
+                    />
+                  </div>
+                  <div className='flex flex-row justify-center gap-4 md:gap-2'>
+                    <LargeNumberInputField
+                      label='Spell DC'
+                      name='spellSave'
+                      min='0'
+                      max='99'
+                      value={spellSave}
+                      onChange={onChangeCharacterSheetHandler}
+                    />
+                    {/* <LargeNumberInputField
                   label='Initiative'
                   name='initiative'
                   min='0'
                   max='99'
                   value={initiative}
                   onChange={onChangeCharacterSheetHandler}
-                />
+                /> */}
 
-                <LargeNumberInputField
-                  label='Speed'
-                  name='speed.walk'
+                    <LargeNumberInputField
+                      label='Speed'
+                      name='speed.walk'
+                      min='0'
+                      max='99'
+                      value={speed}
+                      onChange={onChangeCharacterSheetHandler}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Proficiency & Inspiration */}
+          <div className='flex flex-col md:flex-row justify-start gap-6 md:gap-8 items-center md:justify-center border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4'>
+            <div className='flex flex-row items-center gap-2'>
+              <div>Proficiency Bonus</div>
+              <div className='bg-slate-200 text-center rounded-md py-1 px-2'>
+                <span className='text-2xl text-center font-bold'>
+                  {bonusScoreToDisplayString(proficiencyBonus)}
+                </span>
+              </div>
+            </div>
+            <div className='flex flex-row items-center gap-2'>
+              <InspirationCheckboxField
+                label='Inspiration'
+                name='inspiration'
+                checked={inspiration}
+                onChange={onChangeCharacterSheetHandler}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* NPC Only Settings */}
+      {characterType === 'NPC' && (
+        <div className='lg:grid lg:grid-cols-2 gap-4'>
+          <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+            <InputField
+              label='Size'
+              name='creatureSize'
+              value={creatureSize}
+              onChange={onChangeCharacterSheetHandler}
+            />
+            <InputField
+              label='Type'
+              name='speciesType'
+              value={speciesType}
+              onChange={onChangeCharacterSheetHandler}
+            />
+            <div className='flex flex-row justify-start items-center gap-4'>
+              <InputField
+                label='Alignment'
+                name='alignment'
+                value={alignment}
+                onChange={onChangeCharacterSheetHandler}
+              />
+              <ToggleSwitchField
+                label='Friendly'
+                name='isFriendly'
+                checked={isFriendly}
+                onChange={onChangeHandler}
+              />
+            </div>
+          </div>
+
+          <div className='md:flex md:flex-col md:justify-start'>
+            <div className='grow border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
+              <div className='h-full flex flex-row justify-center gap-4 md:gap-2 flex-wrap'>
+                <div className='flex flex-row flex-wrap justify-center gap-4 md:gap-2'>
+                  <LargeNumberInputField
+                    label='Max HP'
+                    name='hpMax'
+                    min='0'
+                    max='999'
+                    value={hpMax}
+                    onChange={onChangeCharacterSheetHandler}
+                  />
+                  <LargeNumberInputField
+                    label='AC'
+                    name='ac'
+                    min='0'
+                    max='99'
+                    value={ac}
+                    onChange={onChangeCharacterSheetHandler}
+                  />
+                </div>
+                <div className='flex flex-row justify-center gap-4 md:gap-2'>
+                  <LargeNumberInputField
+                    label='Spell DC'
+                    name='spellSave'
+                    min='0'
+                    max='99'
+                    value={spellSave}
+                    onChange={onChangeCharacterSheetHandler}
+                  />
+                  {/* <LargeNumberInputField
+                  label='Initiative'
+                  name='initiative'
                   min='0'
                   max='99'
-                  value={speed}
+                  value={initiative}
                   onChange={onChangeCharacterSheetHandler}
-                />
+                /> */}
+
+                  <LargeNumberInputField
+                    label='Speed'
+                    name='speed.walk'
+                    min='0'
+                    max='99'
+                    value={speed}
+                    onChange={onChangeCharacterSheetHandler}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-row justify-start border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-x-6 md:space-x-8'>
+              <InputField
+                label='Challange Rating'
+                name='challengeRating'
+                value={challengeRating}
+                onChange={onChangeCharacterSheetHandler}
+              />
+              <div className='flex flex-row items-center gap-2 w-1/2'>
+                <div>Proficiency Bonus</div>
+                <div className='bg-slate-200 text-center rounded-md py-1 px-2'>
+                  <span className='text-2xl text-center font-bold'>
+                    {bonusScoreToDisplayString(proficiencyBonus)}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Proficiency & Inspiration */}
-      <div className='flex flex-col md:flex-row justify-start gap-6 md:gap-8 items-center md:justify-center border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4'>
-        <div className='flex flex-row items-center gap-2'>
-          <div>Proficiency Bonus</div>
-          <div className='bg-slate-200 text-center rounded-md py-1 px-2'>
-            <span className='text-2xl text-center font-bold'>
-              {bonusScoreToDisplayString(proficiencyBonus)}
-            </span>
-          </div>
-        </div>
-        <div className='flex flex-row items-center gap-2'>
-          <InspirationCheckboxField
-            label='Inspiration'
-            name='inspiration'
-            checked={inspiration}
-            onChange={onChangeCharacterSheetHandler}
-          />
-        </div>
-      </div>
+      )}
 
       {/* Ability Scores */}
       <div className='border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
-        <div className='flex flex-row justify-center gap-4 flex-wrap'>
+        <div className='flex flex-row justify-center gap-2 flex-wrap'>
           <div className='flex flex-row justify-center gap-2'>
             <AbilityScoreField
               label='Strength'
