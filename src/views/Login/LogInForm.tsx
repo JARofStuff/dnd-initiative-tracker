@@ -83,7 +83,7 @@ const LogInForm = () => {
           btnStyle='iconOnlyGhost'
           onClick={onGoogleSignInHandler}
         >
-          <GoogleIcon className='mx-auto h-full w-auto' />
+          <GoogleIcon className='h-7' />
         </Button>
         <Button
           type='button'
@@ -91,7 +91,7 @@ const LogInForm = () => {
           btnStyle='iconOnlyGhost'
           onClick={onGithubSignInHandler}
         >
-          <GithubIcon className='mx-auto h-full w-auto dark:fill-white' />
+          <GithubIcon className='h-7  dark:fill-white' />
         </Button>
       </div>
     </>

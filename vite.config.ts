@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
-import react from 'vite-preset-react';
+// import react from 'vite-preset-react';
+import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
 import path from 'path';
 
@@ -21,5 +22,8 @@ export default defineConfig({
   plugins: [react(), svgrPlugin()],
   server: {
     https: true,
+  },
+  build: {
+    sourcemap: true,
   },
 });

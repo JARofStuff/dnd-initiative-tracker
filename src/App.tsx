@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch } from '@hooks/asyncDispatch';
 
@@ -27,6 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function App() {
+  const executedRef = useRef(false);
   const dispatch = useAppDispatch();
   const currentAuthUser = useSelector(selectCurrentUser);
 
@@ -46,6 +47,8 @@ function App() {
   }, [currentAuthUser, dispatch]);
 
   useEffect(() => {
+    if (executedRef.current) return;
+
     // Catches Google Redirect Errors.
     const externalAuthLogIn = async () => {
       try {
@@ -56,6 +59,8 @@ function App() {
     };
 
     externalAuthLogIn();
+
+    executedRef.current = true;
   }, [dispatch]);
 
   return (

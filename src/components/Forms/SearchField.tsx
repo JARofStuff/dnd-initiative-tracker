@@ -8,7 +8,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const SearchField: FC<FormInputProps> = ({ id = uniqid(), label, ...otherProps }) => {
   return (
-    <div className='flex w-full mb-4 relative'>
+    <div className='flex w-full relative'>
       {/* {label && otherProps.id && (
         <label
           className='text-sm inline-block px-2 bg-white dark:bg-slate-900 absolute left-2 -top-2 rounded-md'

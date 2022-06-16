@@ -1,4 +1,5 @@
 import { FC, ChangeEventHandler, FormEventHandler } from 'react';
+import { Link } from 'react-router-dom';
 import { initialCharacterData } from '@store/Character/Character.Types';
 import {
   getProficiencyBonusValue,
@@ -6,20 +7,21 @@ import {
 } from '@utils/helpers/characterSheet.helpers';
 import Button from '@components/Button/Button';
 import CharacterPortrait from '@components/CharacterPortrait/CharacterPortrait';
-import BacktoPreviousPageLink from '@components/BackToPreviousPageLink/BacktoPreviousPageLink';
-
+import CharacterTypePartial from './CharacterTypePartial';
 import {
   InputField,
   AbilityScoreField,
   SkillProficiencyField,
   ToggleSwitchField,
   CheckboxField,
-  LargeNumberInputField,
+  RadioButtonField,
   InspirationCheckboxField,
+  LargeNumberInputField,
 } from '@components/Forms';
 import { FiTrash2 } from 'react-icons/fi';
 
 interface CharacterFormProps {
+  mode: 'new' | 'edit';
   formData: typeof initialCharacterData;
   onChangeHandler: ChangeEventHandler;
   onChangeCharacterSheetHandler: ChangeEventHandler;
@@ -30,6 +32,7 @@ interface CharacterFormProps {
 }
 
 const CharacterForm: FC<CharacterFormProps> = ({
+  mode,
   formData,
   onChangeHandler,
   onChangeCharacterSheetHandler,
@@ -90,6 +93,9 @@ const CharacterForm: FC<CharacterFormProps> = ({
 
   return (
     <form id='character-edit' onSubmit={onSubmitHandler}>
+      {mode === 'new' && (
+        <CharacterTypePartial characterType={characterType} onChangeHandler={onChangeHandler} />
+      )}
       {/* Basic Info and Character Portrait */}
       <div className='md:flex md:flex-row md:justify-start md:gap-4 flex-wrap md:flex-nowrap'>
         <div className='grow border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4 space-y-6 md:space-y-8'>
@@ -245,7 +251,7 @@ const CharacterForm: FC<CharacterFormProps> = ({
           <div className='flex flex-col md:flex-row justify-start gap-6 md:gap-8 items-center md:justify-center border border-indigo-200 dark:border-slate-700 rounded-lg px-4 py-5 md:px-6 md:py-7 mb-8 md:mb-4'>
             <div className='flex flex-row items-center gap-2'>
               <div>Proficiency Bonus</div>
-              <div className='bg-slate-200 text-center rounded-md py-1 px-2'>
+              <div className='bg-slate-200 dark:bg-slate-700 text-center rounded-md py-1 px-2'>
                 <span className='text-2xl text-center font-bold'>
                   {bonusScoreToDisplayString(proficiencyBonus)}
                 </span>
@@ -554,9 +560,20 @@ const CharacterForm: FC<CharacterFormProps> = ({
       </div>
 
       {/* Other Settings */}
-      <div className='flex flex-col md:flex-row-reverse mb-4 gap-4 justify-end md:justify-between items-start md:items-center'>
-        <div className='w-full md:w-auto flex flex-row gap-12 justify-between items-center border border-neutral-200 bg-neutral-200 dark:border-slate-700 rounded-lg px-4 py-5 '>
-          <CheckboxField label='Dead' name='isDead' checked={isDead} onChange={onChangeHandler} />
+      {mode === 'edit' && (
+        <CharacterTypePartial
+          characterType={characterType}
+          isDead={isDead}
+          onChangeHandler={onChangeHandler}
+        />
+      )}
+
+      <div
+        className={`
+          flex flex-row mb-8 mt-8 gap-4 justify-center items-center
+          `}
+      >
+        {mode === 'edit' ? (
           <Button
             type='button'
             className='bg-red-600 hover:bg-red-800'
@@ -565,8 +582,11 @@ const CharacterForm: FC<CharacterFormProps> = ({
             <FiTrash2 className='h-5' />
             <span>Delete Character</span>
           </Button>
-        </div>
-        <BacktoPreviousPageLink />
+        ) : (
+          <Link to='..' className='btn w-full md:w-auto'>
+            Discard Character
+          </Link>
+        )}
       </div>
     </form>
   );

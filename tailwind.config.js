@@ -30,6 +30,11 @@ module.exports = {
         gradient: 'url(#mainGradient)',
         'gradient-dark': 'url(#darkGradient)',
       },
+      transitionTimingFunction: {
+        'out-back': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        'in-out-back': 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
+        bounce: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      },
     },
   },
   safelist: [

@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { FormEvent, ChangeEvent } from 'react';
-
+import type { FC, FormEvent, ChangeEvent } from 'react';
 import update from 'immutability-helper';
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import { useAppDispatch } from '@hooks/asyncDispatch';
 import { selectCharacterReducer } from '@store/Character/Character.Selector';
 import { initialCharacterData } from '@store/Character/Character.Types';
@@ -15,17 +12,18 @@ import {
   deleteCharacter,
 } from '@store/Character/Character.Actions';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
-
 import CharacterForm from '@components/CharacterForm/CharacterForm';
 import ContextualSaveBar from '@components/ContextualSaveBar/ContextualSaveBar';
 import ConfirmDeleteModal from '@components/ConfirmDeleteModal/ConfirmDeleteModal';
 import { confirmAlert } from 'react-confirm-alert';
-
 import { toast } from 'react-toastify';
+import capitalizeFirstLetter from '@utils/helpers/capitalizeFirstLetter';
 
-const EditCharacter = () => {
-  const mode = 'edit';
+interface EditCharacterProps {
+  mode: 'new' | 'edit';
+}
 
+const EditCharacter: FC<EditCharacterProps> = ({ mode = 'edit' }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const params = useParams();
@@ -40,15 +38,14 @@ const EditCharacter = () => {
   const [uneditedFormData, setUneditedFormData] = useState(initialCharacterData);
 
   useEffect(() => {
-    // if (mode === 'new') {
-    //   setUneditedFormData(initialCharacterData);
-    //  setFormData(initialCharacterData);
-    // }
+    if (mode === 'new') {
+      setUneditedFormData(initialCharacterData);
+      setFormData(initialCharacterData);
+    }
 
     if (mode === 'edit' && Object.entries(characters).length > 0 && characterId) {
       if (!(characterId in characters)) {
         toast.error(`Unable to find character sheet`);
-
         return;
       }
 
@@ -127,35 +124,29 @@ const EditCharacter = () => {
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // if (mode === 'new') {
-    //   if (!currentUser) {
-    //     toast.error(`Can't save character, not currently sign in.`);
-    //     return;
-    //   }
-
-    //   const { payload: character } = await dispatch(
-    //     createCharacter({ characterData: formData, userId: currentUser.uid })
-    //   );
-
-    //   if (character) {
-    //     toast.success('New Character Saved');
-    //     let characterId = Object.keys(character)[0];
-    //     navigate(`../edit/${characterId}`);
-    //   }
-    // }
-
-    // if (mode === 'edit') {
     if (!currentUser) {
       toast.error(`Can't save character, not currently sign in.`);
       return;
     }
 
-    if (characterId) {
-      await dispatch(updateCharacter({ characterId, characterData: formData }));
-      toast.success('Changes Saved');
+    if (mode === 'new') {
+      const { payload: character } = await dispatch(
+        createCharacter({ characterData: formData, userId: currentUser.uid })
+      );
+
+      if (character) {
+        toast.success('New Character Saved');
+        let characterId = Object.keys(character)[0];
+        navigate(`../edit/${characterId}`);
+      }
     }
-    // }
+
+    if (mode === 'edit') {
+      if (characterId) {
+        await dispatch(updateCharacter({ characterId, characterData: formData }));
+        toast.success('Changes Saved');
+      }
+    }
   };
 
   const onDeleteHandler = async () => {
@@ -183,13 +174,14 @@ const EditCharacter = () => {
       />
 
       <header className='container mx-auto p-2 md:p-4'>
-        <h1 className='inline-block text-3xl md:text-4xl font-bold gradient-on-text mb-4 md:mb-4'>
-          Edit Character
+        <h1 className='inline-block text-3xl md:text-4xl font-bold gradient-on-text'>
+          <span>{`${capitalizeFirstLetter(mode)} Character`}</span>
         </h1>
       </header>
       <section className='container mx-auto p-2 md:p-4'>
         <CharacterForm
           {...{
+            mode,
             formData,
             onChangeHandler,
             onChangeCharacterSheetHandler,

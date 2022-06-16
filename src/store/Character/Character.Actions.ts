@@ -15,9 +15,11 @@ export enum CHARACTER_ACTION_TYPES {
   UPDATE_CHARACTER = 'character/UPDATE_CHARACTER',
   RESET = 'character/RESET',
   DELETE_CHARACTER = 'character/DELETE_CHARACTER',
+  CLEAR_STATE = 'character/CLEAR_STATE',
 }
 
 export const reset = createAction(CHARACTER_ACTION_TYPES.RESET);
+export const clearCharacters = createAction(CHARACTER_ACTION_TYPES.CLEAR_STATE);
 
 export const fetchCharacters = createAsyncThunk<
   {},

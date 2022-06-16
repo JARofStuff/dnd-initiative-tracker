@@ -8,11 +8,6 @@ export const selectCharacterLoading = createSelector(
   (profile) => profile.isLoading
 );
 
-export const selectCharacter = createSelector(
-  selectCharacterReducer,
-  (profile) => profile.character
-);
-
 export const selectCharacters = createSelector(
   selectCharacterReducer,
   (profile) => profile.characters

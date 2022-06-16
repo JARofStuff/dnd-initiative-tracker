@@ -10,9 +10,10 @@ interface CardTypes {
   header?: ReactNode;
   footer?: ReactNode;
   className?: string;
+  children?: ReactNode;
 }
 
-const Card: FC<CardTypes> = ({ header, children, footer, className }) => {
+const Card: FC<CardTypes> = ({ header, footer, className, children }) => {
   return (
     <div className={`${CLASSES.card} ${className}`}>
       <header className={CLASSES.header}>{header}</header>

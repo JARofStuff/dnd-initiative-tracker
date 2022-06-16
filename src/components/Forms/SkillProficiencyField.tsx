@@ -40,12 +40,12 @@ const SkillProficiencyField: FC<SkillProficiencyInputProps> = ({
           {label}
         </div>
       </legend>
-      <div className='grow text-2xl font-bold p-2 dark:bg-slate-800 dark:md:bg-transparent rounded-lg mt-1 flex flex-row justify-end items-center'>
+      <div className='grow text-2xl font-bold p-2  dark:bg-slate-800 dark:md:bg-transparent rounded-lg mt-1 flex flex-row justify-end items-center'>
         <span>{skill.proficient && proficiencyDisplayValue}</span>
       </div>
       <div className='flex flex-row justify-start w-2/3 md:w-min'>
         <div
-          className={`relative w-1/2 mt-1 p-1 pb-2 rounded-l-lg bg-slate-200 dark:bg-slate-500 dark:text-slate-100`}
+          className={`relative w-1/2 mt-1 p-1 pb-2 rounded-l-lg bg-slate-200 dark:bg-slate-500 dark:text-indigo-100`}
         >
           <input
             className='peer sr-only'

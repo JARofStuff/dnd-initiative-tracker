@@ -5,6 +5,7 @@ import {
   createCharacter,
   deleteCharacter,
   updateCharacter,
+  clearCharacters,
   reset,
 } from './Character.Actions';
 import { PURGE } from 'redux-persist';
@@ -30,11 +31,7 @@ const initialState: CharacterState = {
 export const characterSlice = createSlice({
   name: 'character',
   initialState,
-  reducers: {
-    test: (state, action) => {
-      console.log(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(reset, (state) => {
@@ -71,7 +68,7 @@ export const characterSlice = createSlice({
         state.characters = { ...state.characters, ...action.payload };
       })
 
-      .addCase(PURGE, (state) => initialState)
+      .addCase(clearCharacters, (state) => initialState)
 
       .addMatcher(
         isPending(fetchCharacters, createCharacter, deleteCharacter, updateCharacter),
@@ -91,5 +88,4 @@ export const characterSlice = createSlice({
   },
 });
 
-export const { test } = characterSlice.actions;
 export default characterSlice.reducer;

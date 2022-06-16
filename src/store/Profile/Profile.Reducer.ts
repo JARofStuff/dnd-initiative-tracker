@@ -43,13 +43,7 @@ export const profileSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(clearProfile, (state) => {
-        state.userProfile = null;
-        state.isLoading = false;
-        state.isError = false;
-        state.isSuccess = false;
-        state.message = '';
-      })
+      .addCase(clearProfile, (state) => initialState)
 
       .addDefaultCase((state, action) => {});
   },

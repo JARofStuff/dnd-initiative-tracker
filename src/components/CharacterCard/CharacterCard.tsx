@@ -101,7 +101,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
         </div>
 
         <div className='grow overflow-hidden flex flex-col justify-center'>
-          <h3 className='block text-xl leading-none mb-1 w-full overflow-x-clip whitespace-nowrap font-bold truncate'>
+          <h3 className='block text-xl mb-0 leading-tight w-full truncate whitespace-nowrap font-bold'>
             {characterName}
           </h3>
 
@@ -128,7 +128,7 @@ const CharacterCard: FC<CharacterCardProps> = ({ id, character, showStats = fals
               <div className='flex flex-row justify-start gap-2 md:gap-1 lg:gap-2 truncate max-w-[14rem] text-xs md:text-sm  '>
                 {alignment && <span>{alignment}</span>}
                 {isFriendly ? (
-                  <span className='inline-block rounded-full px-2 bg-teal-200 text-indigo-900'>
+                  <span className='inline-block rounded-full px-2  bg-teal-200 text-indigo-900'>
                     Friendly
                   </span>
                 ) : (

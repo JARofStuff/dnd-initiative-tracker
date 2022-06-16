@@ -10,9 +10,9 @@ const SignOutButton = () => {
   };
 
   return (
-    <Button btnStyle='ghost' className='w-full md:w-auto' onClick={signOutUserHandler}>
-      <LogoutIcon />
-      Sign out
+    <Button btnStyle='ghost' className='' onClick={signOutUserHandler}>
+      <LogoutIcon className='w-6' />
+      <span>Sign out</span>
     </Button>
   );
 };

@@ -7,4 +7,5 @@
 .react-confirm-alert-overlay {
   z-index: 1000;
   background: rgba(0, 0, 0, 0.7);
+  animation-duration: 0.25s;
 }

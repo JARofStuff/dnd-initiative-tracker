@@ -8,12 +8,12 @@ import { Timestamp } from 'firebase/firestore';
 
 export enum PROFILE_ACTION_TYPES {
   SET_USER_PROFILE = 'profile/SET_USER_PROFILE',
-  UNSET_USER_PROFILE = 'profile/UNSET_USER_PROFILE',
+  CLEAR_STATE = 'profile/CLEAR_STATE',
   RESET = 'profile/RESET',
 }
 
 export const reset = createAction(PROFILE_ACTION_TYPES.RESET);
-export const clearProfile = createAction(PROFILE_ACTION_TYPES.UNSET_USER_PROFILE);
+export const clearProfile = createAction(PROFILE_ACTION_TYPES.CLEAR_STATE);
 
 export const createUserDoc = createAsyncThunk<
   ProfileData,

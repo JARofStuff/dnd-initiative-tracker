@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '@store/Auth/Auth.Selector';
@@ -10,13 +10,14 @@ import type { MenuLink } from '@components/Navigation/Navigation';
 import { ReactComponent as Logo } from '@assets/svg/logo.svg';
 
 const DesktopNavBar: FC<{ menuLinks: MenuLink[] }> = ({ menuLinks }) => {
+  const executedRef = useRef(false);
+
   const location = useLocation();
   const currentUser = useSelector(selectCurrentUser);
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
   useEffect(() => {
     document.addEventListener('keydown', closeOnEscapeKeyPress, false);
-
     //Remove on unmount
     return () => {
       document.removeEventListener('keydown', closeOnEscapeKeyPress, false);

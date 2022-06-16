@@ -7,6 +7,7 @@ import CheckboxField from './CheckboxField';
 import ToggleSwitchField from './ToggleSwitchField';
 import LargeNumberInputField from './LargeNumberInputField';
 import InspirationCheckboxField from './InspirationCheckboxField';
+import RadioButtonField from './RadioButtonField';
 
 export {
   AbilityScoreField,
@@ -18,4 +19,5 @@ export {
   ToggleSwitchField,
   LargeNumberInputField,
   InspirationCheckboxField,
+  RadioButtonField,
 };

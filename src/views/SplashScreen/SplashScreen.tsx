@@ -17,7 +17,7 @@ const SplashScreen = () => {
             </h1>
           </>
         }
-      ></Card>
+      />
     </main>
   );
 };

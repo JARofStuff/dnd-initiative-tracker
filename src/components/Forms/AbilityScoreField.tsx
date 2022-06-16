@@ -55,10 +55,11 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
 
         <div
           className={`
-            bg-indigo-900 dark:bg-slate-500 text-white text-2xl dark:text-slate-100
+            bg-indigo-900 dark:bg-slate-500 text-white text-2xl 
+            dark:text-slate-900 dark:peer-focus:outline-indigo-500
               font-bold text-center leading-none py-2 rounded-lg
-              peer-focus:outline  peer-focus:outline-2 peer-focus:outline-indigo-700 dark:peer-focus:outline-indigo-500
-              w-3/5 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 rounded-md
+              peer-focus:outline  peer-focus:outline-2 peer-focus:outline-indigo-700 
+              w-3/5 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2
          `}
         >
           {abilityScoreBonus}
@@ -78,7 +79,9 @@ const AbilityScoreField: FC<AbilityScoreInputProps> = ({
           className={`
           w-5 h-5 absolute bottom-[.65rem] left-1/2 -translate-x-1/2 z-10
           pointer-events-none block
-          stroke-white dark:stroke-slate-900 transition-all duration-300 checkmark-animate--start peer-checked:checkmark-animate--end
+          stroke-white dark:stroke-slate-900
+          transition-all duration-300
+          checkmark-animate--start peer-checked:checkmark-animate--end
         `}
         />
         <label

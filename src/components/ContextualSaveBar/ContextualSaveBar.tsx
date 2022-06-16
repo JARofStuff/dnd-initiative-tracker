@@ -16,8 +16,7 @@ const ContextualSaveBar: FC<ContextualSaveBarProps> = ({
   if (!showSavePrompt)
     return (
       <div
-        className={`
-      bg-white mb-5 md:mb-3 
+        className={` mb-5 md:mb-3 
       `}
       >
         <div className='md:relative container mx-auto flex flex-row justify-start items-center py-3 md:py-5 px-2 md:px-4'>

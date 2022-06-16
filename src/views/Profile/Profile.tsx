@@ -3,7 +3,7 @@ import { ReactComponent as GoogleIcon } from '@assets/svg/google-icon.svg';
 import { ReactComponent as GithubIcon } from '@assets/svg/github-icon.svg';
 import Button from '@components/Button/Button';
 import { ReactComponent as LogoutIcon } from '@assets/svg/logout.svg';
-import { CheckboxField, ToggleSwitchField } from '@components/Forms';
+import { CheckboxField, ToggleSwitchField, RadioButtonField } from '@components/Forms';
 
 const Profile = () => {
   return (
@@ -15,6 +15,10 @@ const Profile = () => {
       <CheckboxField id='checkbox' name='checkbox' label='Checkbox' />
       <br />
       <ToggleSwitchField id='toggle' name='toggle' label='Toggle' />
+      <br />
+      <RadioButtonField id='radio1' name='radio_charactertype' label='Toggle' />
+      <br />
+      <RadioButtonField id='radio2' name='radio_charactertype' label='Toggle' />
     </main>
   );
 };
